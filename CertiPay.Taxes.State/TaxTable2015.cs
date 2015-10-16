@@ -22,7 +22,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.CT, SUI_Wage_Base = 15000 }; // Conneticut
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.DE, SUI_Wage_Base = 18500 }; // Deleware
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.DC, SUI_Wage_Base = 9000 }; // Distrinct of Columbia
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 8000 }; // Florida
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.GA, SUI_Wage_Base = 9500 }; // Georgia
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 40900 }; // Hawaii
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.ID, SUI_Wage_Base = 36000 }; // Idaho
