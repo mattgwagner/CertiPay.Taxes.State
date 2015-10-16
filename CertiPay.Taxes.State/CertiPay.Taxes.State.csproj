@@ -31,10 +31,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CertiPay.Taxes.State.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CertiPay.Payroll.Common">
-      <HintPath>..\packages\CertiPay.Payroll.Common.0.0.32\lib\net451\CertiPay.Payroll.Common.dll</HintPath>
+    <Reference Include="CertiPay.Payroll.Common, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CertiPay.Payroll.Common.1.1.10\lib\net451\CertiPay.Payroll.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaxTable.cs" />
+    <Compile Include="TaxTable2015.cs" />
+    <Compile Include="TaxTable2014.cs" />
+    <Compile Include="TaxTable2016.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
