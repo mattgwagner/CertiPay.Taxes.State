@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertiPay.Taxes.State", "CertiPay.Taxes.State\CertiPay.Taxes.State.csproj", "{00F9D4B6-F39C-4C83-BAF6-FB9730524416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertiPay.Taxes.State.Tests", "CertiPay.Taxes.State.Tests\CertiPay.Taxes.State.Tests.csproj", "{FA094214-09A0-4B1B-AA22-4CD284FDDBE1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3B0ED9CE-71BB-4703-AE5B-719D8D52540B}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -17,12 +15,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{DE30F86C-A1E4-4961-9090-FD7465F8C1B0}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
-		Build-Package.ps1 = Build-Package.ps1
-		Build.ps1 = Build.ps1
 		CertiPay.Taxes.State\CertiPay.Taxes.State.nuspec = CertiPay.Taxes.State\CertiPay.Taxes.State.nuspec
 		LICENSE.md = LICENSE.md
 		README.md = README.md
-		Run-Tests.ps1 = Run-Tests.ps1
 	EndProjectSection
 EndProject
 Global
@@ -35,10 +30,6 @@ Global
 		{00F9D4B6-F39C-4C83-BAF6-FB9730524416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00F9D4B6-F39C-4C83-BAF6-FB9730524416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00F9D4B6-F39C-4C83-BAF6-FB9730524416}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA094214-09A0-4B1B-AA22-4CD284FDDBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA094214-09A0-4B1B-AA22-4CD284FDDBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA094214-09A0-4B1B-AA22-4CD284FDDBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA094214-09A0-4B1B-AA22-4CD284FDDBE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

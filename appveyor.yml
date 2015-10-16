@@ -33,14 +33,6 @@ assembly_info:
   assembly_informational_version: "{version}"
 
 #---------------------------------#
-#       tests configuration       #
-#---------------------------------#
-
-test:
-  assemblies:
-    - CertiPay.Taxes.State.Tests.dll
-
-#---------------------------------#
 #       artifacts configuration   #
 #---------------------------------#
 
