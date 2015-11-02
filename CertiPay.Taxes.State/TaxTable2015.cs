@@ -11,15 +11,13 @@ namespace CertiPay.Taxes.State
         {
             get
             {
-                // TODO: The tax reduction states have not been released for 2015 as of 10/16/2016
-
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.AL, SUI_Wage_Base = 8000 }; // Alabama
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.AK, SUI_Wage_Base = 38700 }; // Alaska
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.AZ, SUI_Wage_Base = 7000 }; // Arizona
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.AR, SUI_Wage_Base = 12000 }; // Arkansas
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000 }; // California
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000, FUTA_Reduction_Rate = 0.015m }; // California
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.CO, SUI_Wage_Base = 11800 }; // Colorado
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.CT, SUI_Wage_Base = 15000 }; // Conneticut
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.CT, SUI_Wage_Base = 15000, FUTA_Reduction_Rate = 0.020m }; // Conneticut
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.DE, SUI_Wage_Base = 18500 }; // Deleware
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.DC, SUI_Wage_Base = 9000 }; // Distrinct of Columbia
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
@@ -27,10 +25,10 @@ namespace CertiPay.Taxes.State
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 40900 }; // Hawaii
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.ID, SUI_Wage_Base = 36000 }; // Idaho
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.IL, SUI_Wage_Base = 12960 }; // Illinios
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.IN, SUI_Wage_Base = 9500 }; // Indiana
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.IN, SUI_Wage_Base = 9500, FUTA_Reduction_Rate = 0.018m }; // Indiana
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.IA, SUI_Wage_Base = 27300 }; // Iowa
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.KS, SUI_Wage_Base = 12000 }; // Kansas
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.KY, SUI_Wage_Base = 9900 }; // Kentucky
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.KY, SUI_Wage_Base = 9900, FUTA_Reduction_Rate = 0.015m }; // Kentucky
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.LA, SUI_Wage_Base = 7700 }; // Louisianna
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.ME, SUI_Wage_Base = 12000 }; // Maine
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.MD, SUI_Wage_Base = 8500 }; // Maryland
@@ -45,10 +43,10 @@ namespace CertiPay.Taxes.State
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.NH, SUI_Wage_Base = 14000 }; // New Hampshire
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.NJ, SUI_Wage_Base = 32000 }; // New Jersey
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.NM, SUI_Wage_Base = 23400 }; // New Mexico
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.NY, SUI_Wage_Base = 10500 }; // New York
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.NC, SUI_Wage_Base = 21700 }; // North Carolina
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.NY, SUI_Wage_Base = 10500, FUTA_Reduction_Rate = 0.015m }; // New York
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.NC, SUI_Wage_Base = 21700, FUTA_Reduction_Rate = 0.015m }; // North Carolina
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.ND, SUI_Wage_Base = 35600 }; // North Dakota
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.OH, SUI_Wage_Base = 9000 }; // Ohio
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.OH, SUI_Wage_Base = 9000, FUTA_Reduction_Rate = 0.015m }; // Ohio
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.OK, SUI_Wage_Base = 17000 }; // Oklahoma
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.OR, SUI_Wage_Base = 35700 }; // Oregon
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.PA, SUI_Wage_Base = 9000 }; // Penn
@@ -60,7 +58,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.TX, SUI_Wage_Base = 9000 }; // Texas
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.UT, SUI_Wage_Base = 31300 }; // Utah
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.VT, SUI_Wage_Base = 16400 }; // Vermont
-                yield return new TaxEntry { Year = Year, State = StateOrProvince.VI, SUI_Wage_Base = 22900 }; // Virgin Islands
+                yield return new TaxEntry { Year = Year, State = StateOrProvince.VI, SUI_Wage_Base = 22900, FUTA_Reduction_Rate = 0.015m }; // Virgin Islands
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.VA, SUI_Wage_Base = 8000 }; // Virginia
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.WA, SUI_Wage_Base = 42100 }; // Washington
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.WV, SUI_Wage_Base = 12000 }; // West Virginia
