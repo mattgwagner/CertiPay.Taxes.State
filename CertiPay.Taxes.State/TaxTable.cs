@@ -31,9 +31,9 @@ namespace CertiPay.Taxes.State
     }
 
     /// <summary>
-    ///
+    /// Static methods relating to tax tables for states
     /// </summary>
-    public class TaxTables
+    public static class TaxTables
     {
         /// <summary>
         /// Returns a list of configured state tax entries
@@ -43,6 +43,28 @@ namespace CertiPay.Taxes.State
             yield return new TaxTable2014();
             yield return new TaxTable2015();
             yield return new TaxTable2016();
+        }
+
+        /// <summary>
+        /// Returns true if the given state has tax withholding on employee pay
+        /// </summary>
+        public static Boolean HasWithholding(this StateOrProvince state)
+        {
+            switch (state)
+            {
+                case StateOrProvince.FL:
+                case StateOrProvince.AL:
+                case StateOrProvince.NV:
+                case StateOrProvince.NH:
+                case StateOrProvince.SD:
+                case StateOrProvince.TN:
+                case StateOrProvince.TX:
+                case StateOrProvince.WY:
+                    return false;
+
+                default:
+                    return true;
+            }
         }
     }
 
