@@ -16,6 +16,8 @@ namespace CertiPay.Taxes.State.Georgia
 
         public abstract IEnumerable<DependentAllowance> DependentAllowances { get; }
 
+        public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
+
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
         {
             //Use these instructions to calculate employee withholding using the percentage method.
@@ -87,14 +89,27 @@ namespace CertiPay.Taxes.State.Georgia
             public Decimal Amount { get; set; }
         }
 
+        public class TaxableWithholding
+        {
+            public FilingStatus FilingStatus { get; set; }
+            public PayrollFrequency Frequency { get; set; }
+            public decimal MiniumWithholding { get; set; }
+            public decimal MinimumWage { get; set; }
+            public decimal MaximumWage { get; set; }
+            public decimal PercentageOverMinimum { get; set; }
+
+        }
+
         public enum FilingStatus
         {
             MarriedFilingJoint,
 
-            [Display(Name = "Single or Head of Household")]
             Single,
 
-            MarriedFilingSeparate
+            MarriedFilingSeparate,
+
+            [Display(Name = "Head of Household")]
+            HeadOfHousehold
         }
     }
 }
