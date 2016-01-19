@@ -92,6 +92,7 @@ namespace CertiPay.Taxes.State.Georgia
         public class TaxableWithholding
         {
             public FilingStatus FilingStatus { get; set; }
+            public FilingSubStatus FilingSubStatus { get; set; }
             public PayrollFrequency Frequency { get; set; }
             public decimal MiniumWithholding { get; set; }
             public decimal MinimumWage { get; set; }
@@ -111,5 +112,13 @@ namespace CertiPay.Taxes.State.Georgia
             [Display(Name = "Head of Household")]
             HeadOfHousehold
         }
+
+        public enum FilingSubStatus
+        {
+            None,
+            SingleIncome,
+            DualIncome
+        }
+
     }
 }
