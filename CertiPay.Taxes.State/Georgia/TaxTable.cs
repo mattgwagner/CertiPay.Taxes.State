@@ -75,6 +75,22 @@ namespace CertiPay.Taxes.State.Georgia
                 .Single();
         }
 
+        internal virtual TaxableWithholding GetTaxWithholding(PayrollFrequency frequency, FilingStatus filingStatus, Decimal taxableWages, FilingSubStatus filingSubStatus = FilingSubStatus.None)
+        {
+            var query = TaxableWithholdings
+                .Where(d => d.Frequency == frequency)
+                .Where(d => d.FilingStatus == filingStatus)
+                .Where(d => d.MinimumWage <= taxableWages && taxableWages <= d.MaximumWage)
+                .Select(d => d);
+
+            if(filingStatus == FilingStatus.MarriedFilingJoint)
+            {
+                query = query.Where(d => d.FilingSubStatus == filingSubStatus);
+            }
+
+            return query.Single();
+        }
+
         public class StandardDeduction : DependentAllowance
         {
             public FilingStatus FilingStatus { get; set; }

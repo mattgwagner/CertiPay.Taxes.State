@@ -295,7 +295,7 @@ namespace CertiPay.Taxes.State.Georgia
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedFilingSeparate, Frequency = PayrollFrequency.Daily, MiniumWithholding = 0.26m, MinimumWage = 9.59m, MaximumWage = 13.70m, PercentageOverMinimum = .05m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedFilingSeparate, Frequency = PayrollFrequency.Daily, MiniumWithholding = 0.47m, MinimumWage = 13.70m, MaximumWage = Decimal.MaxValue, PercentageOverMinimum = .06m };
 
-                //Married Filing Joint Return (with one spouse having income)
+                //Married Filing Joint Return (with both spouse having income)
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedFilingJoint, Frequency = PayrollFrequency.Weekly, MiniumWithholding = 0.00m, MinimumWage = 0.00m, MaximumWage = 9.50m, PercentageOverMinimum = .01m, FilingSubStatus = FilingSubStatus.DualIncome };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedFilingJoint, Frequency = PayrollFrequency.Weekly, MiniumWithholding = 0.10m, MinimumWage = 9.50m, MaximumWage = 29.00m, PercentageOverMinimum = .02m, FilingSubStatus = FilingSubStatus.DualIncome };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedFilingJoint, Frequency = PayrollFrequency.Weekly, MiniumWithholding = 0.48m, MinimumWage = 29.00m, MaximumWage = 48.00m, PercentageOverMinimum = .03m, FilingSubStatus = FilingSubStatus.DualIncome };
