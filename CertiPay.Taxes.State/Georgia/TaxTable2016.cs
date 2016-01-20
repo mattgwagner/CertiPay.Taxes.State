@@ -58,12 +58,12 @@ namespace CertiPay.Taxes.State.Georgia
                 yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.Annually, Amount = 2700 };
                 yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.Daily, Amount = 7.40m };
 
-                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.BiWeekly, Amount = 103.85m };
-                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.SemiMonthly, Amount = 112.50m };
-                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.Monthly, Amount = 225 };
-                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.Quarterly, Amount = 5675 };
-                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.Annually, Amount = 2700 };
-                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.Single, Frequency = PayrollFrequency.Daily, Amount = 7.40m };
+                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Frequency = PayrollFrequency.BiWeekly, Amount = 103.85m };
+                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Frequency = PayrollFrequency.SemiMonthly, Amount = 112.50m };
+                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Frequency = PayrollFrequency.Monthly, Amount = 225 };
+                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Frequency = PayrollFrequency.Quarterly, Amount = 5675 };
+                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Frequency = PayrollFrequency.Annually, Amount = 2700 };
+                yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Frequency = PayrollFrequency.Daily, Amount = 7.40m };
 
                 yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.MarriedFilingSeparate, Frequency = PayrollFrequency.Weekly, Amount = 71.15m };
                 yield return new TaxTable.StandardDeduction { TaxYear = TaxYear, FilingStatus = TaxTable.FilingStatus.MarriedFilingSeparate, Frequency = PayrollFrequency.BiWeekly, Amount = 142.30m };
