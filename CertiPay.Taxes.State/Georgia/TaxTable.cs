@@ -16,7 +16,9 @@ namespace CertiPay.Taxes.State.Georgia
 
         public abstract IEnumerable<DependentAllowance> DependentAllowances { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
+        public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
+
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, FilingSubStatus filingSubStatus = FilingSubStatus.None, int dependentAllowances = 0)
         {
             //Use these instructions to calculate employee withholding using the percentage method.
 
@@ -34,9 +36,15 @@ namespace CertiPay.Taxes.State.Georgia
 
             //(4) Determine the amount of tax to be withheld from the applicable payroll line in Tables F, G, or H.
 
+            var taxWithholding = GetTaxWithholding(frequency, filingStatus, grossWages, filingSubStatus);
+
+            var taxWithheld = taxWithholding.MiniumWithholding + ((grossWages - taxWithholding.MinimumWage) * taxWithholding.PercentageOverMinimum);
+
+            return Math.Round(taxWithheld, 2, MidpointRounding.AwayFromZero);
+            
             //(5) If zero exemption is claimed, subtract the standard deduction only.
 
-            return CalculateFromTables(grossWages, frequency);
+            //return CalculateFromTables(grossWages, frequency);
         }
 
         internal virtual Decimal CalculateFromTables(Decimal taxableWages, PayrollFrequency frequency)
@@ -73,6 +81,22 @@ namespace CertiPay.Taxes.State.Georgia
                 .Single();
         }
 
+        internal virtual TaxableWithholding GetTaxWithholding(PayrollFrequency frequency, FilingStatus filingStatus, Decimal taxableWages, FilingSubStatus filingSubStatus = FilingSubStatus.None)
+        {
+            var query = TaxableWithholdings
+                .Where(d => d.Frequency == frequency)
+                .Where(d => d.FilingStatus == filingStatus)
+                .Where(d => d.MinimumWage <= taxableWages && taxableWages <= d.MaximumWage)
+                .Select(d => d);
+
+            if(filingStatus == FilingStatus.MarriedFilingJoint)
+            {
+                query = query.Where(d => d.FilingSubStatus == filingSubStatus);
+            }
+
+            return query.Single();
+        }
+
         public class StandardDeduction : DependentAllowance
         {
             public FilingStatus FilingStatus { get; set; }
@@ -87,14 +111,36 @@ namespace CertiPay.Taxes.State.Georgia
             public Decimal Amount { get; set; }
         }
 
+        public class TaxableWithholding
+        {
+            public FilingStatus FilingStatus { get; set; }
+            public FilingSubStatus FilingSubStatus { get; set; }
+            public PayrollFrequency Frequency { get; set; }
+            public decimal MiniumWithholding { get; set; }
+            public decimal MinimumWage { get; set; }
+            public decimal MaximumWage { get; set; }
+            public decimal PercentageOverMinimum { get; set; }
+
+        }
+
         public enum FilingStatus
         {
             MarriedFilingJoint,
 
-            [Display(Name = "Single or Head of Household")]
             Single,
 
-            MarriedFilingSeparate
+            MarriedFilingSeparate,
+
+            [Display(Name = "Head of Household")]
+            HeadOfHousehold
         }
+
+        public enum FilingSubStatus
+        {
+            None,
+            SingleIncome,
+            DualIncome
+        }
+
     }
 }
