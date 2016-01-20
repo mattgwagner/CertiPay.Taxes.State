@@ -18,7 +18,7 @@ namespace CertiPay.Taxes.State.Georgia
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, FilingSubStatus filingSubStatus = FilingSubStatus.None, int dependentAllowances = 0)
         {
             //Use these instructions to calculate employee withholding using the percentage method.
 
@@ -36,9 +36,15 @@ namespace CertiPay.Taxes.State.Georgia
 
             //(4) Determine the amount of tax to be withheld from the applicable payroll line in Tables F, G, or H.
 
+            var taxWithholding = GetTaxWithholding(frequency, filingStatus, grossWages, filingSubStatus);
+
+            var taxWithheld = taxWithholding.MiniumWithholding + ((grossWages - taxWithholding.MinimumWage) * taxWithholding.PercentageOverMinimum);
+
+            return Math.Round(taxWithheld, 2, MidpointRounding.AwayFromZero);
+            
             //(5) If zero exemption is claimed, subtract the standard deduction only.
 
-            return CalculateFromTables(grossWages, frequency);
+            //return CalculateFromTables(grossWages, frequency);
         }
 
         internal virtual Decimal CalculateFromTables(Decimal taxableWages, PayrollFrequency frequency)
