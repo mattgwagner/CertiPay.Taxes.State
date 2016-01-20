@@ -1,12 +1,12 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CertiPay.Common.Testing;
+using NUnit.Framework;
 
 namespace CertiPay.Taxes.State.Tests
 {
-    [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        [Test, Unit]
         public void TestMethod1()
         {
         }
