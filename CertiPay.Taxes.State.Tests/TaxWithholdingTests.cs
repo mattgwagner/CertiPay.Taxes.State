@@ -53,7 +53,7 @@ namespace CertiPay.Taxes.State.Tests
         {
             var result = geo2016.Calculate(750m, PayrollFrequency.SemiMonthly, Georgia.TaxTable.FilingStatus.Single, Georgia.TaxTable.FilingSubStatus.None, 1);
 
-            Assert.AreEqual(17.07m, result);
+            Assert.AreEqual(17.06m, result);
         }
 
         [Test, Unit]
@@ -61,7 +61,7 @@ namespace CertiPay.Taxes.State.Tests
         {
             var result = geo2016.Calculate(750m, PayrollFrequency.SemiMonthly, Georgia.TaxTable.FilingStatus.Single, Georgia.TaxTable.FilingSubStatus.None, 0);
 
-            Assert.AreEqual(24.57m, result);
+            Assert.AreEqual(24.56m, result);
         }
     }
 }
