@@ -125,6 +125,12 @@ namespace CertiPay.Taxes.State.Georgia
 
         public enum FilingStatus : byte
         {
+            // A) Single
+            // B) Married - 2 incomes
+            // C) Married - 1 income
+            // D) Married filing separate
+            // E) Head of Household
+
             Single = 0,
 
             [Display(Name = "Married Filing Joint Return")]
