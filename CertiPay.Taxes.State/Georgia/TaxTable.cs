@@ -127,6 +127,7 @@ namespace CertiPay.Taxes.State.Georgia
         {
             Single = 0,
 
+            [Display(Name = "Married Filing Joint Return")]
             MarriedFilingJoint = 1,
 
             [Display(Name = "Married Filing Separate Return")]
