@@ -20,6 +20,8 @@ namespace CertiPay.Taxes.State.Georgia
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, FilingSubStatus filingSubStatus = FilingSubStatus.None, int dependentAllowances = 0)
         {
+            if (FilingStatus.Exempt == filingStatus) return Decimal.Zero;
+
             //Use these instructions to calculate employee withholding using the percentage method.
 
             //(1) Subtract the applicable standard deduction as indicated in column(1) - (3) of Table E.
@@ -131,7 +133,9 @@ namespace CertiPay.Taxes.State.Georgia
             MarriedFilingSeparate = 2,
 
             [Display(Name = "Head of Household")]
-            HeadOfHousehold = 3
+            HeadOfHousehold = 3,
+
+            Exempt = 4
         }
 
         public enum FilingSubStatus
