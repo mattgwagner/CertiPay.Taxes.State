@@ -112,13 +112,13 @@ namespace CertiPay.Taxes.State.Georgia
 
             public PayrollFrequency Frequency { get; set; }
 
-            public decimal MiniumWithholding { get; set; }
+            public Decimal MiniumWithholding { get; set; }
 
-            public decimal MinimumWage { get; set; }
+            public Decimal MinimumWage { get; set; }
 
-            public decimal MaximumWage { get; set; }
+            public Decimal MaximumWage { get; set; }
 
-            public decimal PercentageOverMinimum { get; set; }
+            public Decimal PercentageOverMinimum { get; set; }
         }
 
         public enum FilingStatus : byte
