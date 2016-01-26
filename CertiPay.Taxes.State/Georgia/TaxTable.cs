@@ -40,16 +40,9 @@ namespace CertiPay.Taxes.State.Georgia
 
             var taxWithheld = taxWithholding.MiniumWithholding + ((grossWages - taxWithholding.MinimumWage) * taxWithholding.PercentageOverMinimum);
 
-            return Math.Round(taxWithheld, 2, MidpointRounding.AwayFromZero);
-            
             //(5) If zero exemption is claimed, subtract the standard deduction only.
 
-            //return CalculateFromTables(grossWages, frequency);
-        }
-
-        internal virtual Decimal CalculateFromTables(Decimal taxableWages, PayrollFrequency frequency)
-        {
-            return 0;
+            return taxWithheld.Round();
         }
 
         internal virtual Decimal GetStandardDeduction(PayrollFrequency frequency, FilingStatus filingStatus)
@@ -89,7 +82,7 @@ namespace CertiPay.Taxes.State.Georgia
                 .Where(d => d.MinimumWage <= taxableWages && taxableWages <= d.MaximumWage)
                 .Select(d => d);
 
-            if(filingStatus == FilingStatus.MarriedFilingJoint)
+            if (filingStatus == FilingStatus.MarriedFilingJoint)
             {
                 query = query.Where(d => d.FilingSubStatus == filingSubStatus);
             }
@@ -120,7 +113,6 @@ namespace CertiPay.Taxes.State.Georgia
             public decimal MinimumWage { get; set; }
             public decimal MaximumWage { get; set; }
             public decimal PercentageOverMinimum { get; set; }
-
         }
 
         public enum FilingStatus
@@ -141,6 +133,5 @@ namespace CertiPay.Taxes.State.Georgia
             SingleIncome,
             DualIncome
         }
-
     }
 }
