@@ -107,24 +107,31 @@ namespace CertiPay.Taxes.State.Georgia
         public class TaxableWithholding
         {
             public FilingStatus FilingStatus { get; set; }
+
             public FilingSubStatus FilingSubStatus { get; set; }
+
             public PayrollFrequency Frequency { get; set; }
+
             public decimal MiniumWithholding { get; set; }
+
             public decimal MinimumWage { get; set; }
+
             public decimal MaximumWage { get; set; }
+
             public decimal PercentageOverMinimum { get; set; }
         }
 
-        public enum FilingStatus
+        public enum FilingStatus : byte
         {
-            MarriedFilingJoint,
+            Single = 0,
 
-            Single,
+            MarriedFilingJoint = 1,
 
-            MarriedFilingSeparate,
+            [Display(Name = "Married Filing Separate Return")]
+            MarriedFilingSeparate = 2,
 
             [Display(Name = "Head of Household")]
-            HeadOfHousehold
+            HeadOfHousehold = 3
         }
 
         public enum FilingSubStatus
