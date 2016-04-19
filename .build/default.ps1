@@ -27,14 +27,14 @@ Import-Module "$Here\Common" -DisableNameChecking
 
 $NuGet = Join-Path $SolutionRoot ".nuget\nuget.exe"
 
-$MSBuild ="${env:ProgramFiles(x86)}\MSBuild\12.0\Bin\msbuild.exe"
+$MSBuild ="${env:ProgramFiles(x86)}\MSBuild\14.0\Bin\msbuild.exe"
 
-$NUnitVersion = "2.6.4"
-$NUnit = Join-Path $SolutionRoot "packages\NUnit.Runners.$NUnitVersion\tools\nunit-console.exe"
+$NUnitVersion = "3.0.1"
+$NUnit = Join-Path $SolutionRoot "packages\NUnit.Console.$NUnitVersion\tools\nunit3-console.exe"
 
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
-Task default -depends Build
+Task default -depends Test
 
 Task Build -depends Restore-Packages {
 	exec { . $MSBuild $SolutionFile /t:Build /v:normal /p:Configuration=$Configuration }
@@ -45,7 +45,7 @@ Task Package -depends Update-AssemblyInfoFiles, Build {
 }
 
 Task Test -depends Build, Install-NUnitRunner {
-	exec { . $NUnit "$SolutionRoot\$ProjectName.Tests\bin\$Configuration\$ProjectName.Tests.dll" /xml:"$SolutionRoot\$ProjectName.Tests.xml" }
+	exec { . $NUnit "$SolutionRoot\$ProjectName.Tests\bin\$Configuration\$ProjectName.Tests.dll" }
 }
 
 Task Clean {
