@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace CertiPay.Taxes.State.Tests
 {
     [TestFixture]
-    public class TaxWithholdingTests
+    public class TaxTable2016Tests
     {
         private Georgia.TaxTable2016 geo2016 = new Georgia.TaxTable2016();
 

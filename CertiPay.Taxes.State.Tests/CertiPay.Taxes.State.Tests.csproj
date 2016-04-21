@@ -107,7 +107,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="TaxWithholdingTests.cs" />
+    <Compile Include="GA\TaxTable2016Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
