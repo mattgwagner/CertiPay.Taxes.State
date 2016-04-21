@@ -10,86 +10,92 @@ namespace CertiPay.Taxes.State.Georgia
     {
         public abstract int TaxYear { get; }
 
-        public abstract IEnumerable<StandardDeduction> Deductions { get; }
+        public abstract IEnumerable<StandardDeduction> StandardDeductions { get; }
 
         public abstract IEnumerable<StandardDeduction> PersonalAllowances { get; }
 
-        public abstract IEnumerable<DependentAllowance> DependentAllowances { get; }
+        public abstract DependentAllowance DependentAllowances { get; }
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, FilingSubStatus filingSubStatus = FilingSubStatus.None, int dependentAllowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, int personalAllowances = 1, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
         {
-            if (FilingStatus.Exempt == filingStatus) return Decimal.Zero;
+            var taxableWages = frequency.CalculateAnnualized(grossWages);
+
+            // Note: Tax exemptions should be handled before we get to this call
+
+            // if (FilingStatus.Exempt == filingStatus) return Decimal.Zero;
 
             //Use these instructions to calculate employee withholding using the percentage method.
 
             //(1) Subtract the applicable standard deduction as indicated in column(1) - (3) of Table E.
 
-            grossWages -= GetStandardDeduction(frequency, filingStatus);
+            taxableWages -= GetStandardDeduction(filingStatus);
 
             //(2) Subtract from the amount arrived at in (1) the appropriate amount of personal allowance as set out in column(4) – (6) of Table E.
 
-            grossWages -= GetPersonalAllowance(frequency, filingStatus);
+            taxableWages -= GetPersonalAllowance(filingStatus, personalAllowances);
 
             //(3) If employees claim dependents other than themselves and/or their spouses, subtract from the amount arrived at in (2) the appropriate dependent amount as set out in column(7) of Table E.
 
-            grossWages -= (GetDependentAllowance(frequency, filingStatus) * dependentAllowances);
+            taxableWages -= GetDependentAllowance(filingStatus, dependentAllowances);
 
             //(4) Determine the amount of tax to be withheld from the applicable payroll line in Tables F, G, or H.
 
-            var taxWithholding = GetTaxWithholding(frequency, filingStatus, grossWages, filingSubStatus);
+            var selected_row = GetTaxWithholding(filingStatus, taxableWages);
 
-            var taxWithheld = taxWithholding.MiniumWithholding + ((grossWages - taxWithholding.MinimumWage) * taxWithholding.PercentageOverMinimum);
+            // Calculate the withholding from the percentages
+
+            var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
             //(5) If zero exemption is claimed, subtract the standard deduction only.
 
-            return taxWithheld.Round();
+            return frequency.CalculateDeannualized(taxWithheld);
         }
 
-        internal virtual Decimal GetStandardDeduction(PayrollFrequency frequency, FilingStatus filingStatus)
+        internal virtual Decimal GetStandardDeduction(FilingStatus filingStatus)
         {
             return
-                Deductions
-                .Where(d => d.Frequency == frequency)
+                StandardDeductions
                 .Where(d => d.FilingStatus == filingStatus)
                 .Select(d => d.Amount)
                 .Single();
         }
 
-        internal virtual Decimal GetPersonalAllowance(PayrollFrequency frequency, FilingStatus filingStatus)
+        internal virtual Decimal GetPersonalAllowance(FilingStatus filingStatus, int personalAllowances = 1)
         {
-            return
-                PersonalAllowances
-                .Where(d => d.Frequency == frequency)
-                .Where(d => d.FilingStatus == filingStatus)
-                .Select(d => d.Amount)
-                .Single();
-        }
+            // Note: A married couple filing joint with one spouse working and who only claims 1 allowance should use column (6) (married filing separate) for their personal allowance
 
-        internal virtual Decimal GetDependentAllowance(PayrollFrequency frequency, FilingStatus filingStatus)
-        {
-            return
-                DependentAllowances
-                .Where(d => d.Frequency == frequency)
-                .Select(d => d.Amount)
-                .Single();
-        }
-
-        internal virtual TaxableWithholding GetTaxWithholding(PayrollFrequency frequency, FilingStatus filingStatus, Decimal taxableWages, FilingSubStatus filingSubStatus = FilingSubStatus.None)
-        {
-            var query = TaxableWithholdings
-                .Where(d => d.Frequency == frequency)
-                .Where(d => d.FilingStatus == filingStatus)
-                .Where(d => d.MinimumWage <= taxableWages && taxableWages <= d.MaximumWage)
-                .Select(d => d);
-
-            if (filingStatus == FilingStatus.MarriedFilingJoint)
+            if (personalAllowances == 1 && FilingStatus.MarriedWithOneIncome == filingStatus)
             {
-                query = query.Where(d => d.FilingSubStatus == filingSubStatus);
+                filingStatus = FilingStatus.MarriedFilingSeparate;
             }
 
-            return query.Single();
+            var allowance_value =
+                PersonalAllowances
+                .Where(d => d.FilingStatus == filingStatus)
+                .Select(d => d.Amount)
+                .Single();
+
+            return allowance_value * personalAllowances;
+        }
+
+        internal virtual Decimal GetDependentAllowance(FilingStatus filingStatus, int dependentAllowances = 0)
+        {
+            return DependentAllowances.Amount * dependentAllowances;
+        }
+
+        internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
+        {
+            if (taxableWages < Decimal.Zero) return new TaxableWithholding { };
+
+            return
+                TaxableWithholdings
+                .Where(d => d.FilingStatus == filingStatus)
+                .Where(d => d.StartingAmount <= taxableWages)
+                .Where(d => taxableWages < d.MaximumWage)
+                .Select(d => d)
+                .Single();
         }
 
         public class StandardDeduction : DependentAllowance
@@ -99,28 +105,20 @@ namespace CertiPay.Taxes.State.Georgia
 
         public class DependentAllowance
         {
-            public int TaxYear { get; set; }
-
-            public PayrollFrequency Frequency { get; set; }
-
             public Decimal Amount { get; set; }
         }
 
         public class TaxableWithholding
         {
-            public FilingStatus FilingStatus { get; set; }
+            public FilingStatus FilingStatus { get; set; } = FilingStatus.Single;
 
-            public FilingSubStatus FilingSubStatus { get; set; }
+            public Decimal TaxBase { get; set; }
 
-            public PayrollFrequency Frequency { get; set; }
-
-            public Decimal MiniumWithholding { get; set; }
-
-            public Decimal MinimumWage { get; set; }
+            public Decimal StartingAmount { get; set; }
 
             public Decimal MaximumWage { get; set; }
 
-            public Decimal PercentageOverMinimum { get; set; }
+            public Decimal TaxRate { get; set; }
         }
 
         public enum FilingStatus : byte
@@ -131,25 +129,20 @@ namespace CertiPay.Taxes.State.Georgia
             // D) Married filing separate
             // E) Head of Household
 
+            [Display(Name = "A - Single")]
             Single = 0,
 
-            [Display(Name = "Married Filing Joint Return")]
-            MarriedFilingJoint = 1,
+            [Display(Name = "B - Married Filing Jointly, Both Spouses Working")]
+            MarriedWithTwoIncomes = 1,
 
-            [Display(Name = "Married Filing Separate Return")]
-            MarriedFilingSeparate = 2,
+            [Display(Name = "C - Married Filing Jointly, One Spouse Working")]
+            MarriedWithOneIncome = 2,
 
-            [Display(Name = "Head of Household")]
-            HeadOfHousehold = 3,
+            [Display(Name = "D - Married Filing Separately")]
+            MarriedFilingSeparate = 3,
 
-            Exempt = 4
-        }
-
-        public enum FilingSubStatus
-        {
-            None,
-            SingleIncome,
-            DualIncome
+            [Display(Name = "E - Head of Household")]
+            HeadOfHousehold = 4
         }
     }
 }
