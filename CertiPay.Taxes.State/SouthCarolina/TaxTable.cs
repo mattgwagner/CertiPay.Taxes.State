@@ -7,6 +7,12 @@ namespace CertiPay.Taxes.State.SouthCarolina
 {
     public abstract class TaxTable
     {
+        public abstract int Year { get; }
+
+        public abstract Decimal ExemptionValue { get; }
+
+        public abstract IEnumerable<TableRow> Table { get; }
+
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
             var annualized_wages = frequency.CalculateAnnualized(grossWages) - (exemptions * ExemptionValue);
@@ -17,12 +23,10 @@ namespace CertiPay.Taxes.State.SouthCarolina
                 .Where(row => row.MaximumWage > annualized_wages)
                 .Single();
 
-            return tax_table.TaxBase + (annualized_wages - tax_table.StartingAmount) * tax_table.TaxRate;
+            var annualized_taxes = tax_table.TaxBase + (annualized_wages - tax_table.StartingAmount) * tax_table.TaxRate;
+
+            return frequency.CalculateDeannualized(annualized_taxes);
         }
-
-        public abstract Decimal ExemptionValue { get; }
-
-        public abstract IEnumerable<TableRow> Table { get; }
 
         public class TableRow
         {
