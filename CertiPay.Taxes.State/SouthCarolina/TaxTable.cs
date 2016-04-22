@@ -9,13 +9,22 @@ namespace CertiPay.Taxes.State.SouthCarolina
     {
         public abstract int Year { get; }
 
+        public abstract Decimal StandardDeduction { get; }
+
         public abstract Decimal ExemptionValue { get; }
 
         public abstract IEnumerable<TableRow> Table { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
-            var annualized_wages = frequency.CalculateAnnualized(grossWages) - (exemptions * ExemptionValue);
+            var annualized_wages = frequency.CalculateAnnualized(grossWages);
+
+            if (exemptions > 0)
+            {
+                annualized_wages -= StandardDeduction;
+
+                annualized_wages -= (exemptions * ExemptionValue);
+            }
 
             var tax_table =
                 Table

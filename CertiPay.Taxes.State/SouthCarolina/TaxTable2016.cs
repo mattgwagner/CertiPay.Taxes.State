@@ -7,6 +7,8 @@ namespace CertiPay.Taxes.State.SouthCarolina
     {
         public override int Year { get { return 2016; } }
 
+        public override Decimal StandardDeduction { get { return 2600; } }
+
         public override Decimal ExemptionValue { get { return 2300; } }
 
         public override IEnumerable<TableRow> Table
