@@ -21,7 +21,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.DE, SUI_Wage_Base = 18500 }; // Deleware
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.DC, SUI_Wage_Base = 9000 }; // Distrinct of Columbia
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
-                yield return new Georgia.TaxTable2016 { Year = Year, State = StateOrProvince.GA, SUI_Wage_Base = 9500 }; // Georgia
+                yield return new Georgia.TaxTable2016 { }; // Georgia
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 42200 }; // Hawaii
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.ID, SUI_Wage_Base = 37200 }; // Idaho
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.IL, SUI_Wage_Base = 12960 }; // Illinios
@@ -52,7 +52,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.PA, SUI_Wage_Base = 9500 }; // Penn
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.PR, SUI_Wage_Base = 7000 }; // Puerto Rico
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.RI, SUI_Wage_Base = 22000 }; // Rhode Island
-                yield return new SouthCarolina.TaxTable2016 { Year = Year, State = StateOrProvince.SC, SUI_Wage_Base = 14000 }; // South Carolina
+                yield return new SouthCarolina.TaxTable2016 { }; // South Carolina
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.SD, SUI_Wage_Base = 15000 }; // South Dakota
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.TN, SUI_Wage_Base = 9000 }; // Tennessee
                 yield return new TaxEntry { Year = Year, State = StateOrProvince.TX, SUI_Wage_Base = 9000 }; // Texas

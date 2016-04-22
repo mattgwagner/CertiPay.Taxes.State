@@ -7,6 +7,8 @@ namespace CertiPay.Taxes.State.SouthCarolina
     {
         public override int Year { get { return 2016; } }
 
+        public override Decimal SUI_Wage_Base { get { return 14000; } }
+
         public override Decimal StandardDeduction(Decimal annualizedWages)
         {
             // 10% up to $2,600.00 if claiming 1 or more exemptions

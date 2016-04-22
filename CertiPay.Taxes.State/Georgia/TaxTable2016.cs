@@ -7,6 +7,8 @@ namespace CertiPay.Taxes.State.Georgia
     {
         public override int Year { get { return 2016; } }
 
+        public override Decimal SUI_Wage_Base { get { return 9500; } }
+
         public override IEnumerable<TaxTable.StandardDeduction> StandardDeductions
         {
             get

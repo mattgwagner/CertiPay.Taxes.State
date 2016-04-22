@@ -7,6 +7,8 @@ namespace CertiPay.Taxes.State.SouthCarolina
 {
     public abstract class TaxTable : TaxEntry
     {
+        public override StateOrProvince State { get { return StateOrProvince.SC; } }
+
         public abstract Decimal StandardDeduction(Decimal annualizedWages);
 
         public abstract Decimal ExemptionValue { get; }

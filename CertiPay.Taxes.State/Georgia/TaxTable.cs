@@ -8,6 +8,8 @@ namespace CertiPay.Taxes.State.Georgia
 {
     public abstract class TaxTable : TaxEntry
     {
+        public override StateOrProvince State { get { return StateOrProvince.GA; } }
+
         public abstract IEnumerable<StandardDeduction> StandardDeductions { get; }
 
         public abstract IEnumerable<StandardDeduction> PersonalAllowances { get; }
