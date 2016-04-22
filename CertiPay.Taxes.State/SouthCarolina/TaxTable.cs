@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CertiPay.Taxes.State.SouthCarolina
 {
-    public abstract class TaxTable : TaxEntry
+    public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get { return StateOrProvince.SC; } }
 

@@ -1,6 +1,7 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CertiPay.Taxes.State
 {
@@ -9,6 +10,19 @@ namespace CertiPay.Taxes.State
     /// </summary>
     public static class TaxTables
     {
+        /// <summary>
+        /// Find the tax table header for the given state and year
+        /// </summary>
+        public static TaxTableHeader GetForState(StateOrProvince state, int year)
+        {
+            return
+                Values()
+                .Where(table => table.Year == year)
+                .SelectMany(table => table.Entries)
+                .Where(entry => entry.State == state)
+                .Single();
+        }
+
         /// <summary>
         /// Returns a list of configured state tax entries
         /// </summary>
@@ -46,6 +60,6 @@ namespace CertiPay.Taxes.State
     {
         int Year { get; }
 
-        IEnumerable<TaxEntry> Entries { get; }
+        IEnumerable<TaxTableHeader> Entries { get; }
     }
 }

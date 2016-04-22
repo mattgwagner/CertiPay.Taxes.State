@@ -3,7 +3,7 @@ using System;
 
 namespace CertiPay.Taxes.State
 {
-    public class TaxEntry
+    public class TaxTableHeader
     {
         /// <summary>
         /// The tax year represented
