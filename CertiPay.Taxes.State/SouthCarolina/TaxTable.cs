@@ -23,9 +23,9 @@ namespace CertiPay.Taxes.State.SouthCarolina
 
             if (exemptions > Decimal.Zero)
             {
-                annualized_wages -= (exemptions * ExemptionValue);
+                // The standard deduction is taken from the annualized wages before further reducing by the exemption values
 
-                annualized_wages -= StandardDeduction(annualized_wages);
+                annualized_wages -= (exemptions * ExemptionValue + StandardDeduction(annualized_wages));
             }
 
             var tax_table =
