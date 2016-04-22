@@ -5,7 +5,7 @@ namespace CertiPay.Taxes.State.Georgia
 {
     public class TaxTable2016 : TaxTable
     {
-        public override int TaxYear { get { return 2016; } }
+        public override int Year { get { return 2016; } }
 
         public override IEnumerable<TaxTable.StandardDeduction> StandardDeductions
         {

@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SouthCarolina\TaxTable.cs" />
     <Compile Include="SouthCarolina\TaxTable2016.cs" />
+    <Compile Include="TaxEntry.cs" />
     <Compile Include="TaxTable.cs" />
     <Compile Include="TaxTable2015.cs" />
     <Compile Include="TaxTable2014.cs" />

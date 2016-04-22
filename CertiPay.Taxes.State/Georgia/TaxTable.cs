@@ -6,10 +6,8 @@ using System.Linq;
 
 namespace CertiPay.Taxes.State.Georgia
 {
-    public abstract class TaxTable
+    public abstract class TaxTable : TaxEntry
     {
-        public abstract int TaxYear { get; }
-
         public abstract IEnumerable<StandardDeduction> StandardDeductions { get; }
 
         public abstract IEnumerable<StandardDeduction> PersonalAllowances { get; }

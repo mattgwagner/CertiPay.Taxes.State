@@ -5,10 +5,8 @@ using System.Linq;
 
 namespace CertiPay.Taxes.State.SouthCarolina
 {
-    public abstract class TaxTable
+    public abstract class TaxTable : TaxEntry
     {
-        public abstract int Year { get; }
-
         public abstract Decimal StandardDeduction(Decimal annualizedWages);
 
         public abstract Decimal ExemptionValue { get; }
