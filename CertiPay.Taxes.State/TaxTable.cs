@@ -9,25 +9,30 @@ namespace CertiPay.Taxes.State
         /// <summary>
         /// The tax year represented
         /// </summary>
-        public int Year { get; internal set; }
+        public virtual int Year { get; internal set; }
 
         /// <summary>
         /// The state or province that the tax entry is valid for
         /// </summary>
-        public StateOrProvince State { get; internal set; }
+        public virtual StateOrProvince State { get; internal set; }
 
         /// <summary>
         /// The Federal Unemployment Tax Act requires that each state's taxable wage base must at least equal
         /// the FUTA wage base of $7,000 per employee, although most states exceed that. This value is the
         /// wage base for given state and year, multiplied by the SUI rate offered to a company by the state.
         /// </summary>
-        public Decimal SUI_Wage_Base { get; internal set; }
+        public virtual Decimal SUI_Wage_Base { get; internal set; }
 
         /// <summary>
         /// The decimal percentage of reduction on the FUTA credit for SUI taxes paid due to non-repaid money due
         /// to the federal government by the state
         /// </summary>
-        public Decimal FUTA_Reduction_Rate { get; internal set; }
+        public virtual Decimal FUTA_Reduction_Rate { get; internal set; }
+
+        /// <summary>
+        /// Returns true if there is withholding for the state
+        /// </summary>
+        public virtual Boolean HasWithholding { get { return State.HasWithholding(); } }
     }
 
     /// <summary>
