@@ -20,6 +20,7 @@ namespace CertiPay.Taxes.State.Tests
         [Test, Unit]
         [TestCase(1500, PayrollFrequency.Monthly, Georgia.TaxTable.FilingStatus.Single, 1, 0, 49.17)]
         [TestCase(3000, PayrollFrequency.Monthly, Georgia.TaxTable.FilingStatus.Single, 1, 0, 139.17)]
+        [TestCase(1733.40, PayrollFrequency.BiWeekly, Georgia.TaxTable.FilingStatus.Single, 1, 0, 85.16)]
         [TestCase(1500, PayrollFrequency.Monthly, Georgia.TaxTable.FilingStatus.MarriedWithTwoIncomes, 1, 2, 23.17)]
         [TestCase(3000, PayrollFrequency.Monthly, Georgia.TaxTable.FilingStatus.MarriedWithTwoIncomes, 1, 2, 113.17)]
         [TestCase(1500, PayrollFrequency.Monthly, Georgia.TaxTable.FilingStatus.MarriedFilingSeparate, 1, 2, 23.17)]
