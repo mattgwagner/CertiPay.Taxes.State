@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FilingStatus.cs" />
     <Compile Include="Georgia\TaxTable.cs" />
     <Compile Include="Georgia\TaxTable2016.cs" />
     <Compile Include="NorthCarolina\TaxTable.cs" />
