@@ -12,7 +12,7 @@ namespace CertiPay.Taxes.State.Tests
         [Test, Unit]
         public void Married_SingleIncome_with_Dependents()
         {
-            var result = geo2016.Calculate(750m, 2, PayrollFrequency.SemiMonthly, Georgia.TaxTable.FilingStatus.MarriedWithOneIncome, 1);
+            var result = geo2016.Calculate(750m, PayrollFrequency.SemiMonthly, Georgia.TaxTable.FilingStatus.MarriedWithOneIncome, 2, 1);
 
             Assert.AreEqual(4.08m, result);
         }
@@ -37,7 +37,7 @@ namespace CertiPay.Taxes.State.Tests
         [TestCase(3000, PayrollFrequency.Monthly, Georgia.TaxTable.FilingStatus.MarriedWithOneIncome, 2, 2, 76.33)]
         public void Checks_And_Balances(decimal grossWages, PayrollFrequency freq, Georgia.TaxTable.FilingStatus status, int personalAllowances, int dependentAllowances, decimal expected)
         {
-            Assert.AreEqual(expected, geo2016.Calculate(grossWages, personalAllowances, freq, status, dependentAllowances));
+            Assert.AreEqual(expected, geo2016.Calculate(grossWages, freq, status, personalAllowances, dependentAllowances));
         }
     }
 }

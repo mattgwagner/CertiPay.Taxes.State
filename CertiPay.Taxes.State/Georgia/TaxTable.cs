@@ -18,7 +18,7 @@ namespace CertiPay.Taxes.State.Georgia
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, int personalAllowances = 1, PayrollFrequency frequency = PayrollFrequency.BiWeekly, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1, int dependentAllowances = 0)
         {
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 

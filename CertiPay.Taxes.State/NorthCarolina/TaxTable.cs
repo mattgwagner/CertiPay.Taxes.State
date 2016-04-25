@@ -13,7 +13,7 @@ namespace CertiPay.Taxes.State.NorthCarolina
 
         public abstract Decimal TaxRate { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, EmployeeTaxFilingStatus taxStatus, PayrollFrequency frequency, int allowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, EmployeeTaxFilingStatus taxStatus = EmployeeTaxFilingStatus.Single, int allowances = 0)
         {
             // Withholding Statuses: Single, Married, Head of Household
 
