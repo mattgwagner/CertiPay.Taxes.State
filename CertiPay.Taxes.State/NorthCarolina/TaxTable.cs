@@ -1,5 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CertiPay.Taxes.State.NorthCarolina
 {
@@ -7,13 +8,13 @@ namespace CertiPay.Taxes.State.NorthCarolina
     {
         public override StateOrProvince State { get { return StateOrProvince.NC; } }
 
-        public abstract Decimal StandardDeduction(EmployeeTaxFilingStatus taxStatus);
+        public abstract Decimal StandardDeduction(FilingStatus taxStatus);
 
         public abstract Decimal AllowanceValue { get; }
 
         public abstract Decimal TaxRate { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, EmployeeTaxFilingStatus taxStatus = EmployeeTaxFilingStatus.Single, int allowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus taxStatus = FilingStatus.Single, int allowances = 0)
         {
             // Withholding Statuses: Single, Married, Head of Household
 
@@ -28,5 +29,15 @@ namespace CertiPay.Taxes.State.NorthCarolina
 
             return frequency.CalculateDeannualized(annualized_wages * TaxRate).Round(decimals: 0);
         }
+    }
+
+    public enum FilingStatus : byte
+    {
+        Single,
+
+        Married,
+
+        [Display(Name = "Head of Household")]
+        HeadOfHousehold
     }
 }

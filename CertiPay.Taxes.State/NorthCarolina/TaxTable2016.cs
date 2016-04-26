@@ -1,5 +1,4 @@
-﻿using CertiPay.Payroll.Common;
-using System;
+﻿using System;
 
 namespace CertiPay.Taxes.State.NorthCarolina
 {
@@ -13,11 +12,11 @@ namespace CertiPay.Taxes.State.NorthCarolina
 
         public override Decimal TaxRate { get { return 0.0585m; } }
 
-        public override Decimal StandardDeduction(EmployeeTaxFilingStatus taxStatus)
+        public override Decimal StandardDeduction(FilingStatus taxStatus)
         {
             switch (taxStatus)
             {
-                case EmployeeTaxFilingStatus.HeadOfHousehold:
+                case FilingStatus.HeadOfHousehold:
                     return 12400;
 
                 default:
