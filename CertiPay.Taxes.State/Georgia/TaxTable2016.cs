@@ -13,13 +13,13 @@ namespace CertiPay.Taxes.State.Georgia
         {
             get
             {
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.MarriedWithOneIncome, Amount = 3000 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedWithOneIncome, Amount = 3000 };
 
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.Single, Amount = 2300 };
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Amount = 2300 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.Single, Amount = 2300 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.HeadOfHousehold, Amount = 2300 };
 
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.MarriedWithTwoIncomes, Amount = 1500 };
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.MarriedFilingSeparate, Amount = 1500 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedWithTwoIncomes, Amount = 1500 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedFilingSeparate, Amount = 1500 };
             }
         }
 
@@ -27,12 +27,12 @@ namespace CertiPay.Taxes.State.Georgia
         {
             get
             {
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.Single, Amount = 2700 };
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.HeadOfHousehold, Amount = 2700 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.Single, Amount = 2700 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.HeadOfHousehold, Amount = 2700 };
 
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.MarriedWithOneIncome, Amount = 3700 };
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.MarriedWithTwoIncomes, Amount = 3700 };
-                yield return new TaxTable.StandardDeduction { FilingStatus = TaxTable.FilingStatus.MarriedFilingSeparate, Amount = 3700 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedWithOneIncome, Amount = 3700 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedWithTwoIncomes, Amount = 3700 };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedFilingSeparate, Amount = 3700 };
             }
         }
 

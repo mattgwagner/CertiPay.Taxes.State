@@ -120,29 +120,29 @@ namespace CertiPay.Taxes.State.Georgia
 
             public Decimal TaxRate { get; set; }
         }
+    }
 
-        public enum FilingStatus : byte
-        {
-            // A) Single
-            // B) Married - 2 incomes
-            // C) Married - 1 income
-            // D) Married filing separate
-            // E) Head of Household
+    public enum FilingStatus : byte
+    {
+        // A) Single
+        // B) Married - 2 incomes
+        // C) Married - 1 income
+        // D) Married filing separate
+        // E) Head of Household
 
-            [Display(Name = "A - Single")]
-            Single = 0,
+        [Display(Name = "A - Single")]
+        Single = 0,
 
-            [Display(Name = "B - Married Filing Jointly, Both Spouses Working")]
-            MarriedWithTwoIncomes = 1,
+        [Display(Name = "B - Married Filing Jointly, Both Spouses Working")]
+        MarriedWithTwoIncomes = 1,
 
-            [Display(Name = "C - Married Filing Jointly, One Spouse Working")]
-            MarriedWithOneIncome = 2,
+        [Display(Name = "C - Married Filing Jointly, One Spouse Working")]
+        MarriedWithOneIncome = 2,
 
-            [Display(Name = "D - Married Filing Separately")]
-            MarriedFilingSeparate = 3,
+        [Display(Name = "D - Married Filing Separately")]
+        MarriedFilingSeparate = 3,
 
-            [Display(Name = "E - Head of Household")]
-            HeadOfHousehold = 4
-        }
+        [Display(Name = "E - Head of Household")]
+        HeadOfHousehold = 4
     }
 }
