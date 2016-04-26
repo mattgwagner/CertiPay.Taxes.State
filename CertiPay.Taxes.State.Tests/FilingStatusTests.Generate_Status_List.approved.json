@@ -1,0 +1,477 @@
+﻿{
+    
+  "Unknown":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "AK":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "AS":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "AZ":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "AR":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "CA":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "HeadOfHousehold",
+        
+    "Exempt"
+  
+    ],
+    
+  "CO":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "CT":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "DE":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "DC":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "FM":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "GA":  [
+        
+    "Single",
+        
+    "MarriedWithOneIncome",
+        
+    "MarriedWithTwoIncomes",
+        
+    "MarriedFilingSeparate",
+        
+    "HeadOfHousehold",
+        
+    "Exempt"
+  
+    ],
+    
+  "GU":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "HI":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "ID":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "IL":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "IN":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "IA":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "KS":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "KY":  [
+        
+    "Normal",
+        
+    "% of Gross",
+        
+    "Exempt"
+  
+    ],
+    
+  "LA":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "ME":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "MH":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "MD":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "MA":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "HeadOfHousehold",
+        
+    "Exempt"
+  
+    ],
+    
+  "MI":  [
+        
+    "Normal",
+        
+    "% of Gross",
+        
+    "Exempt"
+  
+    ],
+    
+  "MN":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "MS":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "MO":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "MT":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "NE":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "NJ":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "NM":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "NY":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "NC":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "HeadOfHousehold",
+        
+    "Exempt"
+  
+    ],
+    
+  "ND":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "MP":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "OH":  [
+        
+    "Normal",
+        
+    "% of Gross",
+        
+    "Exempt"
+  
+    ],
+    
+  "OK":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "OR":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "PW":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "PA":  [
+        
+    "Normal",
+        
+    "% of Gross",
+        
+    "Exempt"
+  
+    ],
+    
+  "PR":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "RI":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "SC":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "UT":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "VT":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ],
+    
+  "VI":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "VA":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "WA":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "WV":  [
+        
+    "Normal",
+        
+    "Exempt"
+  
+    ],
+    
+  "WI":  [
+        
+    "Single",
+        
+    "Married",
+        
+    "Exempt"
+  
+    ]
+
+}

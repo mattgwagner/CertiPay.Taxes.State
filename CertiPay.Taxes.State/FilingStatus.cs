@@ -76,7 +76,7 @@ namespace CertiPay.Taxes.State
                     break;
 
                 default:
-                    yield return "N/A";
+                    yield return "Normal";
                     break;
             }
 
