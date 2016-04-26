@@ -30,7 +30,6 @@ namespace CertiPay.Taxes.State
                     yield return "Head of Family";
                     yield return "Married Filing Separate";
                     yield return "Married Filing Joint";
-                    yield return FilingStatus.Exempt.ToString();
                     break;
 
                 case StateOrProvince.OH:
@@ -39,7 +38,6 @@ namespace CertiPay.Taxes.State
                 case StateOrProvince.PA:
                     yield return "Normal";
                     yield return "% of Gross";
-                    yield return FilingStatus.Exempt.ToString();
                     break;
 
                 case StateOrProvince.GA:
@@ -48,7 +46,6 @@ namespace CertiPay.Taxes.State
                     yield return Georgia.FilingStatus.MarriedWithTwoIncomes.ToString();
                     yield return Georgia.FilingStatus.MarriedFilingSeparate.ToString();
                     yield return Georgia.FilingStatus.HeadOfHousehold.ToString();
-                    yield return FilingStatus.Exempt.ToString();
                     break;
 
                 case StateOrProvince.NC:
@@ -57,7 +54,6 @@ namespace CertiPay.Taxes.State
                     yield return NorthCarolina.FilingStatus.Single.ToString();
                     yield return NorthCarolina.FilingStatus.Married.ToString();
                     yield return NorthCarolina.FilingStatus.HeadOfHousehold.ToString();
-                    yield return FilingStatus.Exempt.ToString();
                     break;
 
                 case StateOrProvince.NE:
@@ -77,13 +73,14 @@ namespace CertiPay.Taxes.State
                 case StateOrProvince.WI:
                     yield return FilingStatus.Single.ToString();
                     yield return FilingStatus.Married.ToString();
-                    yield return FilingStatus.Exempt.ToString();
                     break;
 
                 default:
                     yield return "N/A";
                     break;
             }
+
+            yield return FilingStatus.Exempt.ToString();
         }
     }
 }
