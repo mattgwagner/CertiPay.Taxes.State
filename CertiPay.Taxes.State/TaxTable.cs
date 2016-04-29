@@ -54,6 +54,26 @@ namespace CertiPay.Taxes.State
                     return true;
             }
         }
+
+        /// <summary>
+        /// Returns true if the given state has a statutory disability plan program obligation
+        /// </summary>
+        public static Boolean HasStatutoryDisabilityPlan(this StateOrProvince state)
+        {
+            switch (state)
+            {
+                case StateOrProvince.NY:
+                case StateOrProvince.NJ:
+                case StateOrProvince.RI:
+                case StateOrProvince.CA:
+                case StateOrProvince.HI:
+                case StateOrProvince.PR:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
     }
 
     public interface TaxTable
