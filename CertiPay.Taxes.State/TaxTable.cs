@@ -40,6 +40,9 @@ namespace CertiPay.Taxes.State
         {
             switch (state)
             {
+                // Also include the unknown case, we won't flag them for withholding
+                case StateOrProvince.Unknown:
+
                 case StateOrProvince.FL:
                 case StateOrProvince.AL:
                 case StateOrProvince.NV:
