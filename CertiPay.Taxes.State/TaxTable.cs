@@ -77,6 +77,23 @@ namespace CertiPay.Taxes.State
                     return false;
             }
         }
+
+        /// <summary>
+        /// Returns true if the given state has an employee deduction requirement for Unemployment Insurance
+        /// </summary>
+        public static Boolean HasUnemploymentEmployeeDeduction(this StateOrProvince state)
+        {
+            switch (state)
+            {
+                case StateOrProvince.AK:
+                case StateOrProvince.NJ:
+                case StateOrProvince.PA:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
     }
 
     public interface TaxTable
