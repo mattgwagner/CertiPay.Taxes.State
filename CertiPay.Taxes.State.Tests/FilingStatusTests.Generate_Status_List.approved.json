@@ -1,8 +1,16 @@
 ﻿{
     
-  "AK":  [
+  "AL":  [
         
-    "Normal",
+    "No Exemption",
+        
+    "Single Exemption",
+        
+    "Head of Family",
+        
+    "Married Filing Separate",
+        
+    "Married Filing Joint",
         
     "Exempt"
   
