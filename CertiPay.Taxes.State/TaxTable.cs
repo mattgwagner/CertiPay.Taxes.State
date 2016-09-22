@@ -44,7 +44,7 @@ namespace CertiPay.Taxes.State
                 case StateOrProvince.Unknown:
 
                 case StateOrProvince.FL:
-                case StateOrProvince.AL:
+                case StateOrProvince.AK:
                 case StateOrProvince.NV:
                 case StateOrProvince.NH:
                 case StateOrProvince.SD:
