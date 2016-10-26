@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>CertiPay.Taxes.State</id>
+    <id>$id$</id>
     <version>$version$</version>
-    <title>CertiPay.Taxes.State</title>
+    <title>$id$</title>
     <tags>taxes, tax, payroll</tags>
     <description>This library is intended to encapsulate the state tax withholding tables for payroll.</description>
-    <projectUrl>https://github.com/CertiPay/Certipay.Taxes.State</projectUrl>
-    <licenseUrl>https://github.com/CertiPay/Certipay.Taxes.State/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/CertiPay/$id$</projectUrl>
+    <licenseUrl>https://github.com/CertiPay/$id$/blob/master/LICENSE.md</licenseUrl>
     <authors>CertiPay, Matt Wagner</authors>
     <owners>Matt Wagner</owners>
 
@@ -17,7 +17,7 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\CertiPay.Taxes.State*" target="lib\net451" />
+    <file src="bin\$configuration$\$id$.dll" target="lib\net451" />
     <file src="..\README.md" target="tools" />
     <file src="..\LICENSE.md" target="tools" />
   </files>
