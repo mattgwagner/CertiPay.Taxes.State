@@ -31,6 +31,9 @@ assembly_info:
 before_build:
 - cmd: nuget restore
 
+after_build:
+- nuget pack CertiPay.Taxes.State\CertiPay.Taxes.State.nuspec -Version %appveyor_build_version%
+
 build:
   publish_nuget: true
 
