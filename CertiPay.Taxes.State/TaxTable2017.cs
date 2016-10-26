@@ -21,7 +21,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.DE, SUI_Wage_Base = 18500 }; // Deleware
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.DC, SUI_Wage_Base = 9000 }; // Distrinct of Columbia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
-                yield return new Georgia.TaxTable2016 { }; // Georgia
+                yield return new Georgia.TaxTable2017 { }; // Georgia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 42200 }; // Hawaii
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.ID, SUI_Wage_Base = 37200 }; // Idaho
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.IL, SUI_Wage_Base = 12960 }; // Illinios
@@ -44,7 +44,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.NJ, SUI_Wage_Base = 33500 }; // New Jersey
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.NM, SUI_Wage_Base = 24300 }; // New Mexico
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.NY, SUI_Wage_Base = 10900 }; // New York
-                yield return new NorthCarolina.TaxTable2016 { }; // North Carolina
+                yield return new NorthCarolina.TaxTable2017 { }; // North Carolina
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.ND, SUI_Wage_Base = 37200 }; // North Dakota
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.OH, SUI_Wage_Base = 9000 }; // Ohio
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.OK, SUI_Wage_Base = 17700 }; // Oklahoma
@@ -52,7 +52,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.PA, SUI_Wage_Base = 3750 }; // Penn
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.PR, SUI_Wage_Base = 7000 }; // Puerto Rico
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.RI, SUI_Wage_Base = 22000 }; // Rhode Island
-                yield return new SouthCarolina.TaxTable2016 { }; // South Carolina
+                yield return new SouthCarolina.TaxTable2017 { }; // South Carolina
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.SD, SUI_Wage_Base = 15000 }; // South Dakota
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.TN, SUI_Wage_Base = 9000 }; // Tennessee
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.TX, SUI_Wage_Base = 9000 }; // Texas
