@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>CertiPay.Taxes.State</id>
-    <version>0.0.1</version>
+    <version>$version$</version>
     <title>CertiPay.Taxes.State</title>
     <tags>taxes, tax, payroll</tags>
     <description>This library is intended to encapsulate the state tax withholding tables for payroll.</description>
