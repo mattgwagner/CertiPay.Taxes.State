@@ -31,8 +31,8 @@ assembly_info:
 before_build:
 - cmd: nuget restore
 
-after_build:
-- cmd: nuget pack "CertiPay.Taxes.State\CertiPay.Taxes.State.csproj"
+build:
+  publish_nuget: true
 
 #---------------------------------#
 #       tests configuration       #
