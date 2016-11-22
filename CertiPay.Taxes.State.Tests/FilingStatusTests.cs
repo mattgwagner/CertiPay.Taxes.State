@@ -1,4 +1,4 @@
-﻿using CertiPay.Common.Testing;
+﻿//using CertiPay.Common.Testing;
 using CertiPay.Payroll.Common;
 using NUnit.Framework;
 using System;
@@ -9,7 +9,7 @@ namespace CertiPay.Taxes.State.Tests
 {
     public class FilingStatusTests
     {
-        [Test, Unit, MethodImpl(MethodImplOptions.NoInlining)]
+        [Test, MethodImpl(MethodImplOptions.NoInlining)]
         public void Generate_Status_List()
         {
             var list = new Dictionary<StateOrProvince, IEnumerable<String>>();
@@ -22,7 +22,7 @@ namespace CertiPay.Taxes.State.Tests
                 }
             }
 
-            list.VerifyMe();
+            //list.VerifyMe();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using CertiPay.Common.Testing;
-using CertiPay.Payroll.Common;
+﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
 
 namespace CertiPay.Taxes.State.Tests
@@ -11,7 +10,7 @@ namespace CertiPay.Taxes.State.Tests
     {
         private Georgia.TaxTable2016 geo2016 = new Georgia.TaxTable2016();
 
-        [Test, Unit]
+        [Test]
         public void Married_SingleIncome_with_Dependents()
         {
             var result = geo2016.Calculate(750m, PayrollFrequency.SemiMonthly, FilingStatus.MarriedWithOneIncome, 2, 1);
@@ -19,7 +18,7 @@ namespace CertiPay.Taxes.State.Tests
             Assert.AreEqual(4.08m, result);
         }
 
-        [Test, Unit]
+        [Test]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0, 49.17)]
         [TestCase(3000, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0, 139.17)]
         [TestCase(1733.40, PayrollFrequency.BiWeekly, FilingStatus.Single, 1, 0, 85.16)]

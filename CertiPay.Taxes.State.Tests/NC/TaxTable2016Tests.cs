@@ -1,5 +1,4 @@
-﻿using CertiPay.Common.Testing;
-using CertiPay.Payroll.Common;
+﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
 using System;
 
@@ -9,7 +8,7 @@ namespace CertiPay.Taxes.State.Tests.NC
 
     public class TaxTable2016Tests
     {
-        [Test, Unit]
+        [Test]
         [TestCase(PayrollFrequency.Weekly, 450, FilingStatus.Single, 2, 12)]
         [TestCase(PayrollFrequency.BiWeekly, 1000, FilingStatus.Single, 1, 35)]
         [TestCase(PayrollFrequency.SemiMonthly, 1000, EmployeeTaxFilingStatus.Single, 1, 34)]
