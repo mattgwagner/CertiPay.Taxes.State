@@ -1,5 +1,5 @@
 {
-  "version": "2017.0.14-*",
+  "version": "2017.0.15-*",
 
   "description": "This library is intended to hold some common items related to payroll processing, such as tax filing status or frequency.",
 
