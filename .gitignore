@@ -107,3 +107,4 @@ packages/*
 *.userprefs
 
 project.lock.json
+UnitTestResults.xml
