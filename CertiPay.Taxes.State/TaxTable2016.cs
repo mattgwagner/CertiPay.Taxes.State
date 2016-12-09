@@ -59,7 +59,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.UT, SUI_Wage_Base = 32200 }; // Utah
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.VT, SUI_Wage_Base = 16800 }; // Vermont
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.VI, SUI_Wage_Base = 22900, FUTA_Reduction_Rate = 0.018m }; // Virgin Islands
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.VA, SUI_Wage_Base = 8000 }; // Virginia
+                yield return new Virginia.TaxTable2016 { }; // Virginia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WA, SUI_Wage_Base = 44000 }; // Washington
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WV, SUI_Wage_Base = 12000 }; // West Virginia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WI, SUI_Wage_Base = 14000 }; // Wisconsin
