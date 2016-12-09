@@ -21,7 +21,7 @@ namespace CertiPay.Taxes.State.Virginia
 
             annualized_wages -= (exemptions * 930); // Personal + Dependent Exemptions
 
-            var annualized_taxes = 0;
+            decimal annualized_taxes = 0;
 
             if(annualized_wages < 3000)
             {
