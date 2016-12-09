@@ -1,0 +1,20 @@
+﻿using CertiPay.Payroll.Common;
+using NUnit.Framework;
+using System;
+
+namespace CertiPay.Taxes.State.Tests.VA
+{
+    public class TaxTable2016Tests
+    {
+        [Test]
+        [TestCase(PayrollFrequency.Weekly, 450, 2, 15.55d)]
+        [TestCase(PayrollFrequency.BiWeekly, 1000, 1, 38.90d)]
+        [TestCase(PayrollFrequency.SemiMonthly, 1000, 2, 35.13d)]
+        public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, int allowances, Decimal expected)
+        {
+            var result = new Virginia.TaxTable2016().Calculate(grossWages, frequency, allowances);
+
+            Assert.AreEqual(expected, result);
+        }
+    }
+}
