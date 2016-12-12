@@ -24,7 +24,7 @@ namespace CertiPay.Taxes.State
                 yield return new Georgia.TaxTable2016 { }; // Georgia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 42200 }; // Hawaii
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.ID, SUI_Wage_Base = 37200 }; // Idaho
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.IL, SUI_Wage_Base = 12960 }; // Illinios
+                yield return new Illinois.TaxTable2016 { }; // Illinios
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.IN, SUI_Wage_Base = 9500, FUTA_Reduction_Rate = 0.021m }; // Indiana
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.IA, SUI_Wage_Base = 28300 }; // Iowa
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.KS, SUI_Wage_Base = 14000 }; // Kansas
