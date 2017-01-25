@@ -7,6 +7,23 @@ namespace CertiPay.Taxes.State.Montana
     {
         public override StateOrProvince State { get { return StateOrProvince.MT; } }
 
+        public override Decimal SUI_Wage_Base
+        {
+            get
+            {
+                switch (Year)
+                {
+                    case 2016:
+                        return 30500;
+
+                    case 2017:
+                        return 31400;
+                }
+
+                throw new NotImplementedException($"SUI Wage Base is not configured for Montana for {Year}");
+            }
+        }
+
         public Decimal AllowanceValue { get; } = 1900;
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int allowances = 0)
