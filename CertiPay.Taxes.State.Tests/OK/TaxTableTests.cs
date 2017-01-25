@@ -8,9 +8,18 @@ namespace CertiPay.Taxes.State.Tests.OK
     {
         [Test]
         [TestCase(PayrollFrequency.SemiMonthly, 1725, true, 2, 41d)]
-        public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, Boolean isMarried, int allowances, Decimal expected)
+        public void Checks_And_Balances_2016(PayrollFrequency frequency, Decimal grossWages, Boolean isMarried, int allowances, Decimal expected)
         {
-            var result = new Oklahoma.TaxTable().Calculate(grossWages, frequency, isMarried, allowances);
+            var result = new Oklahoma.TaxTable2016().Calculate(grossWages, frequency, isMarried, allowances);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(PayrollFrequency.SemiMonthly, 1725, true, 2, 41d)]
+        public void Checks_And_Balances_2017(PayrollFrequency frequency, Decimal grossWages, Boolean isMarried, int allowances, Decimal expected)
+        {
+            var result = new Oklahoma.TaxTable2017().Calculate(grossWages, frequency, isMarried, allowances);
 
             Assert.AreEqual(expected, result);
         }
