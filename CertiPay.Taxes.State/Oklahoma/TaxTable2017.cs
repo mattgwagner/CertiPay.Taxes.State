@@ -27,91 +27,91 @@ namespace CertiPay.Taxes.State.Oklahoma
 
             if (isMarried)
             {
-                if (taxable_earnings < 12600)
+                if (taxable_earnings < 12700)
                 {
                     flat_amount = 0;
                     bracket_floor = 0;
                     percentage = 0;
                 }
-                else if (taxable_earnings < 14600)
+                else if (taxable_earnings < 14700)
                 {
                     flat_amount = 0;
-                    bracket_floor = 12600;
+                    bracket_floor = 12700;
                     percentage = 0.005m;
                 }
-                else if (taxable_earnings < 17600)
+                else if (taxable_earnings < 17700)
                 {
                     flat_amount = 10;
-                    bracket_floor = 14600;
+                    bracket_floor = 14700;
                     percentage = 0.01m;
                 }
-                else if (taxable_earnings < 20100)
+                else if (taxable_earnings < 20200)
                 {
                     flat_amount = 40;
-                    bracket_floor = 17600;
+                    bracket_floor = 17700;
                     percentage = 0.02m;
                 }
-                else if (taxable_earnings < 22400)
+                else if (taxable_earnings < 22500)
                 {
                     flat_amount = 90;
-                    bracket_floor = 20100;
+                    bracket_floor = 20200;
                     percentage = 0.03m;
                 }
-                else if (taxable_earnings < 24800)
+                else if (taxable_earnings < 24900)
                 {
                     flat_amount = 159;
-                    bracket_floor = 22400;
+                    bracket_floor = 22500;
                     percentage = 0.04m;
                 }
                 else
                 {
                     flat_amount = 255;
-                    bracket_floor = 24800;
+                    bracket_floor = 24900;
                     percentage = 0.05m;
                 }
             }
             else
             {
-                if (taxable_earnings < 6300)
+                if (taxable_earnings < 6350)
                 {
                     flat_amount = 0;
                     bracket_floor = 0;
                     percentage = 0;
                 }
-                else if (taxable_earnings < 7300)
+                else if (taxable_earnings < 7350)
                 {
                     flat_amount = 0;
-                    bracket_floor = 6300;
+                    bracket_floor = 6350;
                     percentage = 0.005m;
                 }
-                else if (taxable_earnings < 8800)
+                else if (taxable_earnings < 8850)
                 {
                     flat_amount = 5;
-                    bracket_floor = 7300;
+                    bracket_floor = 7350;
                     percentage = 0.01m;
                 }
-                else if (taxable_earnings < 10050)
+                else if (taxable_earnings < 10100)
                 {
                     flat_amount = 20;
-                    bracket_floor = 8800;
+                    bracket_floor = 8850;
                     percentage = 0.02m;
                 }
-                else if (taxable_earnings < 11200)
+                else if (taxable_earnings < 11250)
                 {
                     flat_amount = 45;
-                    bracket_floor = 10050;
+                    bracket_floor = 10100;
                     percentage = 0.03m;
                 }
-                else if (taxable_earnings < 13500)
+                else if (taxable_earnings < 13550)
                 {
-                    flat_amount = 171.50m;
-                    bracket_floor = 11200;
+                    flat_amount = 79.50m;
+                    bracket_floor = 11250;
                     percentage = 0.04m;
                 }
                 else
                 {
                     flat_amount = 171.50m;
-                    bracket_floor = 13500;
+                    bracket_floor = 13550;
                     percentage = 0.05m;
                 }
             }
