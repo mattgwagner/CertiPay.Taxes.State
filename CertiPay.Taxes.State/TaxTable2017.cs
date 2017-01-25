@@ -47,7 +47,7 @@ namespace CertiPay.Taxes.State
                 yield return new NorthCarolina.TaxTable2017 { }; // North Carolina
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.ND, SUI_Wage_Base = 37200 }; // North Dakota
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.OH, SUI_Wage_Base = 9000 }; // Ohio
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.OK, SUI_Wage_Base = 17700 }; // Oklahoma
+                yield return new Oklahoma.TaxTable2017 { }; // Oklahoma
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.OR, SUI_Wage_Base = 38400 }; // Oregon
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.PA, SUI_Wage_Base = 9750 }; // Penn
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.PR, SUI_Wage_Base = 7000 }; // Puerto Rico
