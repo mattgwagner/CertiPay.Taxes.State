@@ -84,8 +84,6 @@ namespace CertiPay.Taxes.State
 
                 yield return FilingStatus.Exempt.ToString();
             }
-
-            
         }
     }
 }
