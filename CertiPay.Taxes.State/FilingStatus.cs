@@ -78,7 +78,7 @@ namespace CertiPay.Taxes.State
                         break;
 
                     case StateOrProvince.WV:
-                        yield return WestVirginia.FilingStatus.Single_Earner.ToString();
+                        yield return WestVirginia.FilingStatus.Single_Earning.ToString();
                         yield return WestVirginia.FilingStatus.Two_Earnings.ToString();
                         break;
 
