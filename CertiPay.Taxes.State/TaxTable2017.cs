@@ -61,7 +61,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.VI, SUI_Wage_Base = 22900 }; // Virgin Islands
                 yield return new Virginia.TaxTable2017 { }; // Virginia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WA, SUI_Wage_Base = 45000 }; // Washington
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WV, SUI_Wage_Base = 12000 }; // West Virginia
+                yield return new WestVirginia.TaxTable { Year = Year }; // West Virginia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WI, SUI_Wage_Base = 14000 }; // Wisconsin
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.WY, SUI_Wage_Base = 25400 }; // Wyoming
             }

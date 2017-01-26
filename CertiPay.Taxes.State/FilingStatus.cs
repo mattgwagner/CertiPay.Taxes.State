@@ -24,7 +24,7 @@ namespace CertiPay.Taxes.State
             {
                 switch (state)
                 {
-                    // TODO Louisiana, West Virginia, Mississippi, Kansas, Deleware, Conneticut, New Jersey, Missouri
+                    // TODO Louisiana, Mississippi, Kansas, Deleware, Conneticut, New Jersey, Missouri
 
                     case StateOrProvince.AL:
                         yield return "No Exemption";
@@ -77,6 +77,11 @@ namespace CertiPay.Taxes.State
                         yield return FilingStatus.Married.ToString();
                         break;
 
+                    case StateOrProvince.WV:
+                        yield return WestVirginia.FilingStatus.Single_Earning.ToString();
+                        yield return WestVirginia.FilingStatus.Two_Earnings.ToString();
+                        break;
+
                     default:
                         yield return "Normal";
                         break;
@@ -84,8 +89,6 @@ namespace CertiPay.Taxes.State
 
                 yield return FilingStatus.Exempt.ToString();
             }
-
-            
         }
     }
 }
