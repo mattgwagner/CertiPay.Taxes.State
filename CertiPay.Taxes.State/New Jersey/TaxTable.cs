@@ -14,7 +14,7 @@ namespace CertiPay.Taxes.State.NewJersey
         
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1, int dependentAllowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
             var taxableWages = frequency.CalculateAnnualized(grossWages);
           
