@@ -29,8 +29,13 @@ namespace CertiPay.Taxes.State.NewJersey
         
 
         internal virtual Decimal GetPersonalAllowance(int personalAllowances)
-        {          
-            return 1000m * personalAllowances;
+        {
+            var allowance_value =
+               PersonalAllowances
+               .Select(d => d.Amount)
+               .Single();
+
+            return allowance_value * personalAllowances;
         }
 
         internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
