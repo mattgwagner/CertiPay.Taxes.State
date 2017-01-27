@@ -21,12 +21,8 @@ namespace CertiPay.Taxes.State.NewJersey
             taxableWages -= GetPersonalAllowance(personalAllowances);            
 
             var selected_row = GetTaxWithholding(filingStatus, taxableWages);
-
-            // Calculate the withholding from the percentages
-
+            
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
-
-            //(5) If zero exemption is claimed, subtract the standard deduction only.
 
             return frequency.CalculateDeannualized(taxWithheld);
         }
@@ -50,15 +46,12 @@ namespace CertiPay.Taxes.State.NewJersey
                 .Single();
         }
 
-        public class StandardDeduction : DependentAllowance
+        public class StandardDeduction 
         {
             public FilingStatus FilingStatus { get; set; }
+           public Decimal Amount { get; set; }
         }
-
-        public class DependentAllowance
-        {
-            public Decimal Amount { get; set; }
-        }
+      
 
         public class TaxableWithholding
         {
