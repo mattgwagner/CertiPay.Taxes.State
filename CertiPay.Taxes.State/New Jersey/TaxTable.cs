@@ -10,7 +10,7 @@ namespace CertiPay.Taxes.State.NewJersey
     {
         public override StateOrProvince State { get { return StateOrProvince.NJ; } }
         
-        public abstract IEnumerable<StandardDeduction> PersonalAllowances { get; }
+        public abstract decimal PersonalAllowances { get; }
         
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
@@ -28,14 +28,9 @@ namespace CertiPay.Taxes.State.NewJersey
         }
         
 
-        internal virtual Decimal GetPersonalAllowance(int personalAllowances)
-        {
-            var allowance_value =
-               PersonalAllowances
-               .Select(d => d.Amount)
-               .Single();
-
-            return allowance_value * personalAllowances;
+        internal virtual Decimal GetPersonalAllowance(int numOfPersonalAllowances)
+        {            
+            return PersonalAllowances * numOfPersonalAllowances;
         }
 
         internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
@@ -50,13 +45,7 @@ namespace CertiPay.Taxes.State.NewJersey
                 .Select(d => d)
                 .Single();
         }
-
-        public class StandardDeduction 
-        {
-            public FilingStatus FilingStatus { get; set; }
-           public Decimal Amount { get; set; }
-        }
-      
+        
 
         public class TaxableWithholding
         {

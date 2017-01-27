@@ -8,13 +8,11 @@ namespace CertiPay.Taxes.State.NewJersey
 
         public override Decimal SUI_Wage_Base { get { return 33500; } }
 
-        public override IEnumerable<TaxTable.StandardDeduction> PersonalAllowances
+        public override decimal PersonalAllowances
         {
-            get
-            {
-                yield return new TaxTable.StandardDeduction { Amount = 1000m };
-
-            }
+            get {
+                return 1000m;
+            }                                       
         }
 
         public override IEnumerable<TaxableWithholding> TaxableWithholdings
@@ -58,13 +56,7 @@ namespace CertiPay.Taxes.State.NewJersey
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedWithOneIncome, TaxBase = 6100.00m, StartingAmount = 150000.00m, MaximumWage = Decimal.MaxValue, TaxRate = .070m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedWithOneIncome, TaxBase = 30600.00m, StartingAmount = 500000.00m, MaximumWage = Decimal.MaxValue, TaxRate = .099m };
 
-
-
-
-
                 //Married Filing Joint Return (with both spouse having income), Rate B
-
-
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedWithTwoIncomes, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 20000.00m, TaxRate = .015m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedWithTwoIncomes, TaxBase = 300.00m, StartingAmount = 20000.00m, MaximumWage = 50000.00m, TaxRate = .02m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedWithTwoIncomes, TaxBase = 900.00m, StartingAmount = 50000.00m, MaximumWage = 70000.00m, TaxRate = .027m };
