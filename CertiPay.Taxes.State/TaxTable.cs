@@ -11,27 +11,30 @@ namespace CertiPay.Taxes.State
     public static class TaxTables
     {
         /// <summary>
+        /// Returns a list of configured state tax entries
+        /// </summary>
+        private static IEnumerable<TaxTable> Tables
+        {
+            get
+            {
+                yield return new TaxTable2014();
+                yield return new TaxTable2015();
+                yield return new TaxTable2016();
+                yield return new TaxTable2017();
+            }
+        }
+
+        /// <summary>
         /// Find the tax table header for the given state and year
         /// </summary>
         public static TaxTableHeader GetForState(StateOrProvince state, int year)
         {
             return
-                Values()
+                Tables
                 .Where(table => table.Year == year)
                 .SelectMany(table => table.Entries)
                 .Where(entry => entry.State == state)
                 .Single();
-        }
-
-        /// <summary>
-        /// Returns a list of configured state tax entries
-        /// </summary>
-        public static IEnumerable<TaxTable> Values()
-        {
-            yield return new TaxTable2014();
-            yield return new TaxTable2015();
-            yield return new TaxTable2016();
-            yield return new TaxTable2017();
         }
 
         /// <summary>
