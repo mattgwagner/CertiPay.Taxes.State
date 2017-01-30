@@ -10,9 +10,9 @@ namespace CertiPay.Taxes.State.NewYork
     {
         public override StateOrProvince State { get { return StateOrProvince.NY; } }
 
-        public abstract IEnumerable<DeductionAllowance> DeductionAllowances { get; }                
+        public abstract IEnumerable<DeductionAllowance> DeductionAllowances { get; }
 
-        public abstract decimal ExemptionAllowance { get; }       
+        public abstract Decimal ExemptionAllowance { get; }
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
@@ -35,7 +35,6 @@ namespace CertiPay.Taxes.State.NewYork
             taxableWages -= GetExemptionAllowance(filingStatus, exemptionAllowances);
 
             //(3) If employees claim dependents other than themselves and/or their spouses, subtract from the amount arrived at in (2) the appropriate dependent amount as set out in column(7) of Table E.
-            
 
             //(4) Determine the amount of tax to be withheld from the applicable payroll line in Tables F, G, or H.
 
@@ -60,11 +59,9 @@ namespace CertiPay.Taxes.State.NewYork
         }
 
         internal virtual Decimal GetExemptionAllowance(FilingStatus filingStatus, int exemptionAllowances = 1)
-        {          
-            
+        {
             return ExemptionAllowance * exemptionAllowances;
         }
-  
 
         internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages, Region region)
         {
@@ -83,11 +80,11 @@ namespace CertiPay.Taxes.State.NewYork
         public class DeductionAllowance
         {
             public FilingStatus FilingStatus { get; set; }
-            public Decimal Amount { get; set; }
-            public Region Region { get; set; }            
-        }
 
-       
+            public Decimal Amount { get; set; }
+
+            public Region Region { get; set; }
+        }
 
         public class TaxableWithholding
         {
@@ -105,26 +102,11 @@ namespace CertiPay.Taxes.State.NewYork
         }
     }
 
-    public enum FilingStatus : byte
-    {
-        // A) Single
-        // B) Married
-        
-
-        [Display(Name = "A - Single")]
-        Single = 0,
-
-        [Display(Name = "B - Married")]
-        Married = 1,
-    }
-
-
     public enum Region : byte
     {
         // A) New York State
         // B) Yonkers
         // C) New York City
-                
 
         [Display(Name = "New York State")]
         NewYorkState = 0,
@@ -133,6 +115,6 @@ namespace CertiPay.Taxes.State.NewYork
         Yonkers = 1,
 
         [Display(Name = "New York City")]
-        NewYorkCity        
+        NewYorkCity
     }
 }
