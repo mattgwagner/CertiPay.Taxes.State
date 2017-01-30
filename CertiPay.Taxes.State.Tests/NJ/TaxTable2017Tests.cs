@@ -1,7 +1,7 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
 
-namespace CertiPay.Taxes.State.Tests
+namespace CertiPay.Taxes.State.Tests.NJ
 {
     using FilingStatus = NewJersey.FilingStatus;
 
