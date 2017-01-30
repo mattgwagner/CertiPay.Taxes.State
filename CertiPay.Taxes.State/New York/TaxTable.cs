@@ -60,12 +60,9 @@ namespace CertiPay.Taxes.State.NewYork
         }
 
         internal virtual Decimal GetExemptionAllowance(FilingStatus filingStatus, int exemptionAllowances = 1)
-        {
-            // Note: A married couple filing joint with one spouse working and who only claims 1 allowance should use column (6) (married filing separate) for their personal allowance
-
-            var allowance_value = ExemptionAllowance;
-
-            return allowance_value * exemptionAllowances;
+        {          
+            
+            return ExemptionAllowance * exemptionAllowances;
         }
   
 
