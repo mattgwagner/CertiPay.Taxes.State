@@ -14,7 +14,7 @@ namespace CertiPay.Taxes.State.Georgia
 
         public abstract IEnumerable<StandardDeduction> PersonalAllowances { get; }
 
-        public abstract DependentAllowance DependentAllowances { get; }
+        public abstract Decimal DependentAllowances { get; }
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
@@ -82,7 +82,7 @@ namespace CertiPay.Taxes.State.Georgia
 
         internal virtual Decimal GetDependentAllowance(FilingStatus filingStatus, int dependentAllowances = 0)
         {
-            return DependentAllowances.Amount * dependentAllowances;
+            return DependentAllowances * dependentAllowances;
         }
 
         internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
