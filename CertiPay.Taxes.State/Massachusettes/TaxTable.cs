@@ -17,56 +17,63 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Exemption_Value { get; } = 1000;
 
-        internal virtual Decimal Is_HoH_Allowance { get; } = 122;
+        internal virtual Decimal Is_HoH_Allowance { get; } = 122.40m;
 
         internal virtual Decimal Is_Blind_Allowance { get; } = 112.20m;
 
         internal virtual Decimal Exemption_Bonus { get; } = 3400;
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int Exemptions = 1, Decimal year_to_date_FICA_withholdings = 0.00m, bool IsBlind = false, bool IsHeadOfHouseHold = false)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 1, Decimal year_to_date_FICA_withholdings = 0.00m, bool isBlind = false, bool isHeadOfHousehold = false)
         {
-            var taxableWages = frequency.CalculateAnnualized(grossWages);
+            // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 
-            //Subtract the amount deducted for FICA, Medicare, Massachusettes, US and Railroad Retirement Systems
-            //Needs to be hooked in, right now I pull it in as a variable under the assumption that it's annualized
+            // We annualize the wages from this period
+
+            var taxable_wages = frequency.CalculateAnnualized(grossWages);
+
+            // Step (1) Then we can deduct the amount paid into FICA and Medicare through this pay period up to the Max_FICA_Deduction amount
 
             //ref:
             //Subtract the amount deducted for the U.S. Social Security (FICA),
-            //Medicare, Massachusetts, United States or Railroad Retirement sys -
-            //tems.The total amount subtracted may not exceed $2,000.When,
+            //Medicare, Massachusetts, United States or Railroad Retirement systems.
+            //The total amount subtracted may not exceed $2,000.When,
             //during the year, the total amount subtracted reaches the equivalent
             //of the $2,000 maximum allowable as a deduction by Massachusetts,
             //discontinue this step.
-            if (year_to_date_FICA_withholdings > 0.00m)
+
+            if (year_to_date_FICA_withholdings > Decimal.Zero)
             {
-                taxableWages -= Math.Max(year_to_date_FICA_withholdings, Max_FICA_Deduction);
+                taxable_wages -= Math.Max(year_to_date_FICA_withholdings, Max_FICA_Deduction);
             }
 
-            taxableWages -= Get_Exemption_Value(Exemptions);
+            // Step (2) Then, we reduce the taxable wages by the exemptions
 
-            var taxWithheld = taxableWages * TaxRate;
+            taxable_wages -= Get_Exemption_Value(exemptions);
 
-            //deduction for Head of Household
-            if (IsHeadOfHouseHold)
+            // Step (3) Next, we multiply the annualized taxable wages minus allowances times the tax rate
+
+            var annualized_withholding = taxable_wages * TaxRate;
+
+            // Step (4) If filing as Head of Household or Step (5) Blind/With Blind Spouse, reduce the withholding by the given amount
+
+            if (isHeadOfHousehold)
             {
-                taxWithheld -= Is_HoH_Allowance;
+                annualized_withholding -= Is_HoH_Allowance;
             }
 
-            //Deduction if Spose or EE is blind
-            if (IsBlind)
+            if (isBlind)
             {
-                taxWithheld -= Is_Blind_Allowance;
+                annualized_withholding -= Is_Blind_Allowance;
             }
 
-            return frequency.CalculateDeannualized(taxWithheld);
+            // Then, we deannualize the amount back to the period
+
+            return frequency.CalculateDeannualized(annualized_withholding);
         }
 
         internal virtual Decimal Get_Exemption_Value(int number_of_exemptions)
         {
-            if (number_of_exemptions > 1)
-                return (number_of_exemptions * Exemption_Value) + Exemption_Bonus;
-            else
-                return FirstExemption;
+            return (number_of_exemptions * Exemption_Value) + Exemption_Bonus;
         }
     }
 }
