@@ -21,7 +21,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Exemption_Bonus { get; } = 3400;
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal year_to_date_FICA_withholdings, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal fica_withholding, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
         {
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 
@@ -39,10 +39,7 @@ namespace CertiPay.Taxes.State.Massachusettes
             //of the $2,000 maximum allowable as a deduction by Massachusetts,
             //discontinue this step.
 
-            if (year_to_date_FICA_withholdings > Decimal.Zero)
-            {
-                taxable_wages -= Math.Min(year_to_date_FICA_withholdings, Max_FICA_Deduction);
-            }
+            taxable_wages -= Math.Min(Max_FICA_Deduction, frequency.CalculateAnnualized(fica_withholding));
 
             // Step (2) Then, we reduce the taxable wages by the exemptions
 
