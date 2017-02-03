@@ -41,7 +41,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             if (year_to_date_FICA_withholdings > Decimal.Zero)
             {
-                taxable_wages -= Math.Max(year_to_date_FICA_withholdings, Max_FICA_Deduction);
+                taxable_wages -= Math.Min(year_to_date_FICA_withholdings, Max_FICA_Deduction);
             }
 
             // Step (2) Then, we reduce the taxable wages by the exemptions
