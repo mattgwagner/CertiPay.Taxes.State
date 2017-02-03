@@ -11,19 +11,19 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal TaxRate { get; } = 0.051m;
 
-        internal virtual Decimal FICAMax { get; } = 2000;
+        internal virtual Decimal Max_FICA_Deduction { get; } = 2000;
 
         internal virtual Decimal FirstExemption { get; } = 4400;
 
-        internal virtual Decimal Exempt_Value { get; } = 1000;
+        internal virtual Decimal Exemption_Value { get; } = 1000;
 
-        internal virtual Decimal HoHDeduction { get; } = 122;
+        internal virtual Decimal Is_HoH_Allowance { get; } = 122;
 
-        internal virtual Decimal BlindDeduction { get; } = 112.20m;
+        internal virtual Decimal Is_Blind_Allowance { get; } = 112.20m;
 
-        internal virtual Decimal ExemptionBonus { get; } = 3400;
+        internal virtual Decimal Exemption_Bonus { get; } = 3400;
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int Exemptions = 1, Decimal FICADeductions = 0.00m, bool IsBlind = false, bool IsHeadOfHouseHold = false)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int Exemptions = 1, Decimal year_to_date_FICA_withholdings = 0.00m, bool IsBlind = false, bool IsHeadOfHouseHold = false)
         {
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
@@ -37,9 +37,9 @@ namespace CertiPay.Taxes.State.Massachusettes
             //during the year, the total amount subtracted reaches the equivalent
             //of the $2,000 maximum allowable as a deduction by Massachusetts,
             //discontinue this step.
-            if (FICADeductions > 0.00m)
+            if (year_to_date_FICA_withholdings > 0.00m)
             {
-                taxableWages -= Math.Max(FICADeductions, FICAMax);
+                taxableWages -= Math.Max(year_to_date_FICA_withholdings, Max_FICA_Deduction);
             }
 
             taxableWages -= Get_Exemption_Value(Exemptions);
@@ -49,13 +49,13 @@ namespace CertiPay.Taxes.State.Massachusettes
             //deduction for Head of Household
             if (IsHeadOfHouseHold)
             {
-                taxWithheld -= HoHDeduction;
+                taxWithheld -= Is_HoH_Allowance;
             }
 
             //Deduction if Spose or EE is blind
             if (IsBlind)
             {
-                taxWithheld -= BlindDeduction;
+                taxWithheld -= Is_Blind_Allowance;
             }
 
             return frequency.CalculateDeannualized(taxWithheld);
@@ -64,7 +64,7 @@ namespace CertiPay.Taxes.State.Massachusettes
         internal virtual Decimal Get_Exemption_Value(int number_of_exemptions)
         {
             if (number_of_exemptions > 1)
-                return (number_of_exemptions * Exempt_Value) + ExemptionBonus;
+                return (number_of_exemptions * Exemption_Value) + Exemption_Bonus;
             else
                 return FirstExemption;
         }
