@@ -7,7 +7,7 @@ namespace CertiPay.Taxes.State.Massachusettes
     {
         public override StateOrProvince State { get { return StateOrProvince.MA; } }
 
-        public override Decimal SUI_Wage_Base { get; internal set; } = 1500;
+        public override Decimal SUI_Wage_Base { get { return 1500; } }
 
         internal virtual Decimal TaxRate { get; } = 0.051m;
 
