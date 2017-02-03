@@ -1,26 +1,30 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace CertiPay.Taxes.State.Massachusettes
 {
-    public abstract class TaxTable : TaxTableHeader
+    public class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get { return StateOrProvince.MA; } }
 
-        public abstract decimal TaxRate { get; }
-        public abstract decimal FICAMax { get; }
-        public abstract decimal FirstExemption { get; }
-        public abstract decimal Exemption { get; }
-        public abstract decimal HoHDeduction { get; }
-        public abstract decimal BlindDeduction { get; }
-        public abstract decimal ExemptionBonus { get; }
+        public override Decimal SUI_Wage_Base { get; internal set; } = 1500;
+
+        internal virtual Decimal TaxRate { get; } = 0.051m;
+
+        internal virtual Decimal FICAMax { get; } = 2000;
+
+        internal virtual Decimal FirstExemption { get; } = 4400;
+
+        internal virtual Decimal Exempt_Value { get; } = 1000;
+
+        internal virtual Decimal HoHDeduction { get; } = 122;
+
+        internal virtual Decimal BlindDeduction { get; } = 112.20m;
+
+        internal virtual Decimal ExemptionBonus { get; } = 3400;
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int Exemptions = 1, Decimal FICADeductions = 0.00m, bool IsBlind = false, bool IsHeadOfHouseHold = false)
         {
-           
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             //Subtract the amount deducted for FICA, Medicare, Massachusettes, US and Railroad Retirement Systems
@@ -38,7 +42,7 @@ namespace CertiPay.Taxes.State.Massachusettes
                 taxableWages -= Math.Max(FICADeductions, FICAMax);
             }
 
-            taxableWages -= GetExemption(Exemptions);
+            taxableWages -= Get_Exemption_Value(Exemptions);
 
             var taxWithheld = taxableWages * TaxRate;
 
@@ -46,7 +50,7 @@ namespace CertiPay.Taxes.State.Massachusettes
             if (IsHeadOfHouseHold)
             {
                 taxWithheld -= HoHDeduction;
-            }           
+            }
 
             //Deduction if Spose or EE is blind
             if (IsBlind)
@@ -56,16 +60,13 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             return frequency.CalculateDeannualized(taxWithheld);
         }
-        
 
-        internal virtual Decimal GetExemption(int numOfExemptions)
-        {            
-            if (numOfExemptions > 1)            
-                return (numOfExemptions * Exemption) + ExemptionBonus;            
+        internal virtual Decimal Get_Exemption_Value(int number_of_exemptions)
+        {
+            if (number_of_exemptions > 1)
+                return (number_of_exemptions * Exempt_Value) + ExemptionBonus;
             else
                 return FirstExemption;
         }
-               
     }
-
 }
