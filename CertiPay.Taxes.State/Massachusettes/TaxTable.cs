@@ -20,13 +20,22 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int Exemptions = 1, Decimal FICADeductions = 0.00m, bool IsBlind = false, bool IsHeadOfHouseHold = false)
         {
-
+           
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
-            //Subtract the amount deducted for FICA, Medica, Massachusettes, US or Railroad Retirement Systems
+            //Subtract the amount deducted for FICA, Medicare, Massachusettes, US and Railroad Retirement Systems
+            //Needs to be hooked in, right now I pull it in as a variable under the assumption that it's annualized
+
+            //ref:
+            //Subtract the amount deducted for the U.S. Social Security (FICA),
+            //Medicare, Massachusetts, United States or Railroad Retirement sys -
+            //tems.The total amount subtracted may not exceed $2,000.When,
+            //during the year, the total amount subtracted reaches the equivalent
+            //of the $2,000 maximum allowable as a deduction by Massachusetts,
+            //discontinue this step.
             if (FICADeductions > 0.00m)
             {
-                taxableWages -= (FICADeductions >= FICAMax ? FICAMax : FICADeductions);
+                taxableWages -= Math.Max(FICADeductions, FICAMax);
             }
 
             taxableWages -= GetExemption(Exemptions);

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 namespace CertiPay.Taxes.State.Massachusettes
 {
-    public class TaxTable2017 : TaxTable
+    public class TaxTable2016 : TaxTable
     {
-        public override int Year { get { return 2017; } }
-        public override Decimal SUI_Wage_Base { get { return 12960; } }
+        public override int Year { get { return 2016; } }
+        public override Decimal SUI_Wage_Base { get { return 15000.00m; } }
 
         public override decimal BlindDeduction
         {
