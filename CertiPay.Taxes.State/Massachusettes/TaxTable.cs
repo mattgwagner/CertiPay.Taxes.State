@@ -13,8 +13,6 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Max_FICA_Deduction { get; } = 2000;
 
-        internal virtual Decimal FirstExemption { get; } = 4400;
-
         internal virtual Decimal Exemption_Value { get; } = 1000;
 
         internal virtual Decimal Is_HoH_Allowance { get; } = 122.40m;
