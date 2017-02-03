@@ -54,12 +54,14 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             var annualized_withholding = taxable_wages * TaxRate;
 
-            // Step (4) If filing as Head of Household or Step (5) Blind/With Blind Spouse, reduce the withholding by the given amount
+            // Step (4) If filing as Head of Household, reduce the withholding by the given amount
 
             if (isHeadOfHousehold)
             {
                 annualized_withholding -= Is_HoH_Allowance;
             }
+
+            // Step (5) Blind/With Blind Spouse, reduce the withholding by the given amount
 
             if (isBlind)
             {
