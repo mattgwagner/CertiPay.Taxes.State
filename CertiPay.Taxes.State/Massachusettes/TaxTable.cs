@@ -23,7 +23,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Exemption_Bonus { get; } = 3400;
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 1, Decimal year_to_date_FICA_withholdings = 0.00m, bool isBlind = false, bool isHeadOfHousehold = false)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal year_to_date_FICA_withholdings, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
         {
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 

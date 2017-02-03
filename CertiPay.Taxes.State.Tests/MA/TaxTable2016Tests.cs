@@ -14,7 +14,7 @@ namespace CertiPay.Taxes.State.Tests.MA
         [TestCase(4000, PayrollFrequency.Monthly, 2, 2000, false, false, 172.55)]
         public void MA2016_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int numExemptions, decimal FICADeductions, bool IsBlind, bool IsHoH, decimal expected)
         {
-            Assert.AreEqual(expected, ma2016.Calculate(grossWages, freq, numExemptions, FICADeductions, IsBlind, IsHoH));
+            Assert.AreEqual(expected, ma2016.Calculate(grossWages, freq, FICADeductions, numExemptions, IsBlind, IsHoH));
         }
     }
 }
