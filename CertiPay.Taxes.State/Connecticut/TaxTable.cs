@@ -8,8 +8,7 @@ namespace CertiPay.Taxes.State.Connecticut
 {
     public abstract class TaxTable : TaxTableHeader
     {
-        public override StateOrProvince State { get { return StateOrProvince.CT; } }
-        public abstract IEnumerable<EmployeeWitholdingCode> EmployeeCodes { get; }
+        public override StateOrProvince State { get { return StateOrProvince.CT; } }        
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
         public abstract IEnumerable<AddBack> PhaseOutAddBackTaxes { get; }
         public abstract IEnumerable<PersonalTaxCredit> PersonalTaxRate { get; }
@@ -19,15 +18,13 @@ namespace CertiPay.Taxes.State.Connecticut
         public abstract decimal CodeBCeiling { get; }
         public abstract decimal CodeCCeiling { get; }
         public abstract decimal CodeDCeiling { get; }
-        public abstract decimal CodeFCeiling { get; }
+        public abstract decimal CodeECeiling { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 1)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WitholdingCode EmployeeCode, int exemptions = 1)
         {
             var annualizedSalary = frequency.CalculateAnnualized(grossWages);
 
-            var taxableWages = annualizedSalary;
-
-            var EmployeeCode = GetEmployeeCode(taxableWages);
+            var taxableWages = annualizedSalary;            
 
             taxableWages -= GetExemptionAmount(taxableWages, EmployeeCode, exemptions);
 
@@ -76,9 +73,9 @@ namespace CertiPay.Taxes.State.Connecticut
                 case WitholdingCode.C:
                     return exemptions * Math.Abs(taxableWages - CodeCCeiling);
                 case WitholdingCode.D:
-                    return exemptions * Math.Abs(taxableWages - CodeDCeiling);
+                    return 0;
                 case WitholdingCode.F:
-                    return exemptions * Math.Abs(taxableWages - CodeFCeiling);
+                    return exemptions * Math.Abs(taxableWages - CodeECeiling);
                 default:
                     return 0.00m;
             }
@@ -97,19 +94,7 @@ namespace CertiPay.Taxes.State.Connecticut
                 .Single();
         }
 
-        internal virtual WitholdingCode GetEmployeeCode(decimal taxableWages)
-        {
-
-            //returns employee code based on taxable wages amount
-            return
-                EmployeeCodes
-                .Where(x => x.StartingAmount <= taxableWages && taxableWages <= x.EndingAmount)
-                .Select(x => x.Code)
-                .Single();
-
-
-        }
-
+   
         public class TaxableWithholding
         {
             public WitholdingCode EmployeeCode { get; set; }
@@ -165,8 +150,11 @@ namespace CertiPay.Taxes.State.Connecticut
             [Display(Name = "D")]
             D = 3,
 
+            [Display(Name = "E")]
+            E = 4,
+
             [Display(Name = "F")]
-            F = 4
+            F = 5
         }
     }
 }
