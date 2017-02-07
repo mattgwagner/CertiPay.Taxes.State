@@ -9,47 +9,91 @@ namespace CertiPay.Taxes.State.Connecticut
 
         public override Decimal SUI_Wage_Base { get { return 9500; } }
 
-        public override decimal CodeACeiling
+        public override IEnumerable<ExemptionValue> ExemptionValues
         {
             get
             {
-                return 35000.00m;
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 0.00m, CeilingAmount = 24000.00m, Amount = 12000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 24000.00m, CeilingAmount = 25000.00m, Amount = 11000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 25000.00m, CeilingAmount = 26000.00m, Amount = 10000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 26000.00m, CeilingAmount = 27000.00m, Amount = 90000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 27000.00m, CeilingAmount = 28000.00m, Amount = 80000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 28000.00m, CeilingAmount = 29000.00m, Amount = 70000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 29000.00m, CeilingAmount = 30000.00m, Amount = 60000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 30000.00m, CeilingAmount = 31000.00m, Amount = 50000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 31000.00m, CeilingAmount = 32000.00m, Amount = 40000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 32000.00m, CeilingAmount = 33000.00m, Amount = 30000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 33000.00m, CeilingAmount = 34000.00m, Amount = 20000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 34000.00m, CeilingAmount = 35000.00m, Amount = 10000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.A, FloorAmount = 35000.00m, CeilingAmount = decimal.MaxValue, Amount = 0.00m };
+
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 0.00m, CeilingAmount = 38000.00m, Amount = 19000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 38000.00m, CeilingAmount = 39000.00m, Amount = 18000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 39000.00m, CeilingAmount = 40000.00m, Amount = 17000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 40000.00m, CeilingAmount = 41000.00m, Amount = 16000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 41000.00m, CeilingAmount = 42000.00m, Amount = 15000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 42000.00m, CeilingAmount = 43000.00m, Amount = 14000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 43000.00m, CeilingAmount = 44000.00m, Amount = 13000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 44000.00m, CeilingAmount = 45000.00m, Amount = 12000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 45000.00m, CeilingAmount = 46000.00m, Amount = 11000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 46000.00m, CeilingAmount = 47000.00m, Amount = 10000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 47000.00m, CeilingAmount = 48000.00m, Amount =  9000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 48000.00m, CeilingAmount = 49000.00m, Amount =  8000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 49000.00m, CeilingAmount = 50000.00m, Amount =  7000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 50000.00m, CeilingAmount = 51000.00m, Amount =  6000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 51000.00m, CeilingAmount = 52000.00m, Amount =  5000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 52000.00m, CeilingAmount = 53000.00m, Amount =  4000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 53000.00m, CeilingAmount = 54000.00m, Amount =  3000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 54000.00m, CeilingAmount = 55000.00m, Amount =  2000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 55000.00m, CeilingAmount = 56000.00m, Amount =  1000.00m };                
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.B, FloorAmount = 56000.00m, CeilingAmount = decimal.MaxValue, Amount = 0.00m };
+
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 0.00m, CeilingAmount = 48000.00m, Amount = 24000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 48000.00m, CeilingAmount = 49000.00m, Amount = 23000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 49000.00m, CeilingAmount = 50000.00m, Amount = 22000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 50000.00m, CeilingAmount = 51000.00m, Amount = 21000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 51000.00m, CeilingAmount = 52000.00m, Amount = 20000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 52000.00m, CeilingAmount = 53000.00m, Amount = 19000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 53000.00m, CeilingAmount = 54000.00m, Amount = 18000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 54000.00m, CeilingAmount = 55000.00m, Amount = 17000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 55000.00m, CeilingAmount = 56000.00m, Amount = 16000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 56000.00m, CeilingAmount = 57000.00m, Amount = 15000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 57000.00m, CeilingAmount = 58000.00m, Amount = 14000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 58000.00m, CeilingAmount = 59000.00m, Amount = 13000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 59000.00m, CeilingAmount = 60000.00m, Amount = 12000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 60000.00m, CeilingAmount = 61000.00m, Amount = 11000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 61000.00m, CeilingAmount = 62000.00m, Amount = 10000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 62000.00m, CeilingAmount = 63000.00m, Amount = 9000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 63000.00m, CeilingAmount = 64000.00m, Amount = 8000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 64000.00m, CeilingAmount = 65000.00m, Amount = 7000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 65000.00m, CeilingAmount = 66000.00m, Amount = 6000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 66000.00m, CeilingAmount = 67000.00m, Amount = 5000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 67000.00m, CeilingAmount = 68000.00m, Amount = 4000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 68000.00m, CeilingAmount = 69000.00m, Amount = 3000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 69000.00m, CeilingAmount = 70000.00m, Amount = 2000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 70000.00m, CeilingAmount = 71000.00m, Amount = 1000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.C, FloorAmount = 71000.00m, CeilingAmount = decimal.MaxValue, Amount = 0.00m };
+
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 0.00m, CeilingAmount = 30000.00m, Amount = 15000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 30000.00m, CeilingAmount = 31000.00m, Amount = 14000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 31000.00m, CeilingAmount = 32000.00m, Amount = 13000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 32000.00m, CeilingAmount = 33000.00m, Amount = 12000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 33000.00m, CeilingAmount = 34000.00m, Amount = 11000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 34000.00m, CeilingAmount = 35000.00m, Amount = 10000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 35000.00m, CeilingAmount = 36000.00m, Amount =  9000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 36000.00m, CeilingAmount = 37000.00m, Amount =  8000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 37000.00m, CeilingAmount = 38000.00m, Amount =  7000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 38000.00m, CeilingAmount = 39000.00m, Amount =  6000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 39000.00m, CeilingAmount = 40000.00m, Amount =  5000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 40000.00m, CeilingAmount = 41000.00m, Amount =  4000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 41000.00m, CeilingAmount = 42000.00m, Amount =  3000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 42000.00m, CeilingAmount = 43000.00m, Amount =  2000.00m };
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 43000.00m, CeilingAmount = 44000.00m, Amount =  1000.00m };                
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.F, FloorAmount = 44000.00m, CeilingAmount = decimal.MaxValue, Amount = 0.00m };
+
+                yield return new ExemptionValue { EmployeeCode = WitholdingCode.D, FloorAmount = 0.00m, CeilingAmount = decimal.MaxValue, Amount = 0.00m };
             }
         }
-
-        public override decimal CodeBCeiling
-        {
-            get
-            {
-                return 56000.00m;
-            }
-        }
-
-        public override decimal CodeCCeiling
-        {
-            get
-            {
-                return 71000.00m;
-            }
-        }
-
-        public override decimal CodeDCeiling
-        {
-            get
-            {
-                return 0.00m;
-            }
-        }
-
-        public override decimal CodeECeiling
-        {
-            get
-            {
-                return 44000.00m;
-            }
-        }
-
-
 
         public override IEnumerable<AddBack> PhaseOutAddBackTaxes
         {

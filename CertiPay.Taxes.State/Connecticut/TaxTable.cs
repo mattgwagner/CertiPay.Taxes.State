@@ -11,12 +11,15 @@ namespace CertiPay.Taxes.State.Connecticut
         public override StateOrProvince State { get { return StateOrProvince.CT; } }        
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
         public abstract IEnumerable<AddBack> PhaseOutAddBackTaxes { get; }
-        public abstract IEnumerable<PersonalTaxCredit> PersonalTaxRate { get; }
+        public abstract IEnumerable<PersonalTaxCredit> PersonalTaxRate { get; }        
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
         public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WitholdingCode EmployeeCode, int exemptions = 1)
         {
+            if (EmployeeCode == WitholdingCode.E)
+                return 0;
+
             var annualizedSalary = frequency.CalculateAnnualized(grossWages);
 
             var taxableWages = annualizedSalary;            
@@ -56,21 +59,11 @@ namespace CertiPay.Taxes.State.Connecticut
         }
         internal virtual Decimal GetExemptionAmount(decimal taxableWages, WitholdingCode EmployeeCode, int exemptions)
         {
-            switch (EmployeeCode)
-            {
-                case WitholdingCode.A:
-                    return exemptions * Math.Abs(taxableWages - CodeACeiling);
-                case WitholdingCode.B:
-                    return exemptions * Math.Abs(taxableWages - CodeBCeiling);
-                case WitholdingCode.C:
-                    return exemptions * Math.Abs(taxableWages - CodeCCeiling);
-                case WitholdingCode.D:
-                    return 0;
-                case WitholdingCode.F:
-                    return exemptions * Math.Abs(taxableWages - CodeECeiling);
-                default:
-                    return 0.00m;
-            }
+            return PhaseOutAddBackTaxes
+               .Where(x => x.EmployeeCode == EmployeeCode)
+               .Where(x => x.FloorAmount <= taxableWages && x.CeilingAmount >= taxableWages)
+               .Select(x => x.Amount)
+               .Single() * exemptions;
         }
 
 
