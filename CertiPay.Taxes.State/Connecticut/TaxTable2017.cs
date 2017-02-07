@@ -55,11 +55,65 @@ namespace CertiPay.Taxes.State.Connecticut
         {
             get
             {
-                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 72750.00m, Amount = 20.00m, intervalAmount = 2500 };
-                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 72750.00m, Amount = 20.00m, intervalAmount = 2500 };
-                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 78500.00m, CeilingAmount = 114500.00m, Amount = 32.00m, intervalAmount = 4000 };
-                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 100500.00m, CeilingAmount = 145500.00m, Amount = 40.00m, intervalAmount = 5000 };
-                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 96500.00m, CeilingAmount = 101500.00m, Amount = 20.00m, intervalAmount = 5000 };
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 0.00m, CeilingAmount = 50250.00m, Amount = 0.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 52750.00m, Amount = 20.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 55250.00m, Amount = 40.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 57750.00m, Amount = 60.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 60250.00m, Amount = 80.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 62750.00m, Amount = 100.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 65250.00m, Amount = 120.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 67750.00m, Amount = 140.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 70250.00m, Amount = 160.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = 72750.00m, Amount = 180.00m};
+                yield return new AddBack { EmployeeCode = WitholdingCode.A, FloorAmount = 50250.00m, CeilingAmount = decimal.MaxValue, Amount = 200.00m};
+
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 0.00m, CeilingAmount = 50250.00m, Amount = 0.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 52750.00m, Amount = 20.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 55250.00m, Amount = 40.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 57750.00m, Amount = 60.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 60250.00m, Amount = 80.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 62750.00m, Amount = 100.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 65250.00m, Amount = 120.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 67750.00m, Amount = 140.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 70250.00m, Amount = 160.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = 72750.00m, Amount = 180.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.D, FloorAmount = 50250.00m, CeilingAmount = decimal.MaxValue, Amount = 200.00m };
+
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 0.00m, CeilingAmount = 78500.00m, Amount = 0.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 78500.00m, CeilingAmount = 82500.00m, Amount = 32.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 82500.00m, CeilingAmount = 86500.00m, Amount = 64.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 86500.00m, CeilingAmount = 90500.00m, Amount = 96.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 90500.00m, CeilingAmount = 94500.00m, Amount = 128.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 94500.00m, CeilingAmount = 98500.00m, Amount = 160.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 98500.00m, CeilingAmount = 102500.00m, Amount = 192.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 102500.00m, CeilingAmount = 106500.00m, Amount = 224.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 106500.00m, CeilingAmount = 110500.00m, Amount = 256.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 110500.00m, CeilingAmount = 114500.00m, Amount = 288.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.B, FloorAmount = 114500.00m, CeilingAmount = decimal.MaxValue, Amount = 320.00m };
+
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 0.00m, CeilingAmount = 100500.00m, Amount = 0.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 100500.00m, CeilingAmount = 105500.00m, Amount = 40.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 105500.00m, CeilingAmount = 110500.00m, Amount = 80.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 110500.00m, CeilingAmount = 115500.00m, Amount = 120.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 115500.00m, CeilingAmount = 120500.00m, Amount = 160.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 120500.00m, CeilingAmount = 125500.00m,Amount = 200.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 125500.00m, CeilingAmount = 130500.00m, Amount = 240.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 130500.00m, CeilingAmount = 135500.00m, Amount = 280.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 135500.00m, CeilingAmount = 140500.00m, Amount = 320.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 140500.00m, CeilingAmount = 145000.00m, Amount = 360.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.C, FloorAmount = 145500.00m, CeilingAmount = decimal.MaxValue, Amount = 400.00m };
+
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 0.00m, CeilingAmount =  56500.00m, Amount = 0.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 56500.00m, CeilingAmount = 61500.00m, Amount = 20.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 61500.00m, CeilingAmount = 66500.00m, Amount = 40.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 65500.00m, CeilingAmount = 71500.00m, Amount = 60.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 71500.00m, CeilingAmount = 76500.00m, Amount = 80.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 76500.00m, CeilingAmount = 81500.00m, Amount = 100.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 81500.00m, CeilingAmount = 86500.00m, Amount = 120.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 86500.00m, CeilingAmount = 91500.00m, Amount = 140.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 91500.00m, CeilingAmount = 96500.00m, Amount = 160.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 96500.00m, CeilingAmount = 101500.00m, Amount = 180.00m };
+                yield return new AddBack { EmployeeCode = WitholdingCode.F, FloorAmount = 101500.00m, CeilingAmount = decimal.MaxValue, Amount = 200.00m };
             }
         }
 
