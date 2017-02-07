@@ -13,12 +13,7 @@ namespace CertiPay.Taxes.State.Connecticut
         public abstract IEnumerable<AddBack> PhaseOutAddBackTaxes { get; }
         public abstract IEnumerable<PersonalTaxCredit> PersonalTaxRate { get; }
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
-
-        public abstract decimal CodeACeiling { get; }
-        public abstract decimal CodeBCeiling { get; }
-        public abstract decimal CodeCCeiling { get; }
-        public abstract decimal CodeDCeiling { get; }
-        public abstract decimal CodeECeiling { get; }
+        public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WitholdingCode EmployeeCode, int exemptions = 1)
         {
@@ -40,14 +35,11 @@ namespace CertiPay.Taxes.State.Connecticut
 
         internal virtual Decimal CheckAddBack(WitholdingCode EmployeeCode, decimal annualizedSalary)
         {
-            var addback = PhaseOutAddBackTaxes.Where(x => x.EmployeeCode == EmployeeCode).Select(x => x).Single();
-
-            if (annualizedSalary >= addback.CeilingAmount)
-                return (10 * addback.Amount);
-            else if (annualizedSalary <= addback.FloorAmount)
-                return 0;
-            else
-                return ((int)(((annualizedSalary - addback.CeilingAmount) / addback.intervalAmount) + 10) * addback.Amount);
+            return PhaseOutAddBackTaxes
+                .Where(x => x.EmployeeCode == EmployeeCode)
+                .Where(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount >= annualizedSalary)
+                .Select(x => x.Amount)
+                .Single();
 
         }
         internal virtual Decimal GetTaxRecapture(WitholdingCode EmployeeCode, decimal annualizedSalary)
@@ -121,8 +113,7 @@ namespace CertiPay.Taxes.State.Connecticut
         {
             public decimal Amount { get; set; }
             public decimal CeilingAmount { get; set; }
-            public decimal FloorAmount { get; set; }
-            public int intervalAmount { get; set; }
+            public decimal FloorAmount { get; set; }            
             public WitholdingCode EmployeeCode { get; set; }
         }
 
@@ -132,6 +123,11 @@ namespace CertiPay.Taxes.State.Connecticut
         }
 
         public class PersonalTaxCredit : AddBack
+        {
+
+        }
+
+        public class ExemptionValue : AddBack
         {
 
         }
