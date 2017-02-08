@@ -21,7 +21,7 @@ namespace CertiPay.Taxes.State.Vermont
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
-            if (nonresidentPercentage > 0.00m)
+            if (nonresidentPercentage == 0.00m)
                 return frequency.CalculateDeannualized(taxWithheld);
             else
                 return nonresidentPercentage * frequency.CalculateDeannualized(taxWithheld);
