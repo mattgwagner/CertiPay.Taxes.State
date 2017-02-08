@@ -6,15 +6,24 @@ using System.Linq;
 
 namespace CertiPay.Taxes.State.Delaware
 {
-    public abstract class TaxTable : TaxTableHeader
+    public class TaxTable : TaxTableHeader
     {
-        public override StateOrProvince State { get { return StateOrProvince.DE; } }
+        public override StateOrProvince State { get; internal set; } = StateOrProvince.DE;
 
-        public abstract IEnumerable<StandardDeduction> StandardDeductions { get; }
+        public override decimal SUI_Wage_Base
+        {
+            get
+            {
+                switch (Year)
+                {
+                    case 2016:
+                    case 2017:
+                        return 18500;
+                }
 
-        public abstract decimal PersonalAllowanceValue { get; }
-        
-        public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
+                throw new NotImplementedException($"SUI Wage Base is not configured for Delaware for {Year}");
+            }
+        }    
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
@@ -56,13 +65,13 @@ namespace CertiPay.Taxes.State.Delaware
                 .Single();
         }
 
-        public class StandardDeduction
+        internal class StandardDeduction
         {
             public FilingStatus FilingStatus { get; set; }
             public Decimal Amount { get; set; }
         }       
 
-        public class TaxableWithholding
+        internal class TaxableWithholding
         {            
             public Decimal TaxBase { get; set; }
 
@@ -71,6 +80,33 @@ namespace CertiPay.Taxes.State.Delaware
             public Decimal MaximumWage { get; set; }
 
             public Decimal TaxRate { get; set; }
+        }
+
+
+        private IEnumerable<TaxTable.StandardDeduction> StandardDeductions
+        {
+            get
+            {
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedFilingSeperate, Amount = 3250.00m };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.Single, Amount = 3250.00m };
+                yield return new TaxTable.StandardDeduction { FilingStatus = FilingStatus.MarriedFilingJointly, Amount = 6500.00m };
+            }
+        }
+
+        public decimal PersonalAllowanceValue { get; } = 110.00m;
+
+        private IEnumerable<TaxableWithholding> TaxableWithholdings
+        {
+            get
+            {
+                yield return new TaxTable.TaxableWithholding { TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 2000.00m, TaxRate = .00m };
+                yield return new TaxTable.TaxableWithholding { TaxBase = 0.00m, StartingAmount = 2000.00m, MaximumWage = 5000.00m, TaxRate = .0220m };
+                yield return new TaxTable.TaxableWithholding { TaxBase = 66.00m, StartingAmount = 5000.00m, MaximumWage = 10000.00m, TaxRate = .0390m };
+                yield return new TaxTable.TaxableWithholding { TaxBase = 261.00m, StartingAmount = 10000.00m, MaximumWage = 20000.00m, TaxRate = .0480m };
+                yield return new TaxTable.TaxableWithholding { TaxBase = 741.00m, StartingAmount = 20000.00m, MaximumWage = 25000.00m, TaxRate = .0520m };
+                yield return new TaxTable.TaxableWithholding { TaxBase = 1001.00m, StartingAmount = 25000.00m, MaximumWage = 60000.00m, TaxRate = .0555m };
+                yield return new TaxTable.TaxableWithholding { TaxBase = 2943.50m, StartingAmount = 60000.00m, MaximumWage = Decimal.MaxValue, TaxRate = .0660m };
+            }
         }
     }
 
@@ -89,4 +125,5 @@ namespace CertiPay.Taxes.State.Delaware
         [Display(Name = "C - Married Filing Seperately")]
         MarriedFilingSeperate = 2,        
     }
+   
 }
