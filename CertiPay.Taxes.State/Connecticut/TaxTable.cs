@@ -15,9 +15,9 @@ namespace CertiPay.Taxes.State.Connecticut
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
         public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WitholdingCode EmployeeCode, int exemptions = 1)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode EmployeeCode, int exemptions = 1, decimal additionalWithholding = 0, decimal ReducedWithholding = 0)
         {
-            if (EmployeeCode == WitholdingCode.E)
+            if (EmployeeCode == WithholdingCode.E)
                 return 0;
 
             var annualizedSalary = frequency.CalculateAnnualized(grossWages);
@@ -25,64 +25,72 @@ namespace CertiPay.Taxes.State.Connecticut
             var taxableWages = annualizedSalary;            
 
             taxableWages -= GetExemptionAmount(taxableWages, EmployeeCode, exemptions);
+            if (taxableWages > 0)
+            {
+                var withHolding = GetTaxWithholding(EmployeeCode, taxableWages);
 
-            var withHolding = GetTaxWithholding(EmployeeCode, taxableWages);
+                taxableWages = withHolding.TaxBase + ((taxableWages - withHolding.StartingAmount) * withHolding.TaxRate);
+                taxableWages += CheckAddBack(EmployeeCode, annualizedSalary);
+                taxableWages += GetTaxRecapture(EmployeeCode, annualizedSalary);
+                var taxWithheld = taxableWages * (1 - GetPersonalTaxCredits(EmployeeCode, annualizedSalary));
 
-            taxableWages = withHolding.TaxBase + ((taxableWages - withHolding.StartingAmount) * withHolding.TaxRate);
-            taxableWages += CheckAddBack(EmployeeCode, annualizedSalary);
-            taxableWages += GetTaxRecapture(EmployeeCode, annualizedSalary);
-            var taxWithheld = taxableWages * GetPersonalTaxCredits(EmployeeCode, annualizedSalary);
-
-            return frequency.CalculateDeannualized(taxWithheld);
+                taxWithheld = frequency.CalculateDeannualized(taxWithheld);
+                taxWithheld += additionalWithholding;
+                taxWithheld -= ReducedWithholding;
+                return Math.Max(taxWithheld, 0);
+            }
+            else
+            {
+                taxableWages += additionalWithholding;
+                taxableWages -= ReducedWithholding;
+                return Math.Max(taxableWages, 0);
+            }
         }
 
-        internal virtual Decimal CheckAddBack(WitholdingCode EmployeeCode, decimal annualizedSalary)
+        internal virtual Decimal CheckAddBack(WithholdingCode EmployeeCode, decimal annualizedSalary)
         {
             return PhaseOutAddBackTaxes
                 .Where(x => x.EmployeeCode == EmployeeCode)
-                .Where(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount >= annualizedSalary)
-                .Select(x => x.Amount)
-                .Single();
-
+                .First(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount > annualizedSalary)
+                .Amount;
         }
-        internal virtual Decimal GetTaxRecapture(WitholdingCode EmployeeCode, decimal annualizedSalary)
+        internal virtual Decimal GetTaxRecapture(WithholdingCode EmployeeCode, decimal annualizedSalary)
         {
             return TaxRecaptureRates
-                .Where(x => x.EmployeeCode == EmployeeCode && (annualizedSalary >= x.CeilingAmount && annualizedSalary <= x.FloorAmount))
-                .Select(x => x.Amount).Single();
+                .Where(x => x.EmployeeCode == EmployeeCode)
+                .First(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount > annualizedSalary)
+                .Amount;                
         }
-        internal virtual Decimal GetPersonalTaxCredits(WitholdingCode EmployeeCode, decimal annualizedSalary)
+        internal virtual Decimal GetPersonalTaxCredits(WithholdingCode EmployeeCode, decimal annualizedSalary)
         {
-            return annualizedSalary * PersonalTaxRate
-                .Where(x => x.EmployeeCode == EmployeeCode && (annualizedSalary >= x.CeilingAmount && annualizedSalary <= x.FloorAmount))
-                .Select(x => x.Amount).Single();
+            return PersonalTaxRate
+                .Where(x => x.EmployeeCode == EmployeeCode)
+                .First(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount > annualizedSalary)
+                .Amount;
         }
-        internal virtual Decimal GetExemptionAmount(decimal taxableWages, WitholdingCode EmployeeCode, int exemptions)
+        internal virtual Decimal GetExemptionAmount(decimal taxableWages, WithholdingCode EmployeeCode, int exemptions)
         {
-            return PhaseOutAddBackTaxes
+            return ExemptionValues
                .Where(x => x.EmployeeCode == EmployeeCode)
-               .Where(x => x.FloorAmount <= taxableWages && x.CeilingAmount >= taxableWages)
-               .Select(x => x.Amount)
-               .Single() * exemptions;
+               .First(x => x.FloorAmount <= taxableWages && x.CeilingAmount > taxableWages)
+               .Amount;               
         }
 
 
 
-        internal virtual TaxableWithholding GetTaxWithholding(WitholdingCode employeeCode, Decimal taxableWages)
+        internal virtual TaxableWithholding GetTaxWithholding(WithholdingCode employeeCode, Decimal taxableWages)
         {
             return
                 TaxableWithholdings
                 .Where(d => d.EmployeeCode == employeeCode)
                 .Where(d => d.StartingAmount <= taxableWages)
-                .Where(d => taxableWages < d.MaximumWage)
-                .Select(d => d)
-                .Single();
+                .First(d => taxableWages < d.MaximumWage);               
         }
 
    
         public class TaxableWithholding
         {
-            public WitholdingCode EmployeeCode { get; set; }
+            public WithholdingCode EmployeeCode { get; set; }
 
             public Decimal TaxBase { get; set; }
 
@@ -94,9 +102,9 @@ namespace CertiPay.Taxes.State.Connecticut
         }
 
 
-        public class EmployeeWitholdingCode
+        public class EmployeeWithholdingCode
         {
-            public WitholdingCode Code { get; set; }
+            public WithholdingCode Code { get; set; }
             public decimal StartingAmount { get; set; }
 
             public decimal EndingAmount { get; set; }
@@ -107,7 +115,7 @@ namespace CertiPay.Taxes.State.Connecticut
             public decimal Amount { get; set; }
             public decimal CeilingAmount { get; set; }
             public decimal FloorAmount { get; set; }            
-            public WitholdingCode EmployeeCode { get; set; }
+            public WithholdingCode EmployeeCode { get; set; }
         }
 
         public class TaxRecapture : AddBack
@@ -125,7 +133,7 @@ namespace CertiPay.Taxes.State.Connecticut
 
         }
 
-        public enum WitholdingCode : byte
+        public enum WithholdingCode : byte
         {
             [Display(Name = "A")]
             A = 0,
