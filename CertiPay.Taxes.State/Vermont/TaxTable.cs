@@ -24,7 +24,7 @@ namespace CertiPay.Taxes.State.Vermont
             if (nonresidentPercentage > 0.00m)
                 return frequency.CalculateDeannualized(taxWithheld);
             else
-                return nonresidentPercentage * frequency.CalculateAnnualized(taxWithheld);
+                return nonresidentPercentage * frequency.CalculateDeannualized(taxWithheld);
         }
 
         public decimal GetWitholdingAllowance(int withholdingAllowance)
