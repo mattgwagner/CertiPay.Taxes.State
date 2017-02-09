@@ -15,34 +15,34 @@ namespace CertiPay.Taxes.State.Connecticut
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
         public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode EmployeeCode, int exemptions = 1, decimal additionalWithholding = 0, decimal ReducedWithholding = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode employeeCode, int exemptions = 1, decimal additionalWithholding = 0, decimal reducedWithholding = 0)
         {
-            if (EmployeeCode == WithholdingCode.E)
+            if (employeeCode == WithholdingCode.E)
                 return 0;
 
             var annualizedSalary = frequency.CalculateAnnualized(grossWages);
 
             var taxableWages = annualizedSalary;            
 
-            taxableWages -= GetExemptionAmount(taxableWages, EmployeeCode, exemptions);
+            taxableWages -= GetExemptionAmount(taxableWages, employeeCode, exemptions);
             if (taxableWages > 0)
             {
-                var withHolding = GetTaxWithholding(EmployeeCode, taxableWages);
+                var withHolding = GetTaxWithholding(employeeCode, taxableWages);
 
                 taxableWages = withHolding.TaxBase + ((taxableWages - withHolding.StartingAmount) * withHolding.TaxRate);
-                taxableWages += CheckAddBack(EmployeeCode, annualizedSalary);
-                taxableWages += GetTaxRecapture(EmployeeCode, annualizedSalary);
-                var taxWithheld = taxableWages * (1 - GetPersonalTaxCredits(EmployeeCode, annualizedSalary));
+                taxableWages += CheckAddBack(employeeCode, annualizedSalary);
+                taxableWages += GetTaxRecapture(employeeCode, annualizedSalary);
+                var taxWithheld = taxableWages * (1 - GetPersonalTaxCredits(employeeCode, annualizedSalary));
 
                 taxWithheld = frequency.CalculateDeannualized(taxWithheld);
                 taxWithheld += additionalWithholding;
-                taxWithheld -= ReducedWithholding;
+                taxWithheld -= reducedWithholding;
                 return Math.Max(taxWithheld, 0);
             }
             else
             {
                 taxableWages += additionalWithholding;
-                taxableWages -= ReducedWithholding;
+                taxableWages -= reducedWithholding;
                 return Math.Max(taxableWages, 0);
             }
         }
