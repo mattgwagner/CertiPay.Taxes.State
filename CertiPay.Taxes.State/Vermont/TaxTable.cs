@@ -11,6 +11,7 @@ namespace CertiPay.Taxes.State.Vermont
         public override StateOrProvince State { get { return StateOrProvince.VT; } }
         public abstract decimal AllowanceValue { get; }
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
+
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int withholdingAllowances = 1, decimal nonresidentPercentage = 0.00m)
         {
             var taxableWages = frequency.CalculateAnnualized(grossWages);            
@@ -54,16 +55,7 @@ namespace CertiPay.Taxes.State.Vermont
             public Decimal MaximumWage { get; set; }
 
             public Decimal TaxRate { get; set; }
-        }
-
-        public enum FilingStatus : Byte
-        {
-            [Display(Name = "Single")]
-            Single = 0,
-
-            [Display(Name = "Married")]
-            Married = 1
-        }
+        }     
     }
 
 }
