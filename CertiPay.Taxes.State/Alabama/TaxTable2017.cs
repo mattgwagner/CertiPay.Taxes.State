@@ -7,7 +7,7 @@ namespace CertiPay.Taxes.State.Alabama
     {
         public override int Year { get { return 2017; } }
 
-        public override Decimal SUI_Wage_Base { get { return 9500; } }
+        public override Decimal SUI_Wage_Base { get { return 8000; } }
 
         public override IEnumerable<DependentAllowance> DependentAllowances
         {
