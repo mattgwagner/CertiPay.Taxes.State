@@ -1,7 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CertiPay.Taxes.State.Maine
@@ -18,7 +17,6 @@ namespace CertiPay.Taxes.State.Maine
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int withholdingAllowances = 1)
         {
-
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             var annualWages = taxableWages;
@@ -27,22 +25,20 @@ namespace CertiPay.Taxes.State.Maine
 
             taxableWages -= GetStandardDeduction(filingStatus, annualWages);
 
-
             if (taxableWages > 0)
             {
-                var selected_row = GetTaxWithholding(filingStatus, taxableWages);                
-                var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);                
+                var selected_row = GetTaxWithholding(filingStatus, taxableWages);
+                var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
                 return frequency.CalculateDeannualized(taxWithheld);
             }
-            else
-                return 0;
+            else return 0;
         }
-        
 
         internal virtual Decimal GetWitholdingAllowance(int withholdingAllowances)
         {
             return withholdingAllowances * WithholdingAllowance;
         }
+
         internal virtual Decimal GetStandardDeduction(FilingStatus filingStatus, Decimal annualWages)
         {
             var standardDeduction = StandardDeductions
@@ -55,11 +51,10 @@ namespace CertiPay.Taxes.State.Maine
                 return standardDeduction.Amount;
         }
 
-
         internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
-        {           
+        {
             return
-                TaxableWithholdings                
+                TaxableWithholdings
                 .Where(d => d.FilingStatus == filingStatus)
                 .Where(d => d.StartingAmount <= taxableWages)
                 .Where(d => taxableWages < d.MaximumWage)
@@ -73,22 +68,22 @@ namespace CertiPay.Taxes.State.Maine
             public Decimal CeilingAmount { get; set; }
             public FilingStatus FilingStatus { get; set; }
             public Decimal Amount { get; set; }
-            //certain deductions require an additional calculation step         
+
+            //certain deductions require an additional calculation step
             public Decimal CalcValue { get; set; } = 0.00m;
-            }
-        }
-
-        public class TaxableWithholding
-        {
-            public FilingStatus FilingStatus { get; set; } = FilingStatus.Single;
-
-            public Decimal TaxBase { get; set; }
-
-            public Decimal StartingAmount { get; set; }
-
-            public Decimal MaximumWage { get; set; }
-
-            public Decimal TaxRate { get; set; }
-            
         }
     }
+
+    public class TaxableWithholding
+    {
+        public FilingStatus FilingStatus { get; set; } = FilingStatus.Single;
+
+        public Decimal TaxBase { get; set; }
+
+        public Decimal StartingAmount { get; set; }
+
+        public Decimal MaximumWage { get; set; }
+
+        public Decimal TaxRate { get; set; }
+    }
+}
