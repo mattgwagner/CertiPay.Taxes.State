@@ -51,7 +51,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.OR, SUI_Wage_Base = 38400 }; // Oregon
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.PA, SUI_Wage_Base = 9750 }; // Penn
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.PR, SUI_Wage_Base = 7000 }; // Puerto Rico
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.RI, SUI_Wage_Base = 22400 }; // Rhode Island
+                yield return new RhodeIsland.TaxTable2017 { }; // Rhode Island
                 yield return new SouthCarolina.TaxTable2017 { }; // South Carolina
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.SD, SUI_Wage_Base = 15000 }; // South Dakota
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.TN, SUI_Wage_Base = 8000 }; // Tennessee
