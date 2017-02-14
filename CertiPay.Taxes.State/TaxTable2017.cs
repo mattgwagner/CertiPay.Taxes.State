@@ -30,7 +30,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.KS, SUI_Wage_Base = 14000 }; // Kansas
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.KY, SUI_Wage_Base = 10200 }; // Kentucky
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.LA, SUI_Wage_Base = 7700 }; // Louisianna
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.ME, SUI_Wage_Base = 12000 }; // Maine
+                yield return new Maine.TaxTable2017 { }; // Maine
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.MD, SUI_Wage_Base = 8500 }; // Maryland
                 yield return new Massachusettes.TaxTable { Year = Year }; // Massachusetts
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.MI, SUI_Wage_Base = 9500 }; // Michigan
