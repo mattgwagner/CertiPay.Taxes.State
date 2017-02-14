@@ -18,7 +18,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000 }; // California
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CO, SUI_Wage_Base = 12500 }; // Colorado
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CT, SUI_Wage_Base = 15000 }; // Conneticut
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.DE, SUI_Wage_Base = 18500 }; // Deleware
+                yield return new Delaware.TaxTable { Year = Year }; // Deleware
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.DC, SUI_Wage_Base = 9000 }; // Distrinct of Columbia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
                 yield return new Georgia.TaxTable2017 { }; // Georgia
