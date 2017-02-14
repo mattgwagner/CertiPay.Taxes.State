@@ -36,11 +36,10 @@ namespace CertiPay.Taxes.State
                         break;
 
                     case StateOrProvince.AL:
-                        yield return "No Exemption";
-                        yield return "Single Exemption";
-                        yield return "Head of Family";
-                        yield return "Married Filing Separate";
-                        yield return "Married Filing Joint";
+                        yield return Alabama.FilingStatus.Single.ToString();
+                        yield return Alabama.FilingStatus.Married.ToString();
+                        yield return Alabama.FilingStatus.MarriedFilingSeparate.ToString();
+                        yield return Alabama.FilingStatus.HeadOfFamily.ToString();
                         break;
 
                     case StateOrProvince.OH:
