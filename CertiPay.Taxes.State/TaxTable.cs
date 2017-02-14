@@ -38,6 +38,20 @@ namespace CertiPay.Taxes.State
         }
 
         /// <summary>
+        /// Find the tax table implementation for the given state and year
+        /// </summary>
+        public static T GetForState<T>(StateOrProvince state, int year) where T : TaxTableHeader
+        {
+            return
+                Tables
+                .Where(table => table.Year == year)
+                .SelectMany(table => table.Entries)
+                .Where(entry => entry.State == state)
+                .OfType<T>()
+                .SingleOrDefault();
+        }
+
+        /// <summary>
         /// Returns true if the given state has tax withholding on employee pay
         /// </summary>
         public static Boolean HasWithholding(this StateOrProvince state)
