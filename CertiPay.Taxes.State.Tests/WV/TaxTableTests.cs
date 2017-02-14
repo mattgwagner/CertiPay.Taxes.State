@@ -12,7 +12,9 @@ namespace CertiPay.Taxes.State.Tests.WV
         [TestCase(PayrollFrequency.SemiMonthly, 1250, FilingStatus.Two_Earnings, 2, 44d)]
         public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, FilingStatus status, int allowances, Decimal expected)
         {
-            var result = new WestVirginia.TaxTable().Calculate(grossWages, frequency, status, allowances);
+            var table = TaxTables.GetForState(StateOrProvince.WV, year: 2017) as WestVirginia.TaxTable;
+
+            var result = table.Calculate(grossWages, frequency, status, allowances);
 
             Assert.AreEqual(expected, result);
         }

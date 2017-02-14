@@ -18,7 +18,11 @@ namespace CertiPay.Taxes.State.Tests.NY
         [TestCase(1500, PayrollFrequency.Monthly, Region.NewYorkCity, FilingStatus.Married, 1, 21.48)]
         public void NewYorkTaxTable2017(decimal grossWages, PayrollFrequency freq, Region region, FilingStatus status, int personalAllowances, decimal expected)
         {
-            Assert.AreEqual(expected, ny2017.Calculate(grossWages, freq, region, status, personalAllowances));
+            var table = TaxTables.GetForState(StateOrProvince.NY, year: 2017) as NewYork.TaxTable;
+
+            var result = table.Calculate(grossWages, freq, region, status, personalAllowances);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

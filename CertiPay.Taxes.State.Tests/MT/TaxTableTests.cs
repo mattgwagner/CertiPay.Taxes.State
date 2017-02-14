@@ -12,7 +12,9 @@ namespace CertiPay.Taxes.State.Tests.MT
         [TestCase(PayrollFrequency.Weekly, 135, 1, 2d)]
         public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, int allowances, Decimal expected)
         {
-            var result = new Montana.TaxTable().Calculate(grossWages, frequency, allowances);
+            var table = TaxTables.GetForState(StateOrProvince.MT, year: 2017) as Montana.TaxTable;
+
+            var result = table.Calculate(grossWages, frequency, allowances);
 
             Assert.AreEqual(expected, result);
         }

@@ -8,12 +8,12 @@ namespace CertiPay.Taxes.State.Tests
     [TestFixture]
     public class TaxTable2016Tests
     {
-        private Georgia.TaxTable2016 geo2016 = new Georgia.TaxTable2016();
-
         [Test]
         public void Married_SingleIncome_with_Dependents()
         {
-            var result = geo2016.Calculate(750m, PayrollFrequency.SemiMonthly, FilingStatus.MarriedWithOneIncome, 2, 1);
+            var table = TaxTables.GetForState(StateOrProvince.GA, year: 2016) as Georgia.TaxTable;
+
+            var result = table.Calculate(750m, PayrollFrequency.SemiMonthly, FilingStatus.MarriedWithOneIncome, 2, 1);
 
             Assert.AreEqual(4.08m, result);
         }
@@ -39,7 +39,11 @@ namespace CertiPay.Taxes.State.Tests
         [TestCase(3000, PayrollFrequency.Monthly, FilingStatus.MarriedWithOneIncome, 2, 2, 76.33)]
         public void Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus status, int personalAllowances, int dependentAllowances, decimal expected)
         {
-            Assert.AreEqual(expected, geo2016.Calculate(grossWages, freq, status, personalAllowances, dependentAllowances));
+            var table = TaxTables.GetForState(StateOrProvince.GA, year: 2016) as Georgia.TaxTable;
+
+            var result = table.Calculate(grossWages, freq, status, personalAllowances, dependentAllowances);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

@@ -8,12 +8,12 @@ namespace CertiPay.Taxes.State.Tests.NJ
     [TestFixture]
     public class TaxTable2017Tests
     {
-        private NewJersey.TaxTable2017 nj2017 = new NewJersey.TaxTable2017();
-
         [Test]
         public void Married_SingleIncome_with_Dependents()
         {
-            var result = nj2017.Calculate(750m, PayrollFrequency.SemiMonthly, FilingStatus.MarriedWithOneIncome, 2);
+            var table = TaxTables.GetForState(StateOrProvince.NJ, year: 2017) as NewJersey.TaxTable;
+
+            var result = table.Calculate(750m, PayrollFrequency.SemiMonthly, FilingStatus.MarriedWithOneIncome, 2);
 
             Assert.AreEqual(10.00m, result);
         }
@@ -26,7 +26,11 @@ namespace CertiPay.Taxes.State.Tests.NJ
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.HeadOfHousehold, 1, 21.25)]
         public void Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus status, int personalAllowances, decimal expected)
         {
-            Assert.AreEqual(expected, nj2017.Calculate(grossWages, freq, status, personalAllowances));
+            var table = TaxTables.GetForState(StateOrProvince.NJ, year: 2017) as NewJersey.TaxTable;
+
+            var result = table.Calculate(grossWages, freq, status, personalAllowances);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }

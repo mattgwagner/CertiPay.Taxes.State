@@ -12,7 +12,9 @@ namespace CertiPay.Taxes.State.Tests.VA
         [TestCase(PayrollFrequency.SemiMonthly, 1000, 2, 35.13d)]
         public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, int allowances, Decimal expected)
         {
-            var result = new Virginia.TaxTable2016().Calculate(grossWages, frequency, allowances);
+            var table = TaxTables.GetForState(StateOrProvince.VA, year: 2016) as Virginia.TaxTable;
+
+            var result = table.Calculate(grossWages, frequency, allowances);
 
             Assert.AreEqual(expected, result);
         }

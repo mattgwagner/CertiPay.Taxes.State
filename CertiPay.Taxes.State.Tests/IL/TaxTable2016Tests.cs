@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 
-namespace CertiPay.Taxes.State.Tests.IN
+namespace CertiPay.Taxes.State.Tests.IL
 {
     public class TaxTable2016Tests
     {
@@ -13,7 +13,9 @@ namespace CertiPay.Taxes.State.Tests.IN
         [TestCase(PayrollFrequency.SemiMonthly, 875, 1, 1, 27.85d)]
         public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, int basicAllowances, int additionalAllowances, Decimal expected)
         {
-            var result = new Illinois.TaxTable2016 { }.Calculate(grossWages, frequency, basicAllowances, additionalAllowances);
+            var table = TaxTables.GetForState(StateOrProvince.IL, year: 2016) as Illinois.TaxTable;
+
+            var result = table.Calculate(grossWages, frequency, basicAllowances, additionalAllowances);
 
             Assert.AreEqual(expected, result);
         }
