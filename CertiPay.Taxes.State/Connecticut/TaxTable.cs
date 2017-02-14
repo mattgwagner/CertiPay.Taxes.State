@@ -15,8 +15,10 @@ namespace CertiPay.Taxes.State.Connecticut
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
         public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode employeeCode, int exemptions = 1, decimal additionalWithholding = 0, decimal reducedWithholding = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode employeeCode, int exemptions = 1)
         {
+            // Additional/Reduced Withholding handled outside of this calculation
+
             if (employeeCode == WithholdingCode.E)
                 return 0;
 
@@ -35,14 +37,14 @@ namespace CertiPay.Taxes.State.Connecticut
                 var taxWithheld = taxableWages * (1 - GetPersonalTaxCredits(employeeCode, annualizedSalary));
 
                 taxWithheld = frequency.CalculateDeannualized(taxWithheld);
-                taxWithheld += additionalWithholding;
-                taxWithheld -= reducedWithholding;
+                //taxWithheld += additionalWithholding;
+                //taxWithheld -= reducedWithholding;
                 return Math.Max(taxWithheld, 0);
             }
             else
             {
-                taxableWages += additionalWithholding;
-                taxableWages -= reducedWithholding;
+                //taxableWages += additionalWithholding;
+                //taxableWages -= reducedWithholding;
                 return Math.Max(taxableWages, 0);
             }
         }
