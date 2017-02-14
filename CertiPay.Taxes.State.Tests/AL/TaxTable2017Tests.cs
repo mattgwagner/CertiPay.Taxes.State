@@ -2,10 +2,10 @@
 using NUnit.Framework;
 
 namespace CertiPay.Taxes.State.Tests.AL
-{    
+{
     [TestFixture]
     public class TaxTable2017Tests
-    {                
+    {
         [Test]
         //example from page
         [TestCase(850, PayrollFrequency.Weekly, 41.40, FilingStatus.Married, 2, 31.20)]
@@ -14,7 +14,11 @@ namespace CertiPay.Taxes.State.Tests.AL
         [TestCase(850, PayrollFrequency.Monthly, 65.83, FilingStatus.Single, 2, 10.88)]
         public void Alabama_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, decimal federalWithholding, Alabama.FilingStatus status, int dependentAllowances, decimal expected)
         {
-            Assert.AreEqual(expected, new Alabama.TaxTable2017().Calculate(grossWages, freq, federalWithholding, status, dependentAllowances));
+            var table = TaxTables.GetForState(StateOrProvince.AL, year: 2017) as Alabama.TaxTable;
+
+            var result = table.Calculate(grossWages, freq, federalWithholding, status, dependentAllowances);
+
+            Assert.AreEqual(expected, result);
         }
     }
 }
