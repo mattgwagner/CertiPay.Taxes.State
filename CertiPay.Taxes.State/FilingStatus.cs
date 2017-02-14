@@ -24,7 +24,16 @@ namespace CertiPay.Taxes.State
             {
                 switch (state)
                 {
-                    // TODO Louisiana, Mississippi, Kansas, Deleware, Conneticut, New Jersey, Missouri
+                    // TODO Louisiana, Mississippi, Kansas, Deleware, New Jersey, Missouri
+
+                    case StateOrProvince.CT:
+                        yield return Connecticut.WithholdingCode.A.ToString();
+                        yield return Connecticut.WithholdingCode.B.ToString();
+                        yield return Connecticut.WithholdingCode.C.ToString();
+                        yield return Connecticut.WithholdingCode.D.ToString();
+                        yield return Connecticut.WithholdingCode.E.ToString();
+                        yield return Connecticut.WithholdingCode.F.ToString();
+                        break;
 
                     case StateOrProvince.AL:
                         yield return "No Exemption";
