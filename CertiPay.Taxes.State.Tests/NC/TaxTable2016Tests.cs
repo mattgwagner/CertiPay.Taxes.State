@@ -20,7 +20,7 @@ namespace CertiPay.Taxes.State.Tests.NC
         [TestCase(PayrollFrequency.SemiMonthly, 1000, FilingStatus.HeadOfHousehold, 1, 22)]
         public void Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, FilingStatus taxStatus, int allowances, Decimal expected)
         {
-            var table = TaxTables.GetForState(StateOrProvince.NC, year: 2016) as NorthCarolina.TaxTable;
+            var table = TaxTables.GetForState<NorthCarolina.TaxTable>(StateOrProvince.NC, year: 2016);
 
             var result = table.Calculate(grossWages, frequency, taxStatus, allowances);
 
