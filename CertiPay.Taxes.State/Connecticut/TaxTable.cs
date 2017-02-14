@@ -8,10 +8,10 @@ namespace CertiPay.Taxes.State.Connecticut
 {
     public abstract class TaxTable : TaxTableHeader
     {
-        public override StateOrProvince State { get { return StateOrProvince.CT; } }        
+        public override StateOrProvince State { get { return StateOrProvince.CT; } }
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
         public abstract IEnumerable<AddBack> PhaseOutAddBackTaxes { get; }
-        public abstract IEnumerable<PersonalTaxCredit> PersonalTaxRate { get; }        
+        public abstract IEnumerable<PersonalTaxCredit> PersonalTaxRate { get; }
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
         public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
@@ -22,7 +22,7 @@ namespace CertiPay.Taxes.State.Connecticut
 
             var annualizedSalary = frequency.CalculateAnnualized(grossWages);
 
-            var taxableWages = annualizedSalary;            
+            var taxableWages = annualizedSalary;
 
             taxableWages -= GetExemptionAmount(taxableWages, employeeCode, exemptions);
             if (taxableWages > 0)
@@ -54,13 +54,15 @@ namespace CertiPay.Taxes.State.Connecticut
                 .First(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount > annualizedSalary)
                 .Amount;
         }
+
         internal virtual Decimal GetTaxRecapture(WithholdingCode EmployeeCode, decimal annualizedSalary)
         {
             return TaxRecaptureRates
                 .Where(x => x.EmployeeCode == EmployeeCode)
                 .First(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount > annualizedSalary)
-                .Amount;                
+                .Amount;
         }
+
         internal virtual Decimal GetPersonalTaxCredits(WithholdingCode EmployeeCode, decimal annualizedSalary)
         {
             return PersonalTaxRate
@@ -68,15 +70,14 @@ namespace CertiPay.Taxes.State.Connecticut
                 .First(x => x.FloorAmount <= annualizedSalary && x.CeilingAmount > annualizedSalary)
                 .Amount;
         }
+
         internal virtual Decimal GetExemptionAmount(decimal taxableWages, WithholdingCode EmployeeCode, int exemptions)
         {
             return ExemptionValues
                .Where(x => x.EmployeeCode == EmployeeCode)
                .First(x => x.FloorAmount <= taxableWages && x.CeilingAmount > taxableWages)
-               .Amount;               
+               .Amount;
         }
-
-
 
         internal virtual TaxableWithholding GetTaxWithholding(WithholdingCode employeeCode, Decimal taxableWages)
         {
@@ -84,10 +85,9 @@ namespace CertiPay.Taxes.State.Connecticut
                 TaxableWithholdings
                 .Where(d => d.EmployeeCode == employeeCode)
                 .Where(d => d.StartingAmount <= taxableWages)
-                .First(d => taxableWages < d.MaximumWage);               
+                .First(d => taxableWages < d.MaximumWage);
         }
 
-   
         public class TaxableWithholding
         {
             public WithholdingCode EmployeeCode { get; set; }
@@ -101,7 +101,6 @@ namespace CertiPay.Taxes.State.Connecticut
             public Decimal TaxRate { get; set; }
         }
 
-
         public class EmployeeWithholdingCode
         {
             public WithholdingCode Code { get; set; }
@@ -114,44 +113,41 @@ namespace CertiPay.Taxes.State.Connecticut
         {
             public decimal Amount { get; set; }
             public decimal CeilingAmount { get; set; }
-            public decimal FloorAmount { get; set; }            
+            public decimal FloorAmount { get; set; }
             public WithholdingCode EmployeeCode { get; set; }
         }
 
         public class TaxRecapture : AddBack
         {
-
         }
 
         public class PersonalTaxCredit : AddBack
         {
-
         }
 
         public class ExemptionValue : AddBack
         {
-
         }
+    }
 
-        public enum WithholdingCode : byte
-        {
-            [Display(Name = "A")]
-            A = 0,
+    public enum WithholdingCode : byte
+    {
+        [Display(Name = "A")]
+        A = 0,
 
-            [Display(Name = "B")]
-            B = 1,
+        [Display(Name = "B")]
+        B = 1,
 
-            [Display(Name = "C")]
-            C = 2,
+        [Display(Name = "C")]
+        C = 2,
 
-            [Display(Name = "D")]
-            D = 3,
+        [Display(Name = "D")]
+        D = 3,
 
-            [Display(Name = "E")]
-            E = 4,
+        [Display(Name = "E")]
+        E = 4,
 
-            [Display(Name = "F")]
-            F = 5
-        }
+        [Display(Name = "F")]
+        F = 5
     }
 }
