@@ -111,6 +111,16 @@ namespace CertiPay.Taxes.State
                         yield return "Personal and/or Spouse Blindness";
                         break;
 
+                    case StateOrProvince.AZ:
+                        yield return Arizona.TaxRate.ZeroPointEightPercent.ToString();
+                        yield return Arizona.TaxRate.OnePointThreePercent.ToString();
+                        yield return Arizona.TaxRate.OnePointEightPercent.ToString();
+                        yield return Arizona.TaxRate.TwoPointSevenPercent.ToString();
+                        yield return Arizona.TaxRate.ThreePointSixPercent.ToString();
+                        yield return Arizona.TaxRate.FourPointTwoPercent.ToString();
+                        yield return Arizona.TaxRate.FivePointOnePercent.ToString();
+                        break;
+
                     default:
                         yield return "Normal";
                         break;
