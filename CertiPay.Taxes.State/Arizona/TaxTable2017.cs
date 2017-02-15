@@ -6,9 +6,10 @@ using System.Linq;
 
 namespace CertiPay.Taxes.State.Arizona
 {
-    public  class TaxTable : TaxTableHeader
+    public  class TaxTable2017 : TaxTableHeader
     {
         public override StateOrProvince State { get; internal set; } = StateOrProvince.AZ;
+        public override int Year { get { return 2017; } }
         public override Decimal SUI_Wage_Base { get { return 7000; } }        
         public virtual Decimal Calculate(Decimal grossWages, TaxRate taxRate)
         {
