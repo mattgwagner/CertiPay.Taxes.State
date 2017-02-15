@@ -13,7 +13,7 @@ namespace CertiPay.Taxes.State
             {
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AL, SUI_Wage_Base = 8000 }; // Alabama
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AK, SUI_Wage_Base = 39700 }; // Alaska
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AZ, SUI_Wage_Base = 7000 }; // Arizona
+                yield return new Arizona.TaxTable { Year = Year }; // Arizona
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AR, SUI_Wage_Base = 12000 }; // Arkansas
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000, FUTA_Reduction_Rate = 0.018m }; // California
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CO, SUI_Wage_Base = 12200 }; // Colorado
