@@ -5,12 +5,16 @@ namespace CertiPay.Taxes.State.Massachusettes
 {
     public class TaxTable : TaxTableHeader
     {
-        public override StateOrProvince State { get { return StateOrProvince.MA; } }       
+        public override StateOrProvince State { get { return StateOrProvince.MA; } }
 
         public override Decimal SUI_Wage_Base { get { return 1500; } }
+
         public virtual Decimal Healthcare_Rate { get; } = .0012m;
+
         public virtual Decimal Healthcare_RateCap { get; } = 14000m;
+
         public virtual Decimal WorkForce_Development_Rate { get; } = .0006m;
+
         public virtual Decimal WorkForce_Development_RateCap { get; } = 14000m;
 
         internal virtual Decimal TaxRate { get; } = 0.051m;
@@ -24,9 +28,6 @@ namespace CertiPay.Taxes.State.Massachusettes
         internal virtual Decimal Is_Blind_Allowance { get; } = 112.20m;
 
         internal virtual Decimal Exemption_Bonus { get; } = 3400;
-
-        
-
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal fica_withholding, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
         {

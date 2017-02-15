@@ -74,7 +74,6 @@ namespace CertiPay.Taxes.State
 
                     case StateOrProvince.NC:
                     case StateOrProvince.CA:
-                    case StateOrProvince.MA:
                         yield return NorthCarolina.FilingStatus.Single.ToString();
                         yield return NorthCarolina.FilingStatus.Married.ToString();
                         yield return NorthCarolina.FilingStatus.HeadOfHousehold.ToString();
@@ -102,6 +101,14 @@ namespace CertiPay.Taxes.State
                     case StateOrProvince.WV:
                         yield return WestVirginia.FilingStatus.Single_Earning.ToString();
                         yield return WestVirginia.FilingStatus.Two_Earnings.ToString();
+                        break;
+
+                    // MA: Technically, you could be both blind and head of household, but we don't have a good way to indicate that via status
+
+                    case StateOrProvince.MA:
+                        yield return "Normal";
+                        yield return "HeadOfHousehold";
+                        yield return "Personal and/or Spouse Blindness";
                         break;
 
                     default:
