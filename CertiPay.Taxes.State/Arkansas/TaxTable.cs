@@ -1,7 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CertiPay.Taxes.State.Arkansas
@@ -28,6 +27,7 @@ namespace CertiPay.Taxes.State.Arkansas
                 throw new NotImplementedException($"SUI Wage Base is not configured for Arkansas for {Year}");
             }
         }
+
         public Decimal StandardDeductionValue { get; } = 2200;
 
         public Decimal ExemptionValue { get; } = 26;
@@ -41,11 +41,10 @@ namespace CertiPay.Taxes.State.Arkansas
                 taxableWages = applyMidpoint(taxableWages);
             }
             var withholdingTable = getBracket(taxableWages);
-            taxableWages = (withholdingTable.Percentage * taxableWages) - withholdingTable.FlatAmount;                
+            taxableWages = (withholdingTable.Percentage * taxableWages) - withholdingTable.FlatAmount;
             taxableWages -= getExemptions(taxableWages, exemptions);
 
             return frequency.CalculateDeannualized(taxableWages);
-
         }
 
         private Bracket getBracket(decimal taxableWages)
@@ -54,7 +53,6 @@ namespace CertiPay.Taxes.State.Arkansas
                 .Where(x => x.Floor <= taxableWages && x.Ceiling > taxableWages)
                 .Select(x => x)
                 .Single();
-
         }
 
         private Decimal getExemptions(decimal taxableWages, int exemptions)
@@ -68,7 +66,7 @@ namespace CertiPay.Taxes.State.Arkansas
             var decimalplaces = Math.Floor(Math.Log10(doublewages) - 1);
             if ((doublewages / (Math.Pow(10, decimalplaces))) > 50)
                 return (decimal)(Math.Floor(doublewages / 50) * 50.0);
-            else            
+            else
                 return (decimal)(Math.Ceiling(doublewages / 50) * 50.0);
         }
 
@@ -100,4 +98,3 @@ namespace CertiPay.Taxes.State.Arkansas
         }
     }
 }
-
