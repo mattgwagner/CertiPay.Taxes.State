@@ -1,26 +1,23 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace CertiPay.Taxes.State.Indiana
 {
     public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get { return StateOrProvince.IN; } }
-        
+
         public abstract Decimal PersonalAllowances { get; }
 
         public abstract Decimal DependentAllowances { get; }
 
         public abstract Decimal StateTaxRate { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency,  int personalAllowances = 1, int dependentAllowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int personalAllowances = 1, int dependentAllowances = 0)
         {
-            var taxableWages = frequency.CalculateAnnualized(grossWages);                        
+            var taxableWages = frequency.CalculateAnnualized(grossWages);
 
-            taxableWages -= GetPersonalAllowance(personalAllowances);            
+            taxableWages -= GetPersonalAllowance(personalAllowances);
 
             taxableWages -= GetDependentAllowance(dependentAllowances);
 
@@ -29,10 +26,8 @@ namespace CertiPay.Taxes.State.Indiana
             return frequency.CalculateDeannualized(taxWithheld);
         }
 
-        
-
         internal virtual Decimal GetPersonalAllowance(int personalAllowances = 1)
-        {                    
+        {
             return PersonalAllowances * personalAllowances;
         }
 
@@ -45,6 +40,5 @@ namespace CertiPay.Taxes.State.Indiana
         {
             return StateTaxRate * taxableWages;
         }
-            
     }
 }
