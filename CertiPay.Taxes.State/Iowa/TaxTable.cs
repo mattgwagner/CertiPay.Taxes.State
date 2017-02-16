@@ -7,9 +7,7 @@ using System.Linq;
 namespace CertiPay.Taxes.State.Iowa
 {
     public class TaxTable : TaxTableHeader
-    {
-        
-
+    {        
         public override StateOrProvince State { get; internal set; } = StateOrProvince.IA;
 
         public override decimal SUI_Wage_Base
@@ -28,11 +26,11 @@ namespace CertiPay.Taxes.State.Iowa
             }
         }
 
-        protected virtual Decimal OneStandardDeductionValue { get; } = 1650;
-        protected virtual Decimal StandardDeductionValue { get; } = 4060;
-        protected virtual Decimal AllowanceValue { get; } = 40;
+        protected virtual Decimal OneStandardDeduction { get; } = 1650;
+        protected virtual Decimal StandardDeduction { get; } = 4060;
+        protected virtual Decimal Allowance { get; } = 40;
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal FedWithholding = 0, Decimal additionalWithholding = 0, int exemptions = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal FedWithholding = 0, int exemptions = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
             if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
@@ -44,41 +42,39 @@ namespace CertiPay.Taxes.State.Iowa
 
             taxableWages -= GetStandardDeduction(exemptions);
 
-            taxableWages = FindWithholding(taxableWages);
+            var withheldWages = FindWithholding(taxableWages);            
 
-            taxableWages -= GetAllowances(exemptions);
+            withheldWages -= GetAllowances(exemptions);            
 
-            taxableWages += frequency.CalculateAnnualized(additionalWithholding);
-
-            return frequency.CalculateDeannualized(taxableWages);            
+            return frequency.CalculateDeannualized(withheldWages);            
         }
 
         protected virtual Decimal GetStandardDeduction(int exemptions)
         {
             if (exemptions > 1)
-                return StandardDeductionValue;
+                return StandardDeduction;
             else
-                return OneStandardDeductionValue;
+                return OneStandardDeduction;
         }
 
         protected virtual Decimal GetAllowances(int exemptions)
         {
-            return exemptions * AllowanceValue;
+            return exemptions * Allowance;
         }
 
-        protected virtual Decimal FindWithholding(decimal taxableWages)
+        protected virtual Decimal FindWithholding(decimal withheldWages)
         {
             decimal sum = 0.00m;
             foreach (var bracket in Brackets)
             {
-                if (taxableWages > bracket.Amount)
+                if (withheldWages > bracket.Amount)
                 {
                     sum += bracket.Amount * bracket.Percentage;
-                    taxableWages -= bracket.Amount;
+                    withheldWages -= bracket.Amount;
                 }
                 else
                 {
-                    sum += bracket.Percentage * taxableWages;
+                    sum += bracket.Percentage * withheldWages;
                     break;
                 }
             }
@@ -104,10 +100,8 @@ namespace CertiPay.Taxes.State.Iowa
         }
 
         internal class Bracket
-        {                        
-           
+        {                                   
             public Decimal Amount{ get; set; }
-
             public Decimal Percentage { get; set; }
         }
     }

@@ -23,6 +23,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
                 yield return new Georgia.TaxTable2017 { }; // Georgia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 44000 }; // Hawaii                
+                yield return new Idaho.TaxTable2017 { };
                 yield return new Illinois.TaxTable2017 { }; // Illinios
                 yield return new Indiana.TaxTable2017 { }; // Indiana
                 yield return new Iowa.TaxTable { Year = Year }; //Iowa
