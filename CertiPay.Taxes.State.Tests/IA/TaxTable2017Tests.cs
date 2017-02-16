@@ -8,15 +8,15 @@ namespace CertiPay.Taxes.State.Tests.IA
     {
         [Test]        
         //pulled from documentation
-        [TestCase(740, PayrollFrequency.BiWeekly, 5.12, 0, 3, 17.48)]
-        [TestCase(2750, PayrollFrequency.Monthly, 98.30, 0, 4, 102.33)]
+        [TestCase(740, PayrollFrequency.BiWeekly, 5.12, 3, 17.48)]
+        [TestCase(2750, PayrollFrequency.Monthly, 98.30, 4, 102.33)]
         //pcc verification
-        [TestCase(2750, PayrollFrequency.Monthly, 344.90, 0, 0, 112.55)]
-        public void Iowa_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, decimal federalWithholding, decimal additionalWithholding, int exemptions, decimal expected)
+        [TestCase(2750, PayrollFrequency.Monthly, 344.90, 0, 112.55)]
+        public void Iowa_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, decimal federalWithholding, int exemptions, decimal expected)
         {
             var table = TaxTables.GetForState(StateOrProvince.IA, year: 2017) as Iowa.TaxTable;
 
-            var result = table.Calculate(grossWages, freq, federalWithholding, additionalWithholding, exemptions);
+            var result = table.Calculate(grossWages, freq, federalWithholding, exemptions);
 
             Assert.AreEqual(expected, result);
         }
