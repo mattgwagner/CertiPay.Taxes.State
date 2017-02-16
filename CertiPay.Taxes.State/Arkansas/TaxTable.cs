@@ -12,7 +12,7 @@ namespace CertiPay.Taxes.State.Arkansas
 
         public override StateOrProvince State { get; internal set; } = StateOrProvince.AR;
 
-        public decimal roundingValue = 50000;
+        private const decimal roundingValue = 50000;
 
         public override decimal SUI_Wage_Base
         {
