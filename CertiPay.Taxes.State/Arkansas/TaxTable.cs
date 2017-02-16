@@ -48,7 +48,7 @@ namespace CertiPay.Taxes.State.Arkansas
 
         }
 
-        public virtual Bracket getBracket(decimal taxableWages)
+        private Bracket getBracket(decimal taxableWages)
         {
             return Brackets
                 .Where(x => x.Floor <= taxableWages && x.Ceiling > taxableWages)
@@ -57,12 +57,12 @@ namespace CertiPay.Taxes.State.Arkansas
 
         }
 
-        public virtual Decimal getExemptions(decimal taxableWages, int exemptions)
+        private Decimal getExemptions(decimal taxableWages, int exemptions)
         {
             return ExemptionValue * exemptions;
         }
 
-        public virtual Decimal applyMidpoint(decimal taxableWages)
+        private Decimal applyMidpoint(decimal taxableWages)
         {
             var doublewages = (double)taxableWages;
             var decimalplaces = Math.Floor(Math.Log10(doublewages) - 1);
@@ -88,7 +88,7 @@ namespace CertiPay.Taxes.State.Arkansas
             }
         }
 
-        public class Bracket
+        private class Bracket
         {
             public Decimal Floor { get; set; }
 
