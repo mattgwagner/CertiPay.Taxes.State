@@ -13,8 +13,8 @@ namespace CertiPay.Taxes.State
             {
                 yield return new Alabama.TaxTable2017 { }; // Alabama
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AK, SUI_Wage_Base = 39800 }; // Alaska
-                yield return new Arizona.TaxTable { Year = Year }; // Arizona
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AR, SUI_Wage_Base = 12000 }; // Arkansas
+                yield return new Arizona.TaxTable {Year = Year };
+                yield return new Arkansas.TaxTable { Year = Year };
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000 }; // California
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CO, SUI_Wage_Base = 12500 }; // Colorado
                 yield return new Connecticut.TaxTable2017 { }; // Conneticut
