@@ -6,7 +6,7 @@ namespace CertiPay.Taxes.State.Tests.IA
     [TestFixture]
     public class TaxTable2017Tests
     {
-        [Test]        
+        [Test]
         //pulled from documentation
         [TestCase(740, PayrollFrequency.BiWeekly, 5.12, 3, 17.48)]
         [TestCase(2750, PayrollFrequency.Monthly, 98.30, 4, 102.33)]

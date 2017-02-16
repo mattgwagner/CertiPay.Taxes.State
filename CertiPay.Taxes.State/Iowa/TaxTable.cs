@@ -1,13 +1,11 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace CertiPay.Taxes.State.Iowa
 {
     public class TaxTable : TaxTableHeader
-    {        
+    {
         public override StateOrProvince State { get; internal set; } = StateOrProvince.IA;
 
         public override decimal SUI_Wage_Base
@@ -18,6 +16,7 @@ namespace CertiPay.Taxes.State.Iowa
                 {
                     case 2016:
                         return 28300;
+
                     case 2017:
                         return 29300;
                 }
@@ -27,7 +26,9 @@ namespace CertiPay.Taxes.State.Iowa
         }
 
         protected virtual Decimal OneStandardDeduction { get; } = 1650;
+
         protected virtual Decimal StandardDeduction { get; } = 4060;
+
         protected virtual Decimal Allowance { get; } = 40;
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal FedWithholding = 0, int exemptions = 0)
@@ -42,11 +43,11 @@ namespace CertiPay.Taxes.State.Iowa
 
             taxableWages -= GetStandardDeduction(exemptions);
 
-            var withheldWages = FindWithholding(taxableWages);            
+            var withheldWages = FindWithholding(taxableWages);
 
-            withheldWages -= GetAllowances(exemptions);            
+            withheldWages -= GetAllowances(exemptions);
 
-            return frequency.CalculateDeannualized(withheldWages);            
+            return frequency.CalculateDeannualized(withheldWages);
         }
 
         protected virtual Decimal GetStandardDeduction(int exemptions)
@@ -81,7 +82,6 @@ namespace CertiPay.Taxes.State.Iowa
             return sum;
         }
 
-
         //Tables haven't changed since 2006
         private IEnumerable<Bracket> Brackets
         {
@@ -100,10 +100,10 @@ namespace CertiPay.Taxes.State.Iowa
         }
 
         internal class Bracket
-        {                                   
-            public Decimal Amount{ get; set; }
+        {
+            public Decimal Amount { get; set; }
+
             public Decimal Percentage { get; set; }
         }
     }
-    
 }
