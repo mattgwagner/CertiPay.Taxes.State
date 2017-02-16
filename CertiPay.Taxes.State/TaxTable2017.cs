@@ -13,8 +13,8 @@ namespace CertiPay.Taxes.State
             {
                 yield return new Alabama.TaxTable2017 { }; // Alabama
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AK, SUI_Wage_Base = 39800 }; // Alaska
-                yield return new Arizona.TaxTable {Year = Year };
-                yield return new Arkansas.TaxTable { Year = Year };
+                yield return new Arizona.TaxTable {Year = Year }; //Arizona
+                yield return new Arkansas.TaxTable { Year = Year }; //Arkansas
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000 }; // California
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CO, SUI_Wage_Base = 12500 }; // Colorado
                 yield return new Connecticut.TaxTable2017 { }; // Conneticut
@@ -22,11 +22,10 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.DC, SUI_Wage_Base = 9000 }; // Distrinct of Columbia
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.FL, SUI_Wage_Base = 7000 }; // Florida
                 yield return new Georgia.TaxTable2017 { }; // Georgia
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 44000 }; // Hawaii
-                yield return new Idaho.TaxTable2017 { };
+                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.HI, SUI_Wage_Base = 44000 }; // Hawaii                
                 yield return new Illinois.TaxTable2017 { }; // Illinios
                 yield return new Indiana.TaxTable2017 { }; // Indiana
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.IA, SUI_Wage_Base = 29300 }; // Iowa
+                yield return new Iowa.TaxTable { Year = Year }; //Iowa
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.KS, SUI_Wage_Base = 14000 }; // Kansas
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.KY, SUI_Wage_Base = 10200 }; // Kentucky
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.LA, SUI_Wage_Base = 7700 }; // Louisianna
