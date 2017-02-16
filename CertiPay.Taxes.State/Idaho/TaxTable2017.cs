@@ -38,6 +38,7 @@ namespace CertiPay.Taxes.State.Idaho
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.HeadOfHousehold, TaxBase = 209.00m, StartingAmount = 8066, MaximumWage = 9520, TaxRate = .061m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.HeadOfHousehold, TaxBase = 298.00m, StartingAmount = 9520, MaximumWage = 13155, TaxRate = .071m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.HeadOfHousehold, TaxBase = 556.00m, StartingAmount = 13155, MaximumWage = Decimal.MaxValue, TaxRate = .074m };
+
                 //Married Filing Joint Return (with one spouse having income)
 
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 0.00m, StartingAmount = 1, MaximumWage = 8550, TaxRate = .016m };
@@ -48,7 +49,6 @@ namespace CertiPay.Taxes.State.Idaho
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 419.00m, StartingAmount = 20182, MaximumWage = 23090, TaxRate = .061m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 596.00m, StartingAmount = 23090, MaximumWage = 30360, TaxRate = .071m };
                 yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 1112.00m, StartingAmount = 30360, MaximumWage = Decimal.MaxValue, TaxRate = .074m };
-                
             }
         }
     }
