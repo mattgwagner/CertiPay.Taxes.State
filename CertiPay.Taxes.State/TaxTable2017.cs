@@ -28,7 +28,7 @@ namespace CertiPay.Taxes.State
                 yield return new Indiana.TaxTable2017 { }; // Indiana
                 yield return new Iowa.TaxTable { Year = Year }; //Iowa
                 yield return new Kansas.TaxTable2017 { }; // Kansas
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.KY, SUI_Wage_Base = 10200 }; // Kentucky
+                yield return new Kentucky.TaxTable2017 { }; // Kentucky
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.LA, SUI_Wage_Base = 7700 }; // Louisianna
                 yield return new Maine.TaxTable2017 { }; // Maine
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.MD, SUI_Wage_Base = 8500 }; // Maryland
