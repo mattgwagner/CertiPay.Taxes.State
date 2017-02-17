@@ -9,7 +9,7 @@ namespace CertiPay.Taxes.State.Tests.KS
     {      
         [Test]
         //example from documentation
-        [TestCase(600, 2, FilingStatus.Married, PayrollFrequency.SemiMonthly, 4.00)]
+        [TestCase(600, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 4.00)]
         //paycheck city verification
         [TestCase(1500, 2, FilingStatus.Single, PayrollFrequency.SemiMonthly, 43.00)]
         [TestCase(50000, 0, FilingStatus.Single, PayrollFrequency.Daily, 2298.00)]

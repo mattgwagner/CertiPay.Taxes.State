@@ -63,6 +63,6 @@ namespace CertiPay.Taxes.State.Kansas
         [Display(Name = "Single")]
         Single = 0,
         [Display(Name = "Married or Head of Household")]
-        Married = 1
+        MarriedOrHoH = 1
     }
 }

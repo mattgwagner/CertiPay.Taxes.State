@@ -15,9 +15,9 @@ namespace CertiPay.Taxes.State.Kansas
         {
             get
             {                
-                yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 6000.00m, TaxRate = 0.00m };
-                yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 0.00m, StartingAmount = 6000.00m, MaximumWage = 36000.00m, TaxRate = .027m };
-                yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.Married, TaxBase = 37.50m, StartingAmount = 36000.00m, MaximumWage = decimal.MaxValue, TaxRate = .046m };                
+                yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedOrHoH, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 6000.00m, TaxRate = 0.00m };
+                yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedOrHoH, TaxBase = 0.00m, StartingAmount = 6000.00m, MaximumWage = 36000.00m, TaxRate = .027m };
+                yield return new TaxTable.TaxableWithholding { FilingStatus = FilingStatus.MarriedOrHoH, TaxBase = 37.50m, StartingAmount = 36000.00m, MaximumWage = decimal.MaxValue, TaxRate = .046m };                
 
                 //Married or HoH
 
