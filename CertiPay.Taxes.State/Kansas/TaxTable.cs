@@ -10,8 +10,9 @@ namespace CertiPay.Taxes.State.Kansas
     {
         public override StateOrProvince State { get { return StateOrProvince.KS; } }
 
-        protected abstract Decimal PersonalAllowance { get; }               
-        protected abstract IEnumerable<TaxableWithholding>  TaxableWithholdings { get; }       
+        protected abstract Decimal PersonalAllowance { get; }
+
+        protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int personalAllowances = 1)
         {
@@ -32,7 +33,6 @@ namespace CertiPay.Taxes.State.Kansas
         {
             return PersonalAllowance * personalAllowances;
         }
-        
 
         protected virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
         {
@@ -56,12 +56,14 @@ namespace CertiPay.Taxes.State.Kansas
             public Decimal MaximumWage { get; set; }
 
             public Decimal TaxRate { get; set; }
-        }        
+        }
     }
+
     public enum FilingStatus : Byte
     {
         [Display(Name = "Single")]
         Single = 0,
+
         [Display(Name = "Married or Head of Household")]
         MarriedOrHoH = 1
     }
