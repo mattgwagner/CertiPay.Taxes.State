@@ -24,7 +24,12 @@ namespace CertiPay.Taxes.State
             {
                 switch (state)
                 {
-                    // TODO Louisiana, Mississippi, Kansas, Missouri
+                    // TODO Louisiana, Mississippi, Missouri
+
+                    case StateOrProvince.KS:
+                        yield return Kansas.FilingStatus.Single.ToString();
+                        yield return Kansas.FilingStatus.MarriedOrHoH.ToString();
+                        break;
 
                     case StateOrProvince.NJ:
                         yield return NewJersey.FilingStatus.Single.ToString();
