@@ -9,21 +9,9 @@ namespace CertiPay.Taxes.State.Kentucky
 
         public override Decimal SUI_Wage_Base { get { return 14000; } }
 
-        protected override decimal StandardDeduction
-        {
-            get
-            {
-                return 2480;
-            }
-        }
+        protected override decimal StandardDeduction { get { return 2480; } }
 
-        protected override decimal Exemption
-        {
-            get
-            {
-                return 10;
-            }
-        }
+        protected override decimal Exemption { get { return 10; } }
 
         protected override IEnumerable<Bracket> Brackets
         {
@@ -39,6 +27,3 @@ namespace CertiPay.Taxes.State.Kentucky
         }
     }
 }
-
-
-

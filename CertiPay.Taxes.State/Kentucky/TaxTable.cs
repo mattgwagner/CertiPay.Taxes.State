@@ -8,10 +8,12 @@ namespace CertiPay.Taxes.State.Kentucky
     public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get; internal set; } = StateOrProvince.KY;
-        protected virtual Decimal StandardDeduction { get; }
-        protected virtual Decimal Exemption { get; }
-        protected abstract IEnumerable<Bracket> Brackets { get; }
 
+        protected virtual Decimal StandardDeduction { get; }
+
+        protected virtual Decimal Exemption { get; }
+
+        protected abstract IEnumerable<Bracket> Brackets { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
@@ -29,7 +31,6 @@ namespace CertiPay.Taxes.State.Kentucky
             return frequency.CalculateDeannualized(withheldWages);
         }
 
-
         protected virtual Decimal GetExemptions(int exemptions)
         {
             return exemptions * Exemption;
@@ -37,8 +38,8 @@ namespace CertiPay.Taxes.State.Kentucky
 
         protected virtual Decimal FindWithholding(decimal withheldWages)
         {
-            decimal sum = 0.00m;            
-                 
+            decimal sum = 0.00m;
+
             foreach (var bracket in Brackets)
             {
                 if (withheldWages > bracket.Amount && bracket != Brackets.Last())
@@ -47,8 +48,8 @@ namespace CertiPay.Taxes.State.Kentucky
                     withheldWages -= bracket.Amount;
                 }
                 else if (bracket == Brackets.Last())
-                {                    
-                    sum += bracket.Percentage * withheldWages;                   
+                {
+                    sum += bracket.Percentage * withheldWages;
                 }
                 else
                 {
@@ -59,7 +60,6 @@ namespace CertiPay.Taxes.State.Kentucky
             return sum;
         }
 
-
         protected class Bracket
         {
             public Decimal Amount { get; set; }
@@ -68,7 +68,7 @@ namespace CertiPay.Taxes.State.Kentucky
 
             public override bool Equals(System.Object obj)
             {
-                 // If parameter is null return false.
+                // If parameter is null return false.
                 if (obj == null)
                 {
                     return false;
@@ -107,8 +107,6 @@ namespace CertiPay.Taxes.State.Kentucky
             {
                 return !(a == b);
             }
-
         }
     }
 }
-
