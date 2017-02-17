@@ -25,7 +25,7 @@ namespace CertiPay.Taxes.State.Kansas
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
-            return Math.Round(frequency.CalculateDeannualized(taxWithheld), MidpointRounding.AwayFromZero);
+            return frequency.CalculateDeannualized(taxWithheld).Round(decimals: 0);
         }
 
         protected virtual Decimal GetPersonalAllowance(int personalAllowances = 1)
