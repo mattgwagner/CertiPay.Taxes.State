@@ -6,7 +6,7 @@ namespace CertiPay.Taxes.State.Tests.LA
     [TestFixture]
     public class TaxTable2017Tests
     {
-        [Test]       
+        [Test]
         //two examples from documentation
         [TestCase(700, PayrollFrequency.Weekly, FilingStatus.Single, 1, 2, 19.43)]
         [TestCase(4600, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 3, 157.12)]

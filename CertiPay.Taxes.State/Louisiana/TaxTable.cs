@@ -8,13 +8,12 @@ namespace CertiPay.Taxes.State.Louisiana
     public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get; internal set; } = StateOrProvince.LA;
-        
+
         public virtual Decimal PersonalExemption { get; }
 
         public virtual Decimal DependentExemption { get; }
 
         public virtual IEnumerable<Rate> Rates { get; }
-
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int personalExemptions = 0, int dependents = 0)
         {
@@ -31,8 +30,6 @@ namespace CertiPay.Taxes.State.Louisiana
 
             return frequency.CalculateDeannualized(withholding);
         }
-
-
 
         protected virtual Decimal GetWithholding(Rate rate, decimal taxableWages, decimal deductions)
         {
@@ -51,6 +48,7 @@ namespace CertiPay.Taxes.State.Louisiana
                 .Select(x => x)
                 .Single();
         }
+
         protected virtual Decimal GetDeductions(Rate rate, int personalExemptions, int dependents)
         {
             return (rate.HighRate * ((personalExemptions * PersonalExemption) + (dependents * DependentExemption))) + (Math.Max(0, rate.MiddleRate * ((personalExemptions * PersonalExemption) + (dependents * DependentExemption) - rate.ExemptionCap)));
