@@ -13,7 +13,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         public virtual Decimal Healthcare_RateCap { get { return SUI_Wage_Base; } }
 
-        public virtual Decimal WorkForce_Development_Rate { get; } = .0006m;
+        public virtual Decimal WorkForce_Development_Rate { get; } = 0.00056m;
 
         public virtual Decimal WorkForce_Development_RateCap { get { return SUI_Wage_Base; } }
 
