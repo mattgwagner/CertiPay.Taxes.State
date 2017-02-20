@@ -1,7 +1,5 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CertiPay.Taxes.State.Michigan
 {
@@ -31,7 +29,5 @@ namespace CertiPay.Taxes.State.Michigan
         {
             return exemptions * Exemption;
         }
-
-
     }
 }
