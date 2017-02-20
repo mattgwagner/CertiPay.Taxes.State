@@ -9,7 +9,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         public override Decimal SUI_Wage_Base { get { return 15000; } }
 
-        public virtual Decimal Healthcare_Rate { get; } = .0012m;
+        public virtual Decimal Unemployment_Health_Insurance_rate { get; } = .0012m;
 
         public virtual Decimal Healthcare_RateCap { get { return SUI_Wage_Base; } }
 
