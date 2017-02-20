@@ -21,11 +21,13 @@ namespace CertiPay.Taxes.State.Louisiana
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
             if (personalExemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalExemptions)} cannot be a negative number");
 
+            var TaxableWages = frequency.CalculateAnnualized(grossWages);
 
             var rate = GetRate(filingStatus, personalExemptions);
 
             var deductions = GetDeductions(rate, personalExemptions, dependents);
 
+            var withholding = Math.Max(0, GetWithholding(rate, TaxableWages, deductions));
 
             return frequency.CalculateDeannualized(withholding);
         }
@@ -37,7 +39,9 @@ namespace CertiPay.Taxes.State.Louisiana
             if (taxableWages < rate.LowerCeiling)
                 return (rate.HighRate * taxableWages) - deductions;
             else if (taxableWages >= rate.LowerCeiling && taxableWages < rate.HigherCeiling)
+                return (rate.HighRate * taxableWages) + rate.MiddleRate * (Math.Max(0, taxableWages - rate.LowerCeiling)) - deductions;
             else
+                return (rate.HighRate * taxableWages) + rate.MiddleRate * (Math.Max(0, taxableWages - rate.LowerCeiling)) + rate.LowRate * (Math.Max(0, taxableWages - rate.HigherCeiling)) - deductions;
         }
 
         protected virtual Rate GetRate(FilingStatus filingStatus, int personalExemptions)
@@ -49,6 +53,7 @@ namespace CertiPay.Taxes.State.Louisiana
         }
         protected virtual Decimal GetDeductions(Rate rate, int personalExemptions, int dependents)
         {
+            return (rate.HighRate * ((personalExemptions * PersonalExemption) + (dependents * DependentExemption))) + (Math.Max(0, rate.MiddleRate * ((personalExemptions * PersonalExemption) + (dependents * DependentExemption) - rate.ExemptionCap)));
         }
 
         public class Rate
@@ -60,6 +65,7 @@ namespace CertiPay.Taxes.State.Louisiana
             public Decimal LowRate { get; set; }
             public Decimal Exemptions { get; set; }
             public Decimal ExemptionCap { get; set; }
+            public FilingStatus FilingStatus { get; set; }
         }
     }
 }
