@@ -9,22 +9,21 @@ namespace CertiPay.Taxes.State.Mississippi
     public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get; internal set; } = StateOrProvince.MS;
-                     
 
         protected virtual IEnumerable<StandardDeduction> StandardDeductions { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, decimal exemption)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
-            if (exemption < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemption)} cannot be a negative number");            
+            if (exemption < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemption)} cannot be a negative number");
 
-            var taxableWages = frequency.CalculateAnnualized(grossWages);            
+            var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetStandardDeduction(filingStatus);
 
             taxableWages -= exemption;
 
-            var withheldWages = FindWithholding(taxableWages);           
+            var withheldWages = FindWithholding(taxableWages);
 
             return frequency.CalculateDeannualized(Math.Max(0, withheldWages)).Round(decimals: 0);
         }
@@ -36,7 +35,6 @@ namespace CertiPay.Taxes.State.Mississippi
                 .Select(x => x.Amount)
                 .Single();
         }
-        
 
         protected virtual Decimal FindWithholding(decimal withheldWages)
         {
@@ -59,11 +57,12 @@ namespace CertiPay.Taxes.State.Mississippi
                     break;
                 }
             }
+
             return sum;
         }
-        
-        protected virtual IEnumerable<Bracket> Brackets { get; }       
-                    
+
+        protected virtual IEnumerable<Bracket> Brackets { get; }
+
         public class Exemption : StandardDeduction
         {
             public Decimal AdditionalAmount { get; set; }
@@ -75,6 +74,7 @@ namespace CertiPay.Taxes.State.Mississippi
 
             public FilingStatus FilingStatus { get; set; }
         };
+
         public class Bracket
         {
             public Decimal Amount { get; set; }
@@ -113,10 +113,12 @@ namespace CertiPay.Taxes.State.Mississippi
     }
 
     public enum FilingStatus : byte
-    {        
+    {
         Single = 0,
+
         [Display(Name = "Head of Family")]
         HeadOfFamily = 1,
-        Married =2
+
+        Married = 2
     }
 }

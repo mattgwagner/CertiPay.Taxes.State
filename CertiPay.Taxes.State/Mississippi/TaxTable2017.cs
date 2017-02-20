@@ -18,7 +18,7 @@ namespace CertiPay.Taxes.State.Mississippi
                 yield return new StandardDeduction { FilingStatus = FilingStatus.Married, Amount = 4600.00m };
             }
         }
-      
+
         protected override IEnumerable<Bracket> Brackets
         {
             get
