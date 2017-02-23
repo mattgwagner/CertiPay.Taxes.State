@@ -9,7 +9,7 @@ namespace CertiPay.Taxes.State.Tests.NM
         [Test]
         //Verified with PCC
         [TestCase(2205, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 60.79)]
-        [TestCase(2205, PayrollFrequency.BiWeekly, FilingStatus.Single, 0, 93.60)]
+        [TestCase(2205, PayrollFrequency.BiWeekly, FilingStatus.Single, 0, 92.96)]
         [TestCase(5, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 0)]
         public void NewMexico_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus filingStatus, int personalAllowances, decimal expected)
         {
