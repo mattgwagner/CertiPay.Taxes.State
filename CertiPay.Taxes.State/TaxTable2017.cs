@@ -38,7 +38,7 @@ namespace CertiPay.Taxes.State
                 yield return new Mississippi.TaxTable2017 { }; // Mississippi
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.MO, SUI_Wage_Base = 13000 }; // Missouri
                 yield return new Montana.TaxTable { Year = Year }; // Montana
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.NE, SUI_Wage_Base = 9000 }; // Nebraska
+                yield return new Nebraska.TaxTable2017 { };
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.NV, SUI_Wage_Base = 29500 }; // Nevada
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.NH, SUI_Wage_Base = 14000 }; // New Hampshire
                 yield return new NewJersey.TaxTable2017 { }; // New Jersey
