@@ -1,14 +1,12 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CertiPay.Taxes.State.Utah
 {
     public class TaxTable : TaxTableHeader
     {
-
         public override StateOrProvince State { get; internal set; } = StateOrProvince.UT;
 
         public override decimal SUI_Wage_Base
@@ -19,6 +17,7 @@ namespace CertiPay.Taxes.State.Utah
                 {
                     case 2016:
                         return 32200;
+
                     case 2017:
                         return 33100;
                 }
@@ -33,11 +32,13 @@ namespace CertiPay.Taxes.State.Utah
 
         public Decimal TaxRateB { get; set; } = .013m;
 
-        protected IEnumerable<BaseAllowance> BaseAllowances { get
+        protected IEnumerable<BaseAllowance> BaseAllowances
+        {
+            get
             {
-                yield return new BaseAllowance { FilingStatus = FilingStatus.Single, Amount = 250};
-                yield return new BaseAllowance { FilingStatus = FilingStatus.Married, Amount = 375};
-            }            
+                yield return new BaseAllowance { FilingStatus = FilingStatus.Single, Amount = 250 };
+                yield return new BaseAllowance { FilingStatus = FilingStatus.Married, Amount = 375 };
+            }
         }
 
         protected IEnumerable<StandardDeduction> StandardDeductions
@@ -48,7 +49,6 @@ namespace CertiPay.Taxes.State.Utah
                 yield return new StandardDeduction { FilingStatus = FilingStatus.Married, Amount = 18000 };
             }
         }
-
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int exemptions = 0)
         {
@@ -67,8 +67,8 @@ namespace CertiPay.Taxes.State.Utah
 
             var deduction = allowances - annualized_wages;
 
-            var taxWithheld = taxedWages - deduction;            
-            
+            var taxWithheld = taxedWages - deduction;
+
             return frequency.CalculateDeannualized(Math.Max(taxWithheld, 0));
         }
 
@@ -79,7 +79,6 @@ namespace CertiPay.Taxes.State.Utah
                 .Where(x => x.FilingStatus == filingStatus)
                 .Select(x => x.Amount)
                 .Single() + (exemptions * Allowance);
-
         }
 
         protected Decimal GetStandardDeduction(FilingStatus filingStatus)
@@ -92,12 +91,11 @@ namespace CertiPay.Taxes.State.Utah
 
         protected class BaseAllowance
         {
-           public FilingStatus FilingStatus { get; set; }
-           public decimal Amount { get; set; }
+            public FilingStatus FilingStatus { get; set; }
+            public decimal Amount { get; set; }
         }
 
         protected class StandardDeduction : BaseAllowance
-        { };            
-
-    }    
+        { };
+    }
 }
