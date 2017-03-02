@@ -17,17 +17,17 @@ namespace CertiPay.Taxes.State.Oregon
 
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, decimal federalWithholding, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1, int dependentAllowances = 0)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, decimal federalWithholding, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
             var annualWages = frequency.CalculateAnnualized(grossWages);
             var taxableWages = annualWages;
-            taxableWages -= Math.Max(GetFederalLimit(filingStatus, annualWages), federalWithholding);
+            taxableWages -= Math.Min(GetFederalLimit(filingStatus, annualWages), federalWithholding);
             taxableWages -= GetStandardDeduction(filingStatus, personalAllowances, annualWages);
             var selected_row = GetTaxWithholding(filingStatus, personalAllowances, annualWages);
-            taxableWages = selected_row.TaxBase + ((taxableWages - selected_row.MinWage) * selected_row.TaxRate);
+            taxableWages = selected_row.TaxBase + ((taxableWages - selected_row.ExcessLimit) * selected_row.TaxRate);
             var taxWithheld = taxableWages - GetPersonalAllowance(filingStatus, personalAllowances, annualWages);
 
-            return frequency.CalculateDeannualized(Math.Max(0, taxWithheld));
+            return frequency.CalculateDeannualized(Math.Max(0, taxWithheld)).Round(decimals: 0);
 
         }
 
@@ -116,6 +116,7 @@ namespace CertiPay.Taxes.State.Oregon
             public Decimal TaxBase { get; set; }
             public Decimal TaxRate { get; set; }
             public bool UpperBracket { get; set; }
+            public Decimal ExcessLimit { get; set; }
         }
 
         protected class PersonalAllowance : FederalLimit

@@ -64,31 +64,31 @@ namespace CertiPay.Taxes.State.Oregon
         {
             get
             {
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 0, MaxWage = 3400, TaxBase = 197, TaxRate = 0.05m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 3400, MaxWage = 8500, TaxBase = 367, TaxRate = 0.07m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 8500, MaxWage = 50000, TaxBase = 724, TaxRate = 0.09m };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 0, MaxWage = 3400, TaxBase = 197, TaxRate = 0.05m, ExcessLimit = 0 };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 3400, MaxWage = 8500, TaxBase = 367, TaxRate = 0.07m, ExcessLimit = 3400 };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 8500, MaxWage = 50000, TaxBase = 724, TaxRate = 0.09m, ExcessLimit = 8500 };
 
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 0, MaxWage = 6800, TaxBase = 197, TaxRate = 0.05m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 6800, MaxWage = 17000, TaxBase = 537, TaxRate = 0.07m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 17000, MaxWage = 50000, TaxBase = 1251, TaxRate = 0.09m };
-
-
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 41275, MaxWage = 125000, TaxBase = 527, TaxRate = 0.09m, UpperBracket = true };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 125000, MaxWage = decimal.MaxValue, TaxBase = 11012, TaxRate = 0.099m, UpperBracket = true};
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 0, MaxWage = 6800, TaxBase = 197, TaxRate = 0.05m, ExcessLimit = 0 };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 6800, MaxWage = 17000, TaxBase = 537, TaxRate = 0.07m, ExcessLimit = 6800 };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 17000, MaxWage = 50000, TaxBase = 1251, TaxRate = 0.09m, ExcessLimit = 17000 };
 
 
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 39100, MaxWage = 250000, TaxBase = 1054, TaxRate = 0.09m, UpperBracket = true };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 250000, MaxWage = decimal.MaxValue, TaxBase = 22024, TaxRate = 0.099m, UpperBracket = true };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 41275, MaxWage = 125000, TaxBase = 527, TaxRate = 0.09m, UpperBracket = true, ExcessLimit = 8500.00m };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 0, MaxAllowance = 3, MinWage = 125000, MaxWage = decimal.MaxValue, TaxBase = 11012, TaxRate = 0.099m, UpperBracket = true, ExcessLimit = 125000.00m};
+
+
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 39100, MaxWage = 250000, TaxBase = 1054, TaxRate = 0.09m, UpperBracket = true, ExcessLimit =  17000};
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Single, MinAllowance = 3, MaxAllowance = int.MaxValue, MinWage = 250000, MaxWage = decimal.MaxValue, TaxBase = 22024, TaxRate = 0.099m, UpperBracket = true, ExcessLimit = 250000 };
 
 
 
 
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 0, MaxWage = 6800, TaxBase = 197, TaxRate = 0.05m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 6800, MaxWage = 17000, TaxBase = 537, TaxRate = 0.07m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 17000, MaxWage = 50000, TaxBase = 1251, TaxRate = 0.09m };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 0, MaxWage = 6800, TaxBase = 197, TaxRate = 0.05m, ExcessLimit = 0};
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 6800, MaxWage = 17000, TaxBase = 537, TaxRate = 0.07m, ExcessLimit = 6800 };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 17000, MaxWage = 50000, TaxBase = 1251, TaxRate = 0.09m, ExcessLimit = 17000};
 
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 39100, MaxWage = 250000, TaxBase = 1054, TaxRate = 0.09m, UpperBracket = true };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 250000, MaxWage = decimal.MaxValue, TaxBase = 22024, TaxRate = 0.099m, UpperBracket = true };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 39100, MaxWage = 250000, TaxBase = 1054, TaxRate = 0.09m, UpperBracket = true, ExcessLimit = 17000};
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, MinWage = 250000, MaxWage = decimal.MaxValue, TaxBase = 22024, TaxRate = 0.099m, UpperBracket = true, ExcessLimit = 250000 };
 
 
             }
