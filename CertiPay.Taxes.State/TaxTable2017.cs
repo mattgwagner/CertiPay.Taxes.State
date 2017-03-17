@@ -15,7 +15,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.AK, SUI_Wage_Base = 39800 }; // Alaska
                 yield return new Arizona.TaxTable {Year = Year }; //Arizona
                 yield return new Arkansas.TaxTable { Year = Year }; //Arkansas
-                yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CA, SUI_Wage_Base = 7000 }; // California
+                yield return new California.TaxTable2017 { }; // California
                 yield return new TaxTableHeader { Year = Year, State = StateOrProvince.CO, SUI_Wage_Base = 12500 }; // Colorado
                 yield return new Connecticut.TaxTable2017 { }; // Conneticut
                 yield return new Delaware.TaxTable { Year = Year }; // Deleware
