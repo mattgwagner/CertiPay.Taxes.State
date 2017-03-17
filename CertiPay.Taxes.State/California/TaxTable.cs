@@ -9,11 +9,11 @@ namespace CertiPay.Taxes.State.California
     public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get { return StateOrProvince.CA; } }
-        public abstract Decimal Deduction { get; }
-        public abstract Decimal Exemption { get; }
-        public abstract IEnumerable<StandardDeduction> StandardDeductions { get; }        
-        public abstract IEnumerable<IncomeBracket> IncomeBrackets { get;}               
-        public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
+        protected abstract Decimal Deduction { get; }
+        protected abstract Decimal Exemption { get; }
+        protected abstract IEnumerable<StandardDeduction> StandardDeductions { get; }        
+        protected abstract IEnumerable<IncomeBracket> IncomeBrackets { get;}               
+        protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int personalAllowances, int deductions)
         {
@@ -24,12 +24,14 @@ namespace CertiPay.Taxes.State.California
             {
                 return 0;
             }
+
             taxableWages -= GetDeduction(deductions);
             taxableWages -= GetStandardDeduction(withholdingFilingStatus);            
             var taxRate = GetTaxWithholding(filingStatus, taxableWages);
             taxableWages = taxRate.TaxBase + ((taxableWages - taxRate.StartingAmount) * taxRate.TaxRate);
             var taxWithheld = taxableWages - GetPersonalAllowance(personalAllowances);
-            return frequency.CalculateDeannualized(taxWithheld);
+
+            return frequency.CalculateDeannualized(Math.Max(0, taxWithheld));
         }
 
         protected virtual Decimal GetDeduction(int deductions)
@@ -71,9 +73,8 @@ namespace CertiPay.Taxes.State.California
 
             else return filingStatus;
         }
-    
-        
-        internal virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
+            
+       protected virtual TaxableWithholding GetTaxWithholding(FilingStatus filingStatus, Decimal taxableWages)
         {
             if (taxableWages < Decimal.Zero) return new TaxableWithholding { };
 
@@ -86,21 +87,20 @@ namespace CertiPay.Taxes.State.California
                 .Single();
         }
 
-        public class StandardDeduction
+        protected class StandardDeduction
         {
             public FilingStatus FilingStatus { get; set; }
 
             public Decimal Amount { get; set; }
         }
-
      
-        public class IncomeBracket
+        protected class IncomeBracket
         {
            public FilingStatus FilingStatus { get; set; }
             public Decimal Amount { get; set; }
         }
                   
-        public class TaxableWithholding
+        protected class TaxableWithholding
         {
             public FilingStatus FilingStatus { get; set; } = FilingStatus.Single;
 
@@ -114,11 +114,11 @@ namespace CertiPay.Taxes.State.California
         }
     }
 
-    public enum FilingStatus : byte
-    {        
-        Single = 0,        
-        Married = 1,
-        [Display(Name = "Head of Household")]
-        HeadOfHousehold= 2,       
+        public enum FilingStatus : byte
+        {        
+            Single = 0,        
+            Married = 1,
+            [Display(Name = "Head of Household")]
+            HeadOfHousehold= 2,       
+        }
     }
-}
