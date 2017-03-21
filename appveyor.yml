@@ -30,7 +30,7 @@ after_build:
 - Pack.ps1 -Configuration %CONFIGURATION%
 
 artifacts:
-- path: artifacts\**\CertiPay.Taxes.State.2017.*.nupkg
+- path: artifacts\**\CertiPay.Taxes.State.*.nupkg
 
 #---------------------------------#
 #       tests configuration       #
