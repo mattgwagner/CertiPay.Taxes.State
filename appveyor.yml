@@ -24,10 +24,10 @@ before_build:
 - ps: .\Update-Version.ps1 -Version $env:APPVEYOR_BUILD_VERSION
 
 build_script:
-- ps: Build.ps1 -Configuration %CONFIGURATION%
+- ps: .\Build.ps1 -Configuration %CONFIGURATION%
 
 after_build:
-- ps: Pack.ps1 -Configuration %CONFIGURATION%
+- ps: .\Pack.ps1 -Configuration %CONFIGURATION%
 
 artifacts:
 - path: artifacts\**\CertiPay.Taxes.State.*.nupkg
