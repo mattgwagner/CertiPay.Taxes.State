@@ -8,9 +8,9 @@ namespace CertiPay.Taxes.State.Tests.OH
     {        
 
         [Test]
-        [TestCase(1500, PayrollFrequency.Monthly, 1, 21.67)]
-        [TestCase(1500, PayrollFrequency.Monthly, 3, 18.66)]
-        [TestCase(80000, PayrollFrequency.Monthly, 5, 4259.18)]
+        [TestCase(1500, PayrollFrequency.Monthly, 1, 21.66)]
+        [TestCase(1500, PayrollFrequency.Monthly, 3, 18.65)]
+        [TestCase(80000, PayrollFrequency.Monthly, 5, 4256.87)]
 
         public void Ohio_2017_TaxTable(decimal grossWages, PayrollFrequency freq, int exemptions, decimal expected)
         {
