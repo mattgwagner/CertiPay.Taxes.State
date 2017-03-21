@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>This library is intended to hold some common items related to payroll processing, such as tax filing status or frequency.</Description>
+    <Description>This library holds some common state tax withholding tables for calculating payroll withholding.</Description>
     <VersionPrefix>2017.0.15</VersionPrefix>
     <TargetFrameworks>net461;netstandard1.6</TargetFrameworks>
     <AssemblyName>CertiPay.Taxes.State</AssemblyName>
@@ -26,5 +26,4 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
-
 </Project>
