@@ -6,6 +6,8 @@
 #   - All section names are case-sensitive.
 #   - Section names should be unique on each level.
 
+image: Visual Studio 2017
+
 # version format
 version: 2017.0.{build}
 
@@ -19,17 +21,16 @@ shallow_clone: true
 configuration: Release
 
 before_build:
-- dotnet restore -v Minimal
 - ps: .\Update-Version.ps1 -Version $env:APPVEYOR_BUILD_VERSION
 
 build_script:
-- dotnet build */**/project.json --configuration %CONFIGURATION%
+- Build.ps1 -Configuration %CONFIGURATION%
 
 after_build:
-- dotnet pack "CertiPay.Taxes.State" --configuration %CONFIGURATION% -o artifacts
+- Pack.ps1 -Configuration %CONFIGURATION%
 
 artifacts:
-- path: artifacts\**\*.*
+- path: artifacts\**\CertiPay.Taxes.State.*.nupkg
 
 #---------------------------------#
 #       tests configuration       #
@@ -37,7 +38,7 @@ artifacts:
 
 test:
   assemblies:
-    - '**\bin\$(Configuration)\**\win7-x64\CertiPay.**.Tests.dll'
+    - '**\bin\$(Configuration)\**\CertiPay.Taxes.State.Tests.dll'
 
 #---------------------------------#
 #       artifacts configuration   #
