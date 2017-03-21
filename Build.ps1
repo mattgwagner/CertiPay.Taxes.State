@@ -14,14 +14,12 @@ $SolutionFile = Join-Path $Here "CertiPay.Taxes.State.sln"
 
 # Bootstap ensures we have what we need to build the project
 
-$MSBuild = "${env:ProgramFiles(x86)}\MSBuild\14.0\Bin\msbuild.exe"
+$DotNet = "${env:ProgramFiles}\dotnet\dotnet.exe"
 
 # Build the solution, packaging the files if requested
 
 Write-Output "Running build target $Target for $Configuration"
 
-# Switch /nodeReuse:false tells msbuild to stop after completing the build, avoiding conditions on the build server where it kept packages locked
-
-& $MSBuild $SolutionFile /v:quiet /t:$Target /m /p:Configuration=$Configuration /nodeReuse:false
+& $DotNet build $SolutionFile /t:$Target /m /p:Configuration=$Configuration
 
 EXIT $LASTEXITCODE
