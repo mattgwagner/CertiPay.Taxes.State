@@ -14,7 +14,7 @@ $SolutionFile = Join-Path $Here "CertiPay.Taxes.State.sln"
 
 $DotNet = "${env:ProgramFiles}\dotnet\dotnet.exe"
 
-& $DotNet restore -v Minimal
+# & $DotNet restore -v Minimal
 
 & $DotNet build $SolutionFile --configuration $Configuration
 
