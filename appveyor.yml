@@ -17,17 +17,13 @@ shallow_clone: true
 #       build configuration       #
 #---------------------------------#
 
-# build Configuration, i.e. Debug, Release, etc.
 configuration: Release
-
-before_build:
-- ps: .\Update-Version.ps1 -Version $env:APPVEYOR_BUILD_VERSION
 
 build_script:
 - ps: .\Build.ps1 -Configuration Release
 
 after_build:
-- ps: .\Pack.ps1 -Configuration Release
+- ps: .\Pack.ps1 -Configuration Release -Version $env:APPVEYOR_BUILD_VERSION
 
 artifacts:
 - path: artifacts\**\CertiPay.Taxes.State.*.nupkg
