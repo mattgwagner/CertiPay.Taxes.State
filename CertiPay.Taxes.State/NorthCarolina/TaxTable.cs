@@ -27,7 +27,7 @@ namespace CertiPay.Taxes.State.NorthCarolina
             // Multiply the annualized wages by the given tax rate and deannualize back for the period
             // Round off the final result of calculations to the nearest whole dollar
 
-            return frequency.CalculateDeannualized(annualized_wages * TaxRate).Round(decimals: 0);
+            return frequency.CalculateDeannualized(Math.Max(0, annualized_wages * TaxRate)).Round(decimals: 0);
         }
     }
 
