@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.CT
     {
         //verified with PCC unless noted otherwise
         [Test]
+        [TestCase(-1, PayrollFrequency.Monthly, Connecticut.WithholdingCode.A, 1, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, Connecticut.WithholdingCode.A, 1, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, Connecticut.WithholdingCode.A, 1, 0)]
         //verified by hand
         [TestCase(1500, PayrollFrequency.Monthly, Connecticut.WithholdingCode.A, 1, 9.00)]
         [TestCase(1500, PayrollFrequency.Monthly, Connecticut.WithholdingCode.B, 1, 0.00)]

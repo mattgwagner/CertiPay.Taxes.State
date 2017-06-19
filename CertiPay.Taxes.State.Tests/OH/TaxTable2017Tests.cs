@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.OH
     {        
 
         [Test]
+        [TestCase(-1, PayrollFrequency.Monthly, 1, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, 1, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, 1, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, 1, 21.66)]
         [TestCase(1500, PayrollFrequency.Monthly, 3, 18.65)]
         [TestCase(80000, PayrollFrequency.Monthly, 5, 4256.87)]

@@ -9,6 +9,9 @@ namespace CertiPay.Taxes.State.Tests.KS
     public class TaxTable2017Tests
     {
         [Test]
+        [TestCase(-1, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 0)]
+        [TestCase(0, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 0)]
+        [TestCase(1, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 0)]
         //example from documentation
         [TestCase(600, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 4.00)]
         //paycheck city verification

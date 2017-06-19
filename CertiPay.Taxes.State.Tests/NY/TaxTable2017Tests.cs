@@ -10,6 +10,9 @@ namespace CertiPay.Taxes.State.Tests.NY
         private NewYork.TaxTable2017 ny2017 = new NewYork.TaxTable2017();
 
         [Test]
+        [TestCase(-1, PayrollFrequency.Monthly, Region.NewYorkState, FilingStatus.Single, 1, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, Region.NewYorkState, FilingStatus.Single, 1, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, Region.NewYorkState, FilingStatus.Single, 1, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, Region.NewYorkState, FilingStatus.Single, 1, 32.46)]
         [TestCase(1500, PayrollFrequency.Monthly, Region.NewYorkState, FilingStatus.Married, 1, 30.40)]
         [TestCase(1500, PayrollFrequency.Monthly, Region.Yonkers, FilingStatus.Single, 1, 32.46)]

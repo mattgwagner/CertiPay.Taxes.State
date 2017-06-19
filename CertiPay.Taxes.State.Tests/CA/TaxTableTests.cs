@@ -9,6 +9,9 @@ namespace CertiPay.Taxes.State.Tests.CA
     public class TaxTableTests
     {
         [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 1, 1, 0)]
+        [TestCase(PayrollFrequency.Weekly, 0, FilingStatus.Single, 1, 1, 0)]
+        [TestCase(PayrollFrequency.Weekly, 1, FilingStatus.Single, 1, 1, 0)]
         //verified with pcc... didn't match up with documented examples... was a couple cents off
         [TestCase(PayrollFrequency.Weekly, 210, FilingStatus.Single, 1, 1, 0)]
         //specifically this one, should be 3.51 according to the documentation

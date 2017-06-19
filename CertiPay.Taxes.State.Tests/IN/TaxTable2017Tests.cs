@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.IN
     {       
 
         [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, 5, 3, 0)]
+        [TestCase(0, PayrollFrequency.Weekly, 5, 3, 0)]
+        [TestCase(1, PayrollFrequency.Weekly, 5, 3, 0)]
         [TestCase(800, PayrollFrequency.Weekly, 5, 3, 19.94)]       
         public void IN_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int personalAllowances, int dependentAllowances, decimal expected)
         {

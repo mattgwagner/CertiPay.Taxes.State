@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.MA
     {
         [Test]
         //[TestCase(350, PayrollFrequency.Weekly, 4, 26.78, false, false, 9.51)] This was based on 2012 amounts
+        [TestCase(-1, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, 1, 2000, true, true, 29.75)] // Bad test case, we don't have 2k of FICA in one period
         [TestCase(4000, PayrollFrequency.Monthly, 2, 2000, false, false, 172.55)] // Bad test case, we don't have 2k of FICA in one period
         [TestCase(1500, PayrollFrequency.BiWeekly, 2, 114.75, false, false, 61.98)] // FICA 93 + MEDI 21.75 => capped at $2k

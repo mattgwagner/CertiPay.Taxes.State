@@ -7,6 +7,9 @@ namespace CertiPay.Taxes.State.Tests.VT
     public class TaxTable2017Tests
     {
         [Test]
+        [TestCase(-1, 1, FilingStatus.Single, PayrollFrequency.Monthly, 0)]
+        [TestCase(0, 1, FilingStatus.Single, PayrollFrequency.Monthly, 0)]
+        [TestCase(1, 1, FilingStatus.Single, PayrollFrequency.Monthly, 0)]
         [TestCase(3000, 1, FilingStatus.Married, PayrollFrequency.Monthly, 70.85)]
         [TestCase(2500, 1, FilingStatus.Single, PayrollFrequency.Monthly, 68.93)]
         public void VT_2017_Checks_And_Balances(Decimal grossWages, int exemptions, FilingStatus filingStatus, PayrollFrequency payrollFrequency, Decimal expected)

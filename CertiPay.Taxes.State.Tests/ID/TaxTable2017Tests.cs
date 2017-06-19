@@ -10,6 +10,9 @@ namespace CertiPay.Taxes.State.Tests.ID
     {     
 
         [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Married, 4, 0)]
+        [TestCase(0, PayrollFrequency.Weekly, FilingStatus.Married, 4, 0)]
+        [TestCase(1, PayrollFrequency.Weekly, FilingStatus.Married, 4, 0)]
         [TestCase(700, PayrollFrequency.Weekly, FilingStatus.Married, 4, 8)]
         public void ID_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus status, int personalAllowances, decimal expected)
         {

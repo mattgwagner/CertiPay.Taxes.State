@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.ME
     {
         [Test]
         //Pay check city was wrong, verified by hand using examples from the withholding guide
+        [TestCase(-1, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Single, 1, 25.13)]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Married, 1, 0)]
         [TestCase(5000, PayrollFrequency.Monthly, FilingStatus.Single, 1, 248.81)]

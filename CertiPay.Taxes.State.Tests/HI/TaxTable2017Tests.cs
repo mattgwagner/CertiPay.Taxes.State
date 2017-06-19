@@ -7,6 +7,9 @@ namespace CertiPay.Taxes.State.Tests.HI
     public class TaxTable2017Tests
     {
         [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 3, 0)]
+        [TestCase(0, PayrollFrequency.Weekly, FilingStatus.Single, 3, 0)]
+        [TestCase(1, PayrollFrequency.Weekly, FilingStatus.Single, 3, 0)]
         //pulled from documentation
         [TestCase(375, PayrollFrequency.Weekly, FilingStatus.Single, 3, 15.30)]
         //pcc

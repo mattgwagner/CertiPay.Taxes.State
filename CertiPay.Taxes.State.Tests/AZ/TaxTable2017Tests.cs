@@ -7,7 +7,10 @@ namespace CertiPay.Taxes.State.Tests.AZ
     public class TaxTable2017Tests
     {       
          
-        [Test]        
+        [Test]
+        [TestCase(-1, Arizona.TaxRate.FivePointOnePercent, 0)]
+        [TestCase(0, Arizona.TaxRate.FivePointOnePercent, 0)]
+        [TestCase(1, Arizona.TaxRate.FivePointOnePercent, 0)]
         [TestCase(1500, Arizona.TaxRate.FivePointOnePercent, 76.5)]      
         public void AZ_2017_Checks_And_Balances(decimal grossWages, Arizona.TaxRate rate, decimal expected)
         {

@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.KY
     {       
 
         [Test]
+        [TestCase(-1, PayrollFrequency.Monthly, 1, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, 1, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, 1, 0)]
         //documentation verification
         [TestCase(3020, PayrollFrequency.Monthly, 1, 147.01)]
         //paycheckcity verification

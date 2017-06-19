@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.NM
     {
         [Test]
         //Verified with PCC
+        [TestCase(-1, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 0)]
+        [TestCase(0, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 0)]
+        [TestCase(1, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 0)]
         [TestCase(2205, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 60.79)]
         [TestCase(2205, PayrollFrequency.BiWeekly, FilingStatus.Single, 0, 92.96)]
         [TestCase(5, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 0)]

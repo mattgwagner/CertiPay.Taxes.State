@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.ND
     {
         [Test]
         //Documentation example
+        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 2, 0)]
+        [TestCase(0, PayrollFrequency.Weekly, FilingStatus.Single, 2, 0)]
+        [TestCase(1, PayrollFrequency.Weekly, FilingStatus.Single, 2, 0)]
         [TestCase(600, PayrollFrequency.Weekly, FilingStatus.Single, 2, 4.00)]
         //PCC
         [TestCase(3000, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 25.00)]

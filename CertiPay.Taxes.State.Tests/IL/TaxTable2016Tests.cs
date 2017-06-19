@@ -7,6 +7,9 @@ namespace CertiPay.Taxes.State.Tests.IL
     public class TaxTable2016Tests
     {
         [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, 2, 0, 0)]
+        [TestCase(PayrollFrequency.Weekly, 0, 2, 0, 0)]
+        [TestCase(PayrollFrequency.Weekly, 1, 2, 0, 0)]
         [TestCase(PayrollFrequency.Weekly, 450, 2, 0, 13.74d)]
         [TestCase(PayrollFrequency.Weekly, 875, 3, 1, 27.39d)]
         [TestCase(PayrollFrequency.SemiMonthly, 875, 2, 0, 26.02d)]

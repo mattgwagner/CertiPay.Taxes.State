@@ -9,6 +9,9 @@ namespace CertiPay.Taxes.State.Tests.MS
     public class TaxTable2017Tests
     {
         [Test]
+        [TestCase(-1, PayrollFrequency.BiWeekly, FilingStatus.Single, 6000, 0.00)]
+        [TestCase(0, PayrollFrequency.BiWeekly, FilingStatus.Single, 6000, 0.00)]
+        [TestCase(1, PayrollFrequency.BiWeekly, FilingStatus.Single, 6000, 0.00)]
         [TestCase(1000, PayrollFrequency.BiWeekly, FilingStatus.Single, 6000, 28.00)]
         [TestCase(1000, PayrollFrequency.BiWeekly, FilingStatus.HeadOfFamily, 9500, 19)]
         [TestCase(1000, PayrollFrequency.BiWeekly, FilingStatus.Married, 12000, 13)]

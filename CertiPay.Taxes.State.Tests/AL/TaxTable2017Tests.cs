@@ -7,6 +7,9 @@ namespace CertiPay.Taxes.State.Tests.AL
     public class TaxTable2017Tests
     {
         [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, 41.40, FilingStatus.Married, 2, 0)]
+        [TestCase(0, PayrollFrequency.Weekly, 41.40, FilingStatus.Married, 2, 0)]
+        [TestCase(1, PayrollFrequency.Weekly, 41.40, FilingStatus.Married, 2, 0)]
         //example from page
         [TestCase(850, PayrollFrequency.Weekly, 41.40, FilingStatus.Married, 2, 31.20)]
         //verified with paycheck city

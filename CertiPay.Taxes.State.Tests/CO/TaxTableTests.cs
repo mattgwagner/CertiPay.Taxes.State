@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.CO
     public class TaxTableTests
     {
         [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 1, 0)]
+        [TestCase(PayrollFrequency.Weekly, 0, FilingStatus.Single, 1, 0)]
+        [TestCase(PayrollFrequency.Weekly, 1, FilingStatus.Single, 1, 0)]
         //verified with pcc
         [TestCase(PayrollFrequency.Weekly, 210, FilingStatus.Single, 1, 4.00)]
         [TestCase(PayrollFrequency.Weekly, 1250, FilingStatus.Married, 2, 43.00)]

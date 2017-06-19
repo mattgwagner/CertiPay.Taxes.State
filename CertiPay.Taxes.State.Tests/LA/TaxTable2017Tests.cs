@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.LA
     {
         [Test]
         //two examples from documentation
+        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 1, 2, 0)]
+        [TestCase(0, PayrollFrequency.Weekly, FilingStatus.Single, 1, 2, 0)]
+        [TestCase(1, PayrollFrequency.Weekly, FilingStatus.Single, 1, 2, 0)]
         [TestCase(700, PayrollFrequency.Weekly, FilingStatus.Single, 1, 2, 19.43)]
         [TestCase(4600, PayrollFrequency.BiWeekly, FilingStatus.Married, 2, 3, 157.12)]
         //pcc verification

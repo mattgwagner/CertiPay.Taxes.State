@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.OR
     {
         [Test]
         //Verified with Example
+        [TestCase(-1, PayrollFrequency.Annually, 1440, FilingStatus.Single, 0, 0)]
+        [TestCase(0, PayrollFrequency.Annually, 1440, FilingStatus.Single, 0, 0)]
+        [TestCase(1, PayrollFrequency.Annually, 1440, FilingStatus.Single, 0, 0)]
         [TestCase(15000, PayrollFrequency.Annually, 1440, FilingStatus.Single,  0, 984)]
         //Verified with PCC
         [TestCase(132000, PayrollFrequency.Annually, 22315.0, FilingStatus.Married,  3, 9832.00)]

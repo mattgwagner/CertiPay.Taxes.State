@@ -7,6 +7,9 @@ namespace CertiPay.Taxes.State.Tests.DE
     public class TaxTableTests
     {
         [Test]
+        [TestCase(PayrollFrequency.SemiMonthly, -1, Delaware.FilingStatus.MarriedFilingJointly, 2, 0)]
+        [TestCase(PayrollFrequency.SemiMonthly, 0, Delaware.FilingStatus.MarriedFilingJointly, 2, 0)]
+        [TestCase(PayrollFrequency.SemiMonthly, 1, Delaware.FilingStatus.MarriedFilingJointly, 2, 0)]
         [TestCase(PayrollFrequency.SemiMonthly, 1825, Delaware.FilingStatus.MarriedFilingJointly, 2, 60.99d)]
         [TestCase(PayrollFrequency.BiWeekly, 2500, Delaware.FilingStatus.Single, 2, 109.19d)]
         public void DEChecks_And_Balances(PayrollFrequency frequency, Decimal grossWages, Delaware.FilingStatus filingStatus, int allowances, Decimal expected)

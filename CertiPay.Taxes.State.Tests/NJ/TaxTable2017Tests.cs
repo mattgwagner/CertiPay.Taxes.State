@@ -19,6 +19,9 @@ namespace CertiPay.Taxes.State.Tests.NJ
         }
 
         [Test]
+        [TestCase(-1, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
+        [TestCase(0, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Single, 1, 21.25)]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.MarriedWithTwoIncomes, 1, 21.25)]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.MarriedFilingSeparate, 1, 21.25)]

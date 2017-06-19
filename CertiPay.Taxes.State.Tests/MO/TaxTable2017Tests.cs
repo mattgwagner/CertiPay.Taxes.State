@@ -10,6 +10,9 @@ namespace CertiPay.Taxes.State.Tests.MO
     {
         [Test]
         //official documentation was off, but matched it up until the final addition
+        [TestCase(PayrollFrequency.Annually, -1, FilingStatus.MarriedWithTwoIncomes, 2270, 2, 0)]
+        [TestCase(PayrollFrequency.Annually, 0, FilingStatus.MarriedWithTwoIncomes, 2270, 2, 0)]
+        [TestCase(PayrollFrequency.Annually, 1, FilingStatus.MarriedWithTwoIncomes, 2270, 2, 0)]
         [TestCase(PayrollFrequency.Annually, 30000, FilingStatus.MarriedWithTwoIncomes, 2270, 2, 855)]
         //pcc
         [TestCase(PayrollFrequency.Annually, 9001, FilingStatus.Single, 670.10, 5, 0)]

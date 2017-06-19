@@ -8,6 +8,9 @@ namespace CertiPay.Taxes.State.Tests.MI
     {
         [Test]
         //Verified with Tax Tables
+        [TestCase(-1, PayrollFrequency.BiWeekly, 1, 1, 0)]
+        [TestCase(0, PayrollFrequency.BiWeekly, 1, 1, 0)]
+        [TestCase(1, PayrollFrequency.BiWeekly, 1, 1, 0)]
         [TestCase(4600, PayrollFrequency.BiWeekly, 1, 1, 182.42)]
         [TestCase(1000, PayrollFrequency.BiWeekly, 0, 0, 42.5)]
         [TestCase(5, PayrollFrequency.BiWeekly, 2, 2, 0)]
