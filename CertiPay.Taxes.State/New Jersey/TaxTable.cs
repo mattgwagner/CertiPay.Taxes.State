@@ -9,27 +9,26 @@ namespace CertiPay.Taxes.State.NewJersey
     public abstract class TaxTable : TaxTableHeader
     {
         public override StateOrProvince State { get { return StateOrProvince.NJ; } }
-        
+
         public abstract decimal PersonalAllowances { get; }
-        
+
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
             var taxableWages = frequency.CalculateAnnualized(grossWages);
-          
-            taxableWages -= GetPersonalAllowance(personalAllowances);            
+
+            taxableWages -= GetPersonalAllowance(personalAllowances);
 
             var selected_row = GetTaxWithholding(filingStatus, taxableWages);
-            
+
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
             return frequency.CalculateDeannualized(taxWithheld);
         }
-        
 
         internal virtual Decimal GetPersonalAllowance(int numOfPersonalAllowances)
-        {            
+        {
             return PersonalAllowances * numOfPersonalAllowances;
         }
 
@@ -45,7 +44,6 @@ namespace CertiPay.Taxes.State.NewJersey
                 .Select(d => d)
                 .Single();
         }
-        
 
         public class TaxableWithholding
         {
