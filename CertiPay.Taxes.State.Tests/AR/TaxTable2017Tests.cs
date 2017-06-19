@@ -22,6 +22,7 @@ namespace CertiPay.Taxes.State.Tests.AR
 
         [Test]
         [TestCase(PayrollFrequency.Weekly, 25, 5)]
+        [TestCase(PayrollFrequency.Annually, -2500, 5)]
         public void Ensure_Guards_For_Wage_Ranges(PayrollFrequency frequency, Decimal grossWages, int exemptions)
         {
             var taxTable = TaxTables.GetForState(StateOrProvince.AR, year: 2017) as Arkansas.TaxTable;
