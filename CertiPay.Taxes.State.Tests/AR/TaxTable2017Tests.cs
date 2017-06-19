@@ -27,6 +27,8 @@ namespace CertiPay.Taxes.State.Tests.AR
             var taxTable = TaxTables.GetForState(StateOrProvince.AR, year: 2017) as Arkansas.TaxTable;
 
             var result = taxTable.Calculate(grossWages, frequency, exemptions);
+
+            Assert.AreEqual(Decimal.Zero, result);
         }
     }
 }

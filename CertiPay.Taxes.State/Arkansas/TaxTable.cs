@@ -44,7 +44,7 @@ namespace CertiPay.Taxes.State.Arkansas
             taxableWages = (withholdingTable.Percentage * taxableWages) - withholdingTable.FlatAmount;
             taxableWages -= getExemptions(taxableWages, exemptions);
 
-            return frequency.CalculateDeannualized(taxableWages);
+            return Math.Max(Decimal.Zero, frequency.CalculateDeannualized(taxableWages));
         }
 
         private Bracket getBracket(decimal taxableWages)
@@ -76,7 +76,8 @@ namespace CertiPay.Taxes.State.Arkansas
             {
                 return new[]
                 {
-                    new Bracket {  Floor = 0, Ceiling = 4300, FlatAmount = 0.00m, Percentage = 0.09m },
+                    new Bracket { Floor = Decimal.MinValue, Percentage = Decimal.Zero },
+                    new Bracket { Floor = 0, Ceiling = 4300, FlatAmount = 0.00m, Percentage = 0.09m },
                     new Bracket { Floor = 4300, Ceiling = 8400, FlatAmount = 64.49m, Percentage = 0.024m },
                     new Bracket { Floor = 8400, Ceiling = 12600, FlatAmount = 148.48m, Percentage = 0.034m },
                     new Bracket { Floor = 12600, Ceiling = 21000, FlatAmount = 274.47m, Percentage = 0.044m },
