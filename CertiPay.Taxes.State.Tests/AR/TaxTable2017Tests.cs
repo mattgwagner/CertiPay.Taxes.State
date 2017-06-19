@@ -1,7 +1,8 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
+using System;
 
-namespace CertiPay.Taxes.State.Tests.AK
+namespace CertiPay.Taxes.State.Tests.AR
 {
     [TestFixture]
     public class TaxTable2017Tests
@@ -17,6 +18,15 @@ namespace CertiPay.Taxes.State.Tests.AK
             var result = taxTable.Calculate(grossWages, frequency, exemptions);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(PayrollFrequency.Weekly, 25, 5)]
+        public void Ensure_Guards_For_Wage_Ranges(PayrollFrequency frequency, Decimal grossWages, int exemptions)
+        {
+            var taxTable = TaxTables.GetForState(StateOrProvince.AR, year: 2017) as Arkansas.TaxTable;
+
+            var result = taxTable.Calculate(grossWages, frequency, exemptions);
         }
     }
 }
