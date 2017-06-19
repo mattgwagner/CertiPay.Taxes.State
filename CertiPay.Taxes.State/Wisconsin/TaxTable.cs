@@ -1,7 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CertiPay.Taxes.State.Wisconsin
@@ -27,7 +26,6 @@ namespace CertiPay.Taxes.State.Wisconsin
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
             return frequency.CalculateDeannualized(Math.Max(0, taxWithheld));
-
         }
 
         protected virtual Decimal GetStandardDeduction(FilingStatus filingStatus, decimal wages)
@@ -35,7 +33,7 @@ namespace CertiPay.Taxes.State.Wisconsin
             var deduction =
                 StandardDeductions
                 .Where(d => d.FilingStatus == filingStatus)
-                .Where(d => d.StartingAmount <= wages && wages < d.MaximumWage)                
+                .Where(d => d.StartingAmount <= wages && wages < d.MaximumWage)
                 .Select(d => d)
                 .Single();
 
@@ -50,13 +48,12 @@ namespace CertiPay.Taxes.State.Wisconsin
             return PersonalAllowances * personalAllowances;
         }
 
-
         protected virtual TaxableWithholding GetTaxWithholding(Decimal taxableWages)
         {
             if (taxableWages < Decimal.Zero) return new TaxableWithholding { };
 
             return
-                TaxableWithholdings                
+                TaxableWithholdings
                 .Where(d => d.StartingAmount <= taxableWages)
                 .Where(d => taxableWages < d.MaximumWage)
                 .Select(d => d)
@@ -66,15 +63,18 @@ namespace CertiPay.Taxes.State.Wisconsin
         protected class StandardDeduction
         {
             public FilingStatus FilingStatus { get; set; }
+
             public Decimal StartingAmount { get; set; }
+
             public Decimal MaximumWage { get; set; }
+
             public Decimal Amount { get; set; }
+
             public Decimal Percentage { get; set; } = Decimal.Zero;
         }
 
         protected class TaxableWithholding
-        {            
-
+        {
             public Decimal TaxBase { get; set; }
 
             public Decimal StartingAmount { get; set; }
@@ -84,6 +84,4 @@ namespace CertiPay.Taxes.State.Wisconsin
             public Decimal TaxRate { get; set; }
         }
     }
-
-   
 }
