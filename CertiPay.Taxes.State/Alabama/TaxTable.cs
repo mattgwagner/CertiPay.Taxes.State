@@ -33,8 +33,8 @@ namespace CertiPay.Taxes.State.Alabama
             taxableWages -= GetDependentAllowance(annualWages, dependentAllowances);
 
             var taxWithheld = GetTaxWithholding(filingStatus, taxableWages);
-        
-            return frequency.CalculateDeannualized(taxWithheld);
+
+            return Math.Max(Decimal.Zero, frequency.CalculateDeannualized(taxWithheld));
         }
 
         internal virtual Decimal GetStandardDeduction(FilingStatus filingStatus, decimal grossWages)
