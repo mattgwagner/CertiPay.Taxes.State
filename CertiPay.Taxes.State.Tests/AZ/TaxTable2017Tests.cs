@@ -22,7 +22,7 @@ namespace CertiPay.Taxes.State.Tests.AZ
         }
 
         [Test]
-        [TestCase(-1, Arizona.TaxRate.FivePointOnePercent, 0)]
+        [TestCase(-1, Arizona.TaxRate.FivePointOnePercent)]
         public void NegativeValues_AZ_2017_Checks_And_Balances(decimal grossWages, Arizona.TaxRate rate)
         {
             var taxTable = TaxTables.GetForState(StateOrProvince.AZ, 2017) as Arizona.TaxTable;
