@@ -6,8 +6,7 @@ namespace CertiPay.Taxes.State.Tests.SC
 {
     public class TaxTable2017Tests
     {
-        [Test]
-        [TestCase(-1, 0, PayrollFrequency.Monthly, 0)]
+        [Test]        
         [TestCase(0, 0, PayrollFrequency.Monthly, 0)]
         [TestCase(1, 0, PayrollFrequency.Monthly, 0.02)]
         [TestCase(3000, 0, PayrollFrequency.Monthly, 182.72)]
