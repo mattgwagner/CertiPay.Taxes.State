@@ -25,7 +25,10 @@ namespace CertiPay.Taxes.State.Arizona
 
         public virtual Decimal Calculate(Decimal grossWages, TaxRate taxRate = TaxRate.TwoPointSevenPercent)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             return grossWages * GetTaxRate(taxRate);
+            
         }
 
         internal decimal GetTaxRate(TaxRate taxRate)

@@ -9,7 +9,7 @@ namespace CertiPay.Taxes.State.Tests.SC
         [Test]
         [TestCase(-1, 0, PayrollFrequency.Monthly, 0)]
         [TestCase(0, 0, PayrollFrequency.Monthly, 0)]
-        [TestCase(1, 0, PayrollFrequency.Monthly, 0)]
+        [TestCase(1, 0, PayrollFrequency.Monthly, 0.02)]
         [TestCase(3000, 0, PayrollFrequency.Monthly, 182.72)]
         [TestCase(2500, 0, PayrollFrequency.Monthly, 147.72)]
         [TestCase(3000, 1, PayrollFrequency.Monthly, 152.21)]
@@ -30,6 +30,16 @@ namespace CertiPay.Taxes.State.Tests.SC
             var result = table.Calculate(grossWages, payrollFrequency, exemptions);
 
             Assert.AreEqual(expected, result);
+        }
+
+
+        [Test]
+        [TestCase(-1, 0, PayrollFrequency.Monthly)]
+        public void NegativeValues_Checks_And_Balances(Decimal grossWages, int exemptions, PayrollFrequency payrollFrequency)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.SC, year: 2017) as SouthCarolina.TaxTable;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, payrollFrequency, exemptions));
         }
     }
 }

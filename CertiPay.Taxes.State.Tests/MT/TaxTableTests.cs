@@ -6,8 +6,7 @@ namespace CertiPay.Taxes.State.Tests.MT
 {
     public class TaxTableTests
     {
-        [Test]
-        [TestCase(PayrollFrequency.SemiMonthly, -1, 5, 0)]
+        [Test]        
         [TestCase(PayrollFrequency.SemiMonthly, 0, 5, 0)]
         [TestCase(PayrollFrequency.SemiMonthly, 1, 5, 0)]
         [TestCase(PayrollFrequency.SemiMonthly, 550, 5, 3d)]
@@ -21,5 +20,15 @@ namespace CertiPay.Taxes.State.Tests.MT
 
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        [TestCase(PayrollFrequency.SemiMonthly, -1, 5)]
+        public void NegativeValues_Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, int allowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.MT, year: 2017) as Montana.TaxTable;            
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, frequency, allowances));
+        }
+        
     }
 }

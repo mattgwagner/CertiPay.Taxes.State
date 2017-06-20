@@ -23,7 +23,7 @@ namespace CertiPay.Taxes.State.Indiana
 
             var taxWithheld = GetTaxWithholding(taxableWages);
 
-            return frequency.CalculateDeannualized(taxWithheld);
+            return Math.Max(0, frequency.CalculateDeannualized(taxWithheld));
         }
 
         internal virtual Decimal GetPersonalAllowance(int personalAllowances = 1)

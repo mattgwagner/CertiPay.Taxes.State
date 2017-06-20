@@ -20,6 +20,8 @@ namespace CertiPay.Taxes.State.Alabama
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, decimal federalWithholding, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             var annualWages = taxableWages;

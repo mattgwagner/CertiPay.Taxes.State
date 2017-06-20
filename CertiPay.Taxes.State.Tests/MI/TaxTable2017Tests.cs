@@ -1,5 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
+using System;
 
 namespace CertiPay.Taxes.State.Tests.MI
 {
@@ -8,7 +9,7 @@ namespace CertiPay.Taxes.State.Tests.MI
     {
         [Test]
         //Verified with Tax Tables
-        [TestCase(-1, PayrollFrequency.BiWeekly, 1, 1, 0)]
+        
         [TestCase(0, PayrollFrequency.BiWeekly, 1, 1, 0)]
         [TestCase(1, PayrollFrequency.BiWeekly, 1, 1, 0)]
         [TestCase(4600, PayrollFrequency.BiWeekly, 1, 1, 182.42)]
@@ -22,5 +23,15 @@ namespace CertiPay.Taxes.State.Tests.MI
 
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        [TestCase(-1, PayrollFrequency.BiWeekly, 1, 1)]
+        public void Michigan_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int personalAllowances, int dependents)
+        {
+          var table = TaxTables.GetForState(StateOrProvince.MI, year: 2017) as Michigan.TaxTable2017;
+          
+          Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, personalAllowances, dependents));
+        }
+
     }
 }

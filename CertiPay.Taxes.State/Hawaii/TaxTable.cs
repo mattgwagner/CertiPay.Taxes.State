@@ -15,9 +15,14 @@ namespace CertiPay.Taxes.State.Hawaii
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int allowances = 0, FilingStatus filingStatus = FilingStatus.Single)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetAllowances(allowances);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selected_row = getTaxRateRow(taxableWages, filingStatus);
 

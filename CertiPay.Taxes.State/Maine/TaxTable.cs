@@ -17,6 +17,7 @@ namespace CertiPay.Taxes.State.Maine
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int withholdingAllowances = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             var annualWages = taxableWages;

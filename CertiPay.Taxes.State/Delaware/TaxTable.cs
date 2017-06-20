@@ -27,9 +27,15 @@ namespace CertiPay.Taxes.State.Delaware
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
+
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);                        
 
-            taxableWages -= GetStandardDeduction(filingStatus);            
+            taxableWages -= GetStandardDeduction(filingStatus);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selected_row = GetTaxWithholding(taxableWages);            
 

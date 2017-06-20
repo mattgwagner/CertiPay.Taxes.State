@@ -1,5 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
+using System;
 
 namespace CertiPay.Taxes.State.Tests.AL
 {
@@ -22,6 +23,16 @@ namespace CertiPay.Taxes.State.Tests.AL
             var result = table.Calculate(grossWages, freq, federalWithholding, status, dependentAllowances);
 
             Assert.AreEqual(expected, result);
+        }
+
+
+        [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, 41.40, FilingStatus.Married, 2)]
+        public void NegativeValues_Alabama_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, decimal federalWithholding, Alabama.FilingStatus status, int dependentAllowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.AL, year: 2017) as Alabama.TaxTable;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, federalWithholding, status, dependentAllowances));
         }
     }
 }

@@ -23,7 +23,11 @@ namespace CertiPay.Taxes.State.Virginia
 
             decimal annualized_taxes = 0;
 
-            if(annualized_wages < 3000)
+            if (annualized_wages <= 0)
+            {
+                return 0;
+            }
+            else if(annualized_wages < 3000)
             {
                 annualized_taxes = annualized_wages * 0.02m;
             }

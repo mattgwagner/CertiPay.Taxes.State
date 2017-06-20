@@ -47,7 +47,11 @@ namespace CertiPay.Taxes.State.Montana
 
             Decimal flat_amount = 0, bracket_floor = 0, percentage = 0m;
 
-            if (taxable_earnings < 7000)
+            if (taxable_earnings <= 0)
+            {
+                return 0;
+            }
+            else if (taxable_earnings < 7000)
             {
                 flat_amount = 0;
                 bracket_floor = 0;

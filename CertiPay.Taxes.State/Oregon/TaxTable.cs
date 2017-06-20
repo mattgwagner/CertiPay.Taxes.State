@@ -19,10 +19,16 @@ namespace CertiPay.Taxes.State.Oregon
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, decimal federalWithholding, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             var annualWages = frequency.CalculateAnnualized(grossWages);
             var taxableWages = annualWages;
             taxableWages -= Math.Min(GetFederalLimit(filingStatus, annualWages), federalWithholding);
             taxableWages -= GetStandardDeduction(filingStatus, personalAllowances, annualWages);
+
+            if (taxableWages <= 0)
+                return 0;
+
             var selected_row = GetTaxWithholding(filingStatus, personalAllowances, annualWages);
             taxableWages = selected_row.TaxBase + ((taxableWages - selected_row.ExcessLimit) * selected_row.TaxRate);
             var taxWithheld = taxableWages - GetPersonalAllowance(filingStatus, personalAllowances, annualWages);

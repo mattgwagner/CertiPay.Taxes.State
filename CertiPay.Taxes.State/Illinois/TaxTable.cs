@@ -37,7 +37,7 @@ namespace CertiPay.Taxes.State.Illinois
 
             var annualized_taxes = annualized_wages * 0.0375m;
 
-            return frequency.CalculateDeannualized(annualized_taxes);
+            return Math.Max(0, frequency.CalculateDeannualized(annualized_taxes));
         }
     }
 }

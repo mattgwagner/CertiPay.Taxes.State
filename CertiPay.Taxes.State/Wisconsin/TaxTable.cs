@@ -17,10 +17,15 @@ namespace CertiPay.Taxes.State.Wisconsin
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1, int dependentAllowances = 0)
         {
-            var taxableWages = frequency.CalculateAnnualized(grossWages);
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            var taxableWages = frequency.CalculateAnnualized(grossWages);            
 
             taxableWages -= GetStandardDeduction(filingStatus, taxableWages);
             taxableWages -= GetPersonalAllowance(personalAllowances);
+
+            if (taxableWages <= 0)
+                return 0;
+
             var selected_row = GetTaxWithholding(taxableWages);
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);

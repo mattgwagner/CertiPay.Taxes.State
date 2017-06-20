@@ -36,7 +36,10 @@ namespace CertiPay.Taxes.State.WestVirginia
 
             var annualized_wages = frequency.CalculateAnnualized(grossWages);
 
-            annualized_wages -= (exemptions * ExemptionValue);
+            annualized_wages -= exemptions * ExemptionValue;
+
+            if (annualized_wages <= 0)
+                return 0;
 
             var bracket =
                 Brackets

@@ -1,13 +1,13 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
+using System;
 
 namespace CertiPay.Taxes.State.Tests.HI
 {
     [TestFixture]
     public class TaxTable2017Tests
     {
-        [Test]
-        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 3, 0)]
+        [Test]        
         [TestCase(0, PayrollFrequency.Weekly, FilingStatus.Single, 3, 0)]
         [TestCase(1, PayrollFrequency.Weekly, FilingStatus.Single, 3, 0)]
         //pulled from documentation
@@ -23,5 +23,17 @@ namespace CertiPay.Taxes.State.Tests.HI
 
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 3)]
+        public void NegativeValues_Hawaii_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus filingStatus, int allowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.HI, year: 2017) as Hawaii.TaxTable;            
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, allowances, filingStatus));
+        }
+
+
+        
     }
 }

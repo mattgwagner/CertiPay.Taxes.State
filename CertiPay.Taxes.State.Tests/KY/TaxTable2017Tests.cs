@@ -1,14 +1,13 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
-
+using System;
 namespace CertiPay.Taxes.State.Tests.KY
 {
     [TestFixture]
     public class TaxTable2017Tests
     {       
 
-        [Test]
-        [TestCase(-1, PayrollFrequency.Monthly, 1, 0)]
+        [Test]        
         [TestCase(0, PayrollFrequency.Monthly, 1, 0)]
         [TestCase(1, PayrollFrequency.Monthly, 1, 0)]
         //documentation verification
@@ -22,6 +21,15 @@ namespace CertiPay.Taxes.State.Tests.KY
             var result = table.Calculate(grossWages, freq, exemptions);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(-1, PayrollFrequency.Monthly, 1)]
+        public void NegativeValues_Kentucky_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int exemptions)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.KY, year: 2017) as Kentucky.TaxTable2017;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, exemptions));
         }
     }
 }

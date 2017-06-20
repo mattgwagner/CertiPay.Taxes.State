@@ -34,6 +34,8 @@ namespace CertiPay.Taxes.State.Arkansas
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
             taxableWages -= StandardDeductionValue;
             if (taxableWages < roundingValue)

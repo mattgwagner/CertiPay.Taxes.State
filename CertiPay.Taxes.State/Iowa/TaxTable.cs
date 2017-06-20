@@ -47,7 +47,7 @@ namespace CertiPay.Taxes.State.Iowa
 
             withheldWages -= GetAllowances(exemptions);
 
-            return frequency.CalculateDeannualized(withheldWages);
+            return Math.Max(0, frequency.CalculateDeannualized(withheldWages));
         }
 
         protected virtual Decimal GetStandardDeduction(int exemptions)

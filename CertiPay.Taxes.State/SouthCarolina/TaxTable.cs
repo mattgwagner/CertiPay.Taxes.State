@@ -17,6 +17,8 @@ namespace CertiPay.Taxes.State.SouthCarolina
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             var annualized_wages = frequency.CalculateAnnualized(grossWages);
 
             // If zero exemptions were claimed, do not deduct standard deduction

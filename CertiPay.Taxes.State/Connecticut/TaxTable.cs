@@ -17,6 +17,8 @@ namespace CertiPay.Taxes.State.Connecticut
 
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode employeeCode, int exemptions = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             // Additional/Reduced Withholding handled outside of this calculation
 
             if (employeeCode == WithholdingCode.E)

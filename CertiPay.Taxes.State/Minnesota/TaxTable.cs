@@ -20,6 +20,9 @@ namespace CertiPay.Taxes.State.Minnesota
 
             taxableWages -= GetAllowance(allowances);
 
+            if (taxableWages <= 0)
+                return 0;
+
             var selectedRow = GetTaxableWithholding(filingStatus, taxableWages);
 
             var taxWithheld = selectedRow.TaxBase + ((taxableWages - selectedRow.StartingAmount) * selectedRow.TaxRate);

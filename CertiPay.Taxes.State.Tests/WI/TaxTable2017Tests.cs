@@ -1,14 +1,13 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
+using System;
 
 namespace CertiPay.Taxes.State.Tests.WI
 {
     [TestFixture]
     public class TaxTable2017Tests
     {
-        [Test]
         //Verified with PCC
-        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 1, 0)]
         [TestCase(0, PayrollFrequency.Weekly, FilingStatus.Single, 1, 0)]
         [TestCase(1, PayrollFrequency.Weekly, FilingStatus.Single, 1, 0)]
         [TestCase(300, PayrollFrequency.Weekly, FilingStatus.Single, 1, 7.32)]
@@ -19,8 +18,19 @@ namespace CertiPay.Taxes.State.Tests.WI
             var table = TaxTables.GetForState(StateOrProvince.WI, year: 2017) as Wisconsin.TaxTable2017;
 
             var result = table.Calculate(grossWages, freq, filingStatus, personalAllowances);
-
+                           
             Assert.AreEqual(expected, result);
         }
+
+        [Test]        
+        [TestCase(-1, PayrollFrequency.Weekly, FilingStatus.Single, 1)]
+        public void NegativeValue_Wisconsin_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus filingStatus, int personalAllowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.WI, year: 2017) as Wisconsin.TaxTable2017;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, filingStatus, personalAllowances));
+
+        }
+
     }
 }
