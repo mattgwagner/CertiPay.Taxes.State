@@ -12,10 +12,28 @@ namespace CertiPay.Taxes.State.Colorado
         protected abstract Decimal Allowance { get; }
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Colorado State Withholding when given a non-negative value for Gross Wages and Personal Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int personalAllowances)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");            
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);
             taxableWages -= GetPersonalAllowance(personalAllowances);
+
+            if (taxableWages <= 0)
+            {
+                return 0;
+            }
+
             var taxRate = GetTaxWithholding(filingStatus, taxableWages);
             var taxWithheld = taxRate.TaxBase + ((taxableWages - taxRate.StartingAmount) * taxRate.TaxRate);
 

@@ -18,9 +18,22 @@ namespace CertiPay.Taxes.State.Alabama
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+
+        /// <summary>
+        /// Returns State Withholding for Alabama, when provided with a non-negative value for Gross Wages, Federal Withholding and Dependent Allowances. 
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="federalWithholding"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="dependentAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, decimal federalWithholding, FilingStatus filingStatus = FilingStatus.Single, int dependentAllowances = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (federalWithholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(federalWithholding)} cannot be a negative number");
+            if (dependentAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(dependentAllowances)} cannot be a negative number");
 
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 

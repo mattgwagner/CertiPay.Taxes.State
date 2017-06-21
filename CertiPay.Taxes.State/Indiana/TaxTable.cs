@@ -13,8 +13,22 @@ namespace CertiPay.Taxes.State.Indiana
 
         public abstract Decimal StateTaxRate { get; }
 
+
+        /// <summary>
+        /// Returns Indiana State Withholding when a non-negative value is given for gross wages, personal allowances and dependent allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="personalAllowances"></param>
+        /// <param name="dependentAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int personalAllowances = 1, int dependentAllowances = 0)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            if (dependentAllowances< Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(dependentAllowances)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetPersonalAllowance(personalAllowances);

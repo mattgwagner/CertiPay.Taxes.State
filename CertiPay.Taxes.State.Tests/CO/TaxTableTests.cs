@@ -7,8 +7,7 @@ namespace CertiPay.Taxes.State.Tests.CO
 
     public class TaxTableTests
     {
-        [Test]
-        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 1, 0)]
+        [Test]       
         [TestCase(PayrollFrequency.Weekly, 0, FilingStatus.Single, 1, 0)]
         [TestCase(PayrollFrequency.Weekly, 1, FilingStatus.Single, 1, 0)]
         //verified with pcc
@@ -22,6 +21,15 @@ namespace CertiPay.Taxes.State.Tests.CO
             var result = table.Calculate(grossWages, frequency, status, allowances);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 1)]
+        public void NegativeValues_Colorado_2017_Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, FilingStatus status, int allowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.CO, year: 2017) as Colorado.TaxTable2017;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, frequency, status, allowances));
         }
     }
 }

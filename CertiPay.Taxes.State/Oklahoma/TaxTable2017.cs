@@ -9,6 +9,15 @@ namespace CertiPay.Taxes.State.Oklahoma
 
         public override decimal SUI_Wage_Base { get; internal set; } = 17700;
 
+
+        /// <summary>
+        /// Returns Oklahoma State Withholding when given a non-negative value for Gross Wages and Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="isMarried"></param>
+        /// <param name="allowances"></param>
+        /// <returns></returns>
         public override Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Boolean isMarried = false, int allowances = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
@@ -23,7 +32,11 @@ namespace CertiPay.Taxes.State.Oklahoma
 
             // Use the appropriate rate to figure the amount to be withheld
 
+
             Decimal flat_amount = 0, bracket_floor = 0, percentage = 0m;
+
+            if (taxable_earnings <= 0)
+                return 0;
 
             if (isMarried)
             {

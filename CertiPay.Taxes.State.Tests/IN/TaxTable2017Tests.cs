@@ -1,5 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using NUnit.Framework;
+using System;
 
 namespace CertiPay.Taxes.State.Tests.IN
 {
@@ -7,8 +8,7 @@ namespace CertiPay.Taxes.State.Tests.IN
     public class TaxTable2017Tests
     {       
 
-        [Test]
-        [TestCase(-1, PayrollFrequency.Weekly, 5, 3, 0)]
+        [Test]        
         [TestCase(0, PayrollFrequency.Weekly, 5, 3, 0)]
         [TestCase(1, PayrollFrequency.Weekly, 5, 3, 0)]
         [TestCase(800, PayrollFrequency.Weekly, 5, 3, 19.94)]       
@@ -19,6 +19,16 @@ namespace CertiPay.Taxes.State.Tests.IN
             var result = table.Calculate(grossWages, freq, personalAllowances, dependentAllowances);
 
             Assert.AreEqual(expected, result);
+        }
+
+
+        [Test]
+        [TestCase(-1, PayrollFrequency.Weekly, 5, 3)]
+        public void NegativeValues_IN_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int personalAllowances, int dependentAllowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.IN, year: 2017) as Indiana.TaxTable2017;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, personalAllowances, dependentAllowances));
         }
     }
 }

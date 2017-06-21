@@ -8,8 +8,7 @@ namespace CertiPay.Taxes.State.Tests.NC
 
     public class TaxTable2016Tests
     {
-        [Test]
-        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 2, 0)]
+        [Test]        
         [TestCase(PayrollFrequency.Weekly, 0, FilingStatus.Single, 2, 0)]
         [TestCase(PayrollFrequency.Weekly, 1, FilingStatus.Single, 2, 0)]
         [TestCase(PayrollFrequency.Weekly, 450, FilingStatus.Single, 2, 12)]
@@ -28,6 +27,15 @@ namespace CertiPay.Taxes.State.Tests.NC
             var result = table.Calculate(grossWages, frequency, taxStatus, allowances);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 2)]
+        public void NegativeValues_Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, FilingStatus taxStatus, int allowances)
+        {
+            var table = TaxTables.GetForState<NorthCarolina.TaxTable>(StateOrProvince.NC, year: 2016);
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, frequency, taxStatus, allowances));
         }
     }
 }

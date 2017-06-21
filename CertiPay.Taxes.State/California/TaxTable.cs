@@ -15,8 +15,22 @@ namespace CertiPay.Taxes.State.California
         protected abstract IEnumerable<IncomeBracket> IncomeBrackets { get;}               
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns California state withholding when given a non-negative value for Gross Wages, Personal Allowances and Deductions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <param name="deductions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int personalAllowances, int deductions)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");            
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            if (deductions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(deductions)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
             var withholdingFilingStatus = CheckFilingStatus(filingStatus, personalAllowances);
 
@@ -26,7 +40,11 @@ namespace CertiPay.Taxes.State.California
             }
 
             taxableWages -= GetDeduction(deductions);
-            taxableWages -= GetStandardDeduction(withholdingFilingStatus);            
+            taxableWages -= GetStandardDeduction(withholdingFilingStatus);
+
+            if (taxableWages <= 0)
+                return 0;
+
             var taxRate = GetTaxWithholding(filingStatus, taxableWages);
             taxableWages = taxRate.TaxBase + ((taxableWages - taxRate.StartingAmount) * taxRate.TaxRate);
             var taxWithheld = taxableWages - GetPersonalAllowance(personalAllowances);

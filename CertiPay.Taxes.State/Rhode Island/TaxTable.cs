@@ -16,11 +16,25 @@ namespace CertiPay.Taxes.State.RhodeIsland
         
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Rhode Island State Withholding when given a non-negative values for Gross Wages and Personal Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="personalAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int personalAllowances = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);
                      
-            taxableWages -= GetPersonalAllowance(taxableWages, personalAllowances);          
+            taxableWages -= GetPersonalAllowance(taxableWages, personalAllowances);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selected_row = GetTaxWithholding(taxableWages);
 

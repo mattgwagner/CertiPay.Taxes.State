@@ -16,8 +16,23 @@ namespace CertiPay.Taxes.State.NewYork
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns New York State Withholding when given a non-negative value for Gross Wages and Dependent Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="region"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="exemptionAllowances"></param>
+        /// <param name="dependentAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Region region, FilingStatus filingStatus = FilingStatus.Single, int exemptionAllowances = 1, int dependentAllowances = 0)
         {
+
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");        
+            if (dependentAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(dependentAllowances)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             // Note: Tax exemptions should be handled before we get to this call
@@ -34,6 +49,8 @@ namespace CertiPay.Taxes.State.NewYork
 
             taxableWages -= GetExemptionAllowance(filingStatus, exemptionAllowances);
 
+            if (taxableWages <= 0)
+                return 0;
             //(3) If employees claim dependents other than themselves and/or their spouses, subtract from the amount arrived at in (2) the appropriate dependent amount as set out in column(7) of Table E.
 
             //(4) Determine the amount of tax to be withheld from the applicable payroll line in Tables F, G, or H.

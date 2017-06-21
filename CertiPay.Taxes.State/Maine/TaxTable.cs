@@ -15,9 +15,20 @@ namespace CertiPay.Taxes.State.Maine
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Maine State Withholding when given a non-negative value for Gross Wages and Withholding Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="withholdingAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int withholdingAllowances = 1)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (withholdingAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(withholdingAllowances)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             var annualWages = taxableWages;

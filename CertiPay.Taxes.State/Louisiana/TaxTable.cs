@@ -15,11 +15,22 @@ namespace CertiPay.Taxes.State.Louisiana
 
         public virtual IEnumerable<Rate> Rates { get; }
 
+        /// <summary>
+        /// Returns Lousiana State Withholding when given a non-negative value for Gross Wages, Personal Exemptions, and Dependents.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalExemptions"></param>
+        /// <param name="dependents"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int personalExemptions = 0, int dependents = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
             if (personalExemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalExemptions)} cannot be a negative number");
-
+            if (dependents < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(dependents)} cannot be a negative number");
+            
             var TaxableWages = frequency.CalculateAnnualized(grossWages);
 
             var rate = GetRate(filingStatus, personalExemptions);

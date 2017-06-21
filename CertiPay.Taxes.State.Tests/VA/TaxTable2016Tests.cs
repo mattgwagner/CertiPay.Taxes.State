@@ -6,8 +6,7 @@ namespace CertiPay.Taxes.State.Tests.VA
 {
     public class TaxTable2016Tests
     {
-        [Test]
-        [TestCase(PayrollFrequency.Weekly, -1, 2, 0d)]
+        [Test]        
         [TestCase(PayrollFrequency.Weekly, 0, 2, 0d)]
         [TestCase(PayrollFrequency.Weekly, 1, 2, 0d)]
         [TestCase(PayrollFrequency.Weekly, 450, 2, 15.55d)]
@@ -20,6 +19,15 @@ namespace CertiPay.Taxes.State.Tests.VA
             var result = table.Calculate(grossWages, frequency, allowances);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, 2)]
+        public void NegativeValues_Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, int allowances)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.VA, year: 2016) as Virginia.TaxTable;            
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, frequency, allowances));
         }
     }
 }

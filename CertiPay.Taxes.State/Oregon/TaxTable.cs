@@ -17,9 +17,22 @@ namespace CertiPay.Taxes.State.Oregon
 
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Oregon State Withholding when given a non-negative value for Federal Withholding, Gross Wages and Personal Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="federalWithholding"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, decimal federalWithholding, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (federalWithholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(federalWithholding)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+
 
             var annualWages = frequency.CalculateAnnualized(grossWages);
             var taxableWages = annualWages;

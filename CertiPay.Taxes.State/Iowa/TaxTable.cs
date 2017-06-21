@@ -31,6 +31,15 @@ namespace CertiPay.Taxes.State.Iowa
 
         protected virtual Decimal Allowance { get; } = 40;
 
+        /// <summary>
+        /// Returns the State Withholding for Iowa when provided with a non-negative value for Gross Wages, Exemptions and Federal Withholding.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="FedWithholding"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal FedWithholding = 0, int exemptions = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");

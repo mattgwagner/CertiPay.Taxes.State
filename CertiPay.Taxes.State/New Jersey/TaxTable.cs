@@ -14,17 +14,32 @@ namespace CertiPay.Taxes.State.NewJersey
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns New Jersey State Withholding when given a non-negative value for Gross Wages and Personal Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetPersonalAllowance(personalAllowances);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selected_row = GetTaxWithholding(filingStatus, taxableWages);
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
-            return frequency.CalculateDeannualized(taxWithheld);
+            return Math.Max(0, frequency.CalculateDeannualized(taxWithheld));
         }
 
         internal virtual Decimal GetPersonalAllowance(int numOfPersonalAllowances)

@@ -32,16 +32,30 @@ namespace CertiPay.Taxes.State.Arkansas
 
         public Decimal ExemptionValue { get; } = 26;
 
+
+        /// <summary>
+        /// Returns Arkansas State Withholding when given a non-negative value for Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
-
+            if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);
             taxableWages -= StandardDeductionValue;
             if (taxableWages < roundingValue)
             {
                 taxableWages = applyMidpoint(taxableWages);
             }
+
+            if (taxableWages <= 0)
+                return 0;
+
             var withholdingTable = getBracket(taxableWages);
             taxableWages = (withholdingTable.Percentage * taxableWages) - withholdingTable.FlatAmount;
             taxableWages -= getExemptions(taxableWages, exemptions);

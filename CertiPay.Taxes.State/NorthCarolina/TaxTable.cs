@@ -14,8 +14,20 @@ namespace CertiPay.Taxes.State.NorthCarolina
 
         public abstract Decimal TaxRate { get; }
 
+        /// <summary>
+        /// Returns North Carolina State Withholding when provided with a non-negative value for Gross Wages and Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="taxStatus"></param>
+        /// <param name="allowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus taxStatus = FilingStatus.Single, int allowances = 0)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (allowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(allowances)} cannot be a negative number");
+            
             // Withholding Statuses: Single, Married, Head of Household
 
             var annualized_wages = frequency.CalculateAnnualized(grossWages);

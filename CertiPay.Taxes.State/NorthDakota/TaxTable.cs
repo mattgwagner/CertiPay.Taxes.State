@@ -13,11 +13,27 @@ namespace CertiPay.Taxes.State.NorthDakota
 
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+
+        /// <summary>
+        /// Returns North Dakota State Withholding when given a non-negative value for gross Wages and personal allowance.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetPersonalAllowance(personalAllowances);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selected_row = GetTaxWithholding(filingStatus, taxableWages);
 

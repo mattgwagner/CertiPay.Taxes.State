@@ -9,9 +9,20 @@ namespace CertiPay.Taxes.State.Virginia
     {
         public override StateOrProvince State { get { return StateOrProvince.VA; } }
 
+        /// <summary>
+        /// Returns Virgina Tax Withholding when given a non-negative value for Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
-        {
-            var annualized_wages = frequency.CalculateAnnualized(grossWages);
+        { 
+        if (grossWages <Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+        if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
+
+        var annualized_wages = frequency.CalculateAnnualized(grossWages);
 
             // G(P) - [$3,000 + (E1 x $930) + (E2 x $800)] = T
 

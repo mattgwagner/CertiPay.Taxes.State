@@ -7,8 +7,22 @@ namespace CertiPay.Taxes.State.Illinois
     {
         public override StateOrProvince State { get { return StateOrProvince.IL; } }
 
+
+        /// <summary>
+        /// Returns Illinois State Withholding when provided with a non-negative value for Gross Wages, basic allowances and aditional allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="basicAllowances"></param>
+        /// <param name="additionalAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int basicAllowances = 0, int additionalAllowances = 0)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");            
+            if (additionalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(additionalAllowances)} cannot be a negative number");
+            if (basicAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(basicAllowances)} cannot be a negative number");
+
             var annualized_wages = frequency.CalculateAnnualized(grossWages);
 
             //Step 1 Determine the wages paid for the payroll period.
