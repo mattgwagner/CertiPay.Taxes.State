@@ -29,12 +29,19 @@ namespace CertiPay.Taxes.State
         /// </summary>
         public static TaxTableHeader GetForState(StateOrProvince state, int year)
         {
-            return
+            var header =
                 Tables
                 .Where(table => table.Year == year)
                 .SelectMany(table => table.Entries)
                 .Where(entry => entry.State == state)
-                .Single();
+                .SingleOrDefault();
+
+            if (header == null)
+            {
+                throw new ArgumentOutOfRangeException($"{state.DisplayName()} is not supported for year {year}");
+            }
+
+            return header;
         }
 
         /// <summary>
@@ -42,13 +49,22 @@ namespace CertiPay.Taxes.State
         /// </summary>
         public static T GetForState<T>(StateOrProvince state, int year) where T : TaxTableHeader
         {
-            return
+            T header =
                 Tables
                 .Where(table => table.Year == year)
                 .SelectMany(table => table.Entries)
                 .Where(entry => entry.State == state)
                 .OfType<T>()
                 .SingleOrDefault();
+
+            if (header == null)
+            {
+                throw new ArgumentOutOfRangeException($"{state.DisplayName()} is not supported for year {year}");
+            }
+
+            return header;
+        }
+
         }
 
         /// <summary>
