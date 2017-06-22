@@ -65,6 +65,32 @@ namespace CertiPay.Taxes.State
             return header;
         }
 
+        /// <summary>
+        /// U.S. territories are islands under the jurisdiction of the United States which are not States of the United States.
+        /// Those that have their own governments and their own tax systems (Puerto Rico, U.S. Virgin Islands, Guam, American Samoa, and The Commonwealth of the Northern Mariana Islands)
+        /// and are not subject to the income taxes and withholding of U.S. federal income taxes.
+        /// </summary>
+        public static Boolean HasFederalWithholding(this StateOrProvince state)
+        {
+            switch (state)
+            {
+                // Have their own gov't and tax systems, do not fall under the Federal income taxes
+
+                case StateOrProvince.GU:
+                case StateOrProvince.PR:
+                case StateOrProvince.VI:
+                case StateOrProvince.AS:
+                case StateOrProvince.MP:
+
+                // Also include the unknown case, we won't flag them for withholding
+
+                case StateOrProvince.Unknown:
+
+                    return false;
+
+                default:
+                    return true;
+            }
         }
 
         /// <summary>
@@ -76,6 +102,16 @@ namespace CertiPay.Taxes.State
             {
                 // Also include the unknown case, we won't flag them for withholding
                 case StateOrProvince.Unknown:
+
+                // TODO These provinces have their own tax systems, and may or may not have province-specific withholding
+
+                case StateOrProvince.GU:
+                case StateOrProvince.PR:
+                case StateOrProvince.VI:
+                case StateOrProvince.AS:
+                case StateOrProvince.MP:
+
+                // States that don't have income withholding
 
                 case StateOrProvince.FL:
                 case StateOrProvince.AK:
