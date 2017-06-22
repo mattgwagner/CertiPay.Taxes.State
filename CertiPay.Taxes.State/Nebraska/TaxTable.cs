@@ -13,8 +13,19 @@ namespace CertiPay.Taxes.State.Nebraska
         protected abstract decimal PersonalAllowances { get; }        
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Nebraska State Withholding when given a non-negative value for Gross Wages and Personal Allowances
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            
             var taxableWages = frequency.CalculateAnnualized(grossWages);    
 
             taxableWages -= GetPersonalAllowance(personalAllowances);                                    

@@ -11,6 +11,15 @@ namespace CertiPay.Taxes.State.Minnesota
         public virtual Decimal Allowance { get; }
         public virtual IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Minnestoa State Withholding when given a non-negative value for Gross Wages and Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="allowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, int allowances = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
@@ -19,6 +28,9 @@ namespace CertiPay.Taxes.State.Minnesota
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetAllowance(allowances);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selectedRow = GetTaxableWithholding(filingStatus, taxableWages);
 

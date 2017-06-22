@@ -26,6 +26,14 @@ namespace CertiPay.Taxes.State.Montana
 
         public Decimal AllowanceValue { get; } = 1900;
 
+        /// <summary>
+        /// Returns Montana State Withholding when given a non-negative value for Gross Wages and Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="allowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int allowances = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
@@ -47,7 +55,11 @@ namespace CertiPay.Taxes.State.Montana
 
             Decimal flat_amount = 0, bracket_floor = 0, percentage = 0m;
 
-            if (taxable_earnings < 7000)
+            if (taxable_earnings <= 0)
+            {
+                return 0;
+            }
+            else if (taxable_earnings < 7000)
             {
                 flat_amount = 0;
                 bracket_floor = 0;

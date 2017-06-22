@@ -8,7 +8,9 @@ namespace CertiPay.Taxes.State.Tests.KS
 
     public class TaxTable2017Tests
     {
-        [Test]
+        [Test]        
+        [TestCase(0, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 0)]
+        [TestCase(1, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 0)]
         //example from documentation
         [TestCase(600, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly, 4.00)]
         //paycheck city verification
@@ -22,5 +24,16 @@ namespace CertiPay.Taxes.State.Tests.KS
 
             Assert.AreEqual(expected, result);
         }
+
+
+        [Test]
+        [TestCase(-1, 2, FilingStatus.MarriedOrHoH, PayrollFrequency.SemiMonthly)]
+        public void NegativeValues_Kansas_2017_Checks_And_Balances(Decimal grossWages, int exemptions, FilingStatus filingStatus, PayrollFrequency payrollFrequency)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.KS, year: 2017) as Kansas.TaxTable2017;            
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, payrollFrequency, filingStatus, exemptions));
+        }
+        
     }
 }

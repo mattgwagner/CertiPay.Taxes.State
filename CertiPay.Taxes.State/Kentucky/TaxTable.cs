@@ -15,6 +15,14 @@ namespace CertiPay.Taxes.State.Kentucky
 
         protected abstract IEnumerable<Bracket> Brackets { get; }
 
+        /// <summary>
+        /// Returns Kentucky State Withholding when given a non-negative value for Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
@@ -28,7 +36,7 @@ namespace CertiPay.Taxes.State.Kentucky
 
             withheldWages -= GetExemptions(exemptions);
 
-            return frequency.CalculateDeannualized(withheldWages);
+            return Math.Max(0, frequency.CalculateDeannualized(withheldWages));
         }
 
         protected virtual Decimal GetExemptions(int exemptions)

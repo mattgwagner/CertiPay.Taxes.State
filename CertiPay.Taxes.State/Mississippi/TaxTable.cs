@@ -12,6 +12,15 @@ namespace CertiPay.Taxes.State.Mississippi
 
         protected virtual IEnumerable<StandardDeduction> StandardDeductions { get; }
 
+        /// <summary>
+        /// Returns Mississippi State Withholding when given a non-negative vlaue for Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="exemption"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus, decimal exemption)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");

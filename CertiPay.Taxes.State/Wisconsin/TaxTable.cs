@@ -1,7 +1,6 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace CertiPay.Taxes.State.Wisconsin
@@ -16,18 +15,35 @@ namespace CertiPay.Taxes.State.Wisconsin
 
         protected abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Wisconsin State Withholding when given a non-negative value for Gross Wages, Dependent Allowances and Personal Allowances.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="personalAllowances"></param>
+        /// <param name="dependentAllowances"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int personalAllowances = 1, int dependentAllowances = 0)
         {
-            var taxableWages = frequency.CalculateAnnualized(grossWages);
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (personalAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(personalAllowances)} cannot be a negative number");
+            if (dependentAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(dependentAllowances)} cannot be a negative number");
+
+            var taxableWages = frequency.CalculateAnnualized(grossWages);            
 
             taxableWages -= GetStandardDeduction(filingStatus, taxableWages);
             taxableWages -= GetPersonalAllowance(personalAllowances);
+
+            if (taxableWages <= 0)
+                return 0;
+
             var selected_row = GetTaxWithholding(taxableWages);
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
             return frequency.CalculateDeannualized(Math.Max(0, taxWithheld));
-
         }
 
         protected virtual Decimal GetStandardDeduction(FilingStatus filingStatus, decimal wages)
@@ -35,7 +51,7 @@ namespace CertiPay.Taxes.State.Wisconsin
             var deduction =
                 StandardDeductions
                 .Where(d => d.FilingStatus == filingStatus)
-                .Where(d => d.StartingAmount <= wages && wages < d.MaximumWage)                
+                .Where(d => d.StartingAmount <= wages && wages < d.MaximumWage)
                 .Select(d => d)
                 .Single();
 
@@ -50,13 +66,12 @@ namespace CertiPay.Taxes.State.Wisconsin
             return PersonalAllowances * personalAllowances;
         }
 
-
         protected virtual TaxableWithholding GetTaxWithholding(Decimal taxableWages)
         {
             if (taxableWages < Decimal.Zero) return new TaxableWithholding { };
 
             return
-                TaxableWithholdings                
+                TaxableWithholdings
                 .Where(d => d.StartingAmount <= taxableWages)
                 .Where(d => taxableWages < d.MaximumWage)
                 .Select(d => d)
@@ -66,15 +81,18 @@ namespace CertiPay.Taxes.State.Wisconsin
         protected class StandardDeduction
         {
             public FilingStatus FilingStatus { get; set; }
+
             public Decimal StartingAmount { get; set; }
+
             public Decimal MaximumWage { get; set; }
+
             public Decimal Amount { get; set; }
+
             public Decimal Percentage { get; set; } = Decimal.Zero;
         }
 
         protected class TaxableWithholding
-        {            
-
+        {
             public Decimal TaxBase { get; set; }
 
             public Decimal StartingAmount { get; set; }
@@ -84,6 +102,4 @@ namespace CertiPay.Taxes.State.Wisconsin
             public Decimal TaxRate { get; set; }
         }
     }
-
-   
 }

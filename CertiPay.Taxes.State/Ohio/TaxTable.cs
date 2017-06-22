@@ -16,11 +16,25 @@ namespace CertiPay.Taxes.State.Ohio
 
         protected abstract Decimal Exemption { get; }
 
+        /// <summary>
+        /// Returns Ohio State Withholding when given a non-negative number for gross wages and exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, int exemptions)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");            
+            if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);
 
             taxableWages -= GetExemptions(exemptions);
+
+            if (taxableWages <= 0)
+                return 0;
 
             var selected_row = GetTaxWithholding(taxableWages);
 

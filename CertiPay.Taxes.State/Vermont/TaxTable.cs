@@ -12,12 +12,30 @@ namespace CertiPay.Taxes.State.Vermont
         public abstract decimal AllowanceValue { get; }
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        /// <summary>
+        /// Returns Vermont State Withholding when given a non-negative value for Gross Wages, Withholding Allowans and Non Resident Percentage.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="filingStatus"></param>
+        /// <param name="withholdingAllowances"></param>
+        /// <param name="nonresidentPercentage"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus filingStatus = FilingStatus.Single, int withholdingAllowances = 1, decimal nonresidentPercentage = 0.00m)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");            
+            if (withholdingAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(withholdingAllowances)} cannot be a negative number");
+            if (nonresidentPercentage < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(withholdingAllowances)} cannot be a negative number");
+
+
             var taxableWages = frequency.CalculateAnnualized(grossWages);            
 
             taxableWages -= GetWitholdingAllowance(withholdingAllowances);
-                                    
+
+            if (taxableWages <= 0)
+                return 0;
+
             var selected_row = GetTaxWithholding(filingStatus, taxableWages);            
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);

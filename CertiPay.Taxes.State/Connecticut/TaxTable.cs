@@ -15,8 +15,20 @@ namespace CertiPay.Taxes.State.Connecticut
         public abstract IEnumerable<TaxRecapture> TaxRecaptureRates { get; }
         public abstract IEnumerable<ExemptionValue> ExemptionValues { get; }
 
+        /// <summary>
+        /// Returns Connecticut State Withholding when provided with a non-negative value for Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="employeeCode"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, WithholdingCode employeeCode, int exemptions = 1)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
+            
             // Additional/Reduced Withholding handled outside of this calculation
 
             if (employeeCode == WithholdingCode.E)
@@ -36,16 +48,12 @@ namespace CertiPay.Taxes.State.Connecticut
                 taxableWages += GetTaxRecapture(employeeCode, annualizedSalary);
                 var taxWithheld = taxableWages * (1 - GetPersonalTaxCredits(employeeCode, annualizedSalary));
 
-                taxWithheld = frequency.CalculateDeannualized(taxWithheld);
-                //taxWithheld += additionalWithholding;
-                //taxWithheld -= reducedWithholding;
+                taxWithheld = frequency.CalculateDeannualized(taxWithheld);                
                 return Math.Max(taxWithheld, 0);
             }
             else
-            {
-                //taxableWages += additionalWithholding;
-                //taxableWages -= reducedWithholding;
-                return Math.Max(taxableWages, 0);
+            {                
+                return 0;
             }
         }
 

@@ -25,8 +25,23 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Exemption_Bonus { get; } = 3400;
 
+        /// <summary>
+        /// Returns Massachusettes State Withholding when provided with a non-negative value for Fica Withholding, Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="fica_withholding"></param>
+        /// <param name="exemptions"></param>
+        /// <param name="isBlind"></param>
+        /// <param name="isHeadOfHousehold"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal fica_withholding, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+            if (fica_withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(fica_withholding)} cannot be a negative number");
+            if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
+        
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 
             // We annualize the wages from this period
@@ -69,7 +84,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             // Then, we deannualize the amount back to the period
 
-            return frequency.CalculateDeannualized(annualized_withholding);
+            return Math.Max(0, frequency.CalculateDeannualized(annualized_withholding));
         }
 
         internal virtual Decimal Get_Exemption_Value(int number_of_exemptions)

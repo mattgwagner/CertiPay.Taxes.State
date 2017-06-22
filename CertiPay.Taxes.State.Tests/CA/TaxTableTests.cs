@@ -8,7 +8,9 @@ namespace CertiPay.Taxes.State.Tests.CA
 
     public class TaxTableTests
     {
-        [Test]
+        [Test]        
+        [TestCase(PayrollFrequency.Weekly, 0, FilingStatus.Single, 1, 1, 0)]
+        [TestCase(PayrollFrequency.Weekly, 1, FilingStatus.Single, 1, 1, 0)]
         //verified with pcc... didn't match up with documented examples... was a couple cents off
         [TestCase(PayrollFrequency.Weekly, 210, FilingStatus.Single, 1, 1, 0)]
         //specifically this one, should be 3.51 according to the documentation
@@ -21,6 +23,15 @@ namespace CertiPay.Taxes.State.Tests.CA
             var result = table.Calculate(grossWages, frequency, status, allowances, deductions);
 
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(PayrollFrequency.Weekly, -1, FilingStatus.Single, 1, 1)]
+        public void NegativeValues_California_2017_Checks_And_Balances(PayrollFrequency frequency, Decimal grossWages, FilingStatus status, int allowances, int deductions)
+        {
+            var table = TaxTables.GetForState(StateOrProvince.CA, year: 2017) as California.TaxTable2017;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, frequency, status, allowances, deductions));
         }
     }
 }

@@ -23,9 +23,19 @@ namespace CertiPay.Taxes.State.Arizona
             }
         }
 
+        /// <summary>
+        /// Returns the state withholding amount for Arizona when given a non-negative gross wage.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="taxRate"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, TaxRate taxRate = TaxRate.TwoPointSevenPercent)
         {
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
+
             return grossWages * GetTaxRate(taxRate);
+            
         }
 
         internal decimal GetTaxRate(TaxRate taxRate)

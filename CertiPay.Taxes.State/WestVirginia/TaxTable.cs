@@ -29,6 +29,16 @@ namespace CertiPay.Taxes.State.WestVirginia
 
         public Decimal ExemptionValue { get; } = 2000;
 
+
+        /// <summary>
+        /// Returns West Virginia State Withholding when given a non-negative value for Gross Wages and Exemptions.
+        /// </summary>
+        /// <param name="grossWages"></param>
+        /// <param name="frequency"></param>
+        /// <param name="status"></param>
+        /// <param name="exemptions"></param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
+        /// <returns></returns>
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, FilingStatus status = FilingStatus.Two_Earnings, int exemptions = 0)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
@@ -36,7 +46,10 @@ namespace CertiPay.Taxes.State.WestVirginia
 
             var annualized_wages = frequency.CalculateAnnualized(grossWages);
 
-            annualized_wages -= (exemptions * ExemptionValue);
+            annualized_wages -= exemptions * ExemptionValue;
+
+            if (annualized_wages <= 0)
+                return 0;
 
             var bracket =
                 Brackets
