@@ -8,7 +8,15 @@ namespace CertiPay.Taxes.State.Tests.MA
     public class Massachusetts_Tests
     {
         [Test]
-        //[TestCase(350, PayrollFrequency.Weekly, 4, 26.78, false, false, 9.51)] This was based on 2012 amounts        
+        public void Zero_Exemptions_Should_Return_Zero_Amount()
+        {
+            var table = TaxTables.GetForState(StateOrProvince.MA, year: 2017) as Massachusettes.TaxTable;
+
+            Assert.AreEqual(Decimal.Zero, table.Get_Exemption_Value(number_of_exemptions: 0));
+        }
+
+        [Test]
+        //[TestCase(350, PayrollFrequency.Weekly, 4, 26.78, false, false, 9.51)] This was based on 2012 amounts
         [TestCase(0, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
         [TestCase(1, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, 1, 2000, true, true, 29.75)] // Bad test case, we don't have 2k of FICA in one period
@@ -32,6 +40,5 @@ namespace CertiPay.Taxes.State.Tests.MA
 
             Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, FICADeductions, numExemptions, IsBlind, IsHoH));
         }
-        
     }
 }
