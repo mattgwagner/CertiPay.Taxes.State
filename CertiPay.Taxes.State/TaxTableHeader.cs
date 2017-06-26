@@ -1,6 +1,8 @@
 ﻿using CertiPay.Payroll.Common;
 using System;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("CertiPay.Taxes.State.Tests")]
+
 namespace CertiPay.Taxes.State
 {
     public class TaxTableHeader
