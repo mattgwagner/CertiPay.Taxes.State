@@ -41,7 +41,7 @@ namespace CertiPay.Taxes.State.Massachusettes
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
             if (fica_withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(fica_withholding)} cannot be a negative number");
             if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
-        
+
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 
             // We annualize the wages from this period
@@ -89,7 +89,16 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Get_Exemption_Value(int number_of_exemptions)
         {
-            return (number_of_exemptions * Exemption_Value) + Exemption_Bonus;
+            switch (number_of_exemptions)
+            {
+                // "If an employee claims '0' exemptions, discontinue this step"
+
+                case 0:
+                    return Decimal.Zero;
+
+                default:
+                    return (number_of_exemptions * Exemption_Value) + Exemption_Bonus;
+            }
         }
     }
 }
