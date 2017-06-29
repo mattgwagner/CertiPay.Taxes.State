@@ -25,19 +25,37 @@ namespace CertiPay.Taxes.State.Massachusettes
 
         internal virtual Decimal Exemption_Bonus { get; } = 3400;
 
+        public class Inputs
+        {
+            public PayrollFrequency Frequency { get; set; }
+
+            public Decimal GrossWages { get; set; }
+
+            public Decimal FICA_This_Period { get; set; }
+
+            public Decimal FICA_Year_to_Date { get; set; }
+
+            public int Exemptions { get; set; }
+
+            public Boolean IsBlind { get; set; }
+
+            public Boolean IsHeadOfHousehold { get; set; }
+        }
+
         /// <summary>
-        /// Returns Massachusettes State Withholding when provided with a non-negative value for Fica Withholding, Gross Wages and Exemptions.
+        /// Returns Massachusettes State Withholding
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal fica_Withholding, Decimal fica_Ytd, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
+        public virtual Decimal Calculate(Inputs inputs)
         {
-            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
-            if (fica_Withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(fica_Withholding)} cannot be a negative number");
-            if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
+            if (inputs.GrossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(inputs.GrossWages)} cannot be a negative number");
+            if (inputs.FICA_This_Period < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(inputs.FICA_This_Period)} cannot be a negative number");
+            if (inputs.FICA_Year_to_Date < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(inputs.FICA_Year_to_Date)} cannot be a negative number");
+            if (inputs.Exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(inputs.Exemptions)} cannot be a negative number");
 
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 
-            Decimal taxable_wages = grossWages;
+            Decimal taxable_wages = inputs.GrossWages;
 
             // Step (1) Then we can deduct the amount paid into FICA and Medicare through this pay period up to the Max_FICA_Deduction amount
 
@@ -49,11 +67,11 @@ namespace CertiPay.Taxes.State.Massachusettes
             //of the $2,000 maximum allowable as a deduction by Massachusetts,
             //discontinue this step.
 
-            taxable_wages -= Get_Fica_Deduction(fica_Withholding, fica_Ytd);
+            taxable_wages -= Get_Fica_Deduction(inputs.FICA_This_Period, inputs.FICA_Year_to_Date);
 
             // Step (2) Then, we reduce the taxable wages by the exemptions
 
-            taxable_wages -= Get_Exemption_Value(frequency, exemptions);
+            taxable_wages -= Get_Exemption_Value(inputs.Frequency, inputs.Exemptions);
 
             // Step (3) Next, we multiply the annualized taxable wages minus allowances times the tax rate
 
@@ -61,16 +79,16 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             // Step (4) If filing as Head of Household, reduce the withholding by the given amount
 
-            if (isHeadOfHousehold)
+            if (inputs.IsHeadOfHousehold)
             {
-                withholding -= Get_HoH_Allowance(frequency);
+                withholding -= Get_HoH_Allowance(inputs.Frequency);
             }
 
             // Step (5) Blind/With Blind Spouse, reduce the withholding by the given amount
 
-            if (isBlind)
+            if (inputs.IsBlind)
             {
-                withholding -= Get_Blind_Allowance(frequency);
+                withholding -= Get_Blind_Allowance(inputs.Frequency);
             }
 
             return Math.Max(0, withholding).Round();
