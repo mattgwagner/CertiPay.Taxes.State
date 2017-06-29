@@ -30,16 +30,15 @@ namespace CertiPay.Taxes.State.Massachusettes
         /// </summary>
         /// <param name="grossWages"></param>
         /// <param name="frequency"></param>
-        /// <param name="fica_withholding"></param>
+        /// <param name="ytd_Fica_Withholding"></param>
         /// <param name="exemptions"></param>
         /// <param name="isBlind"></param>
         /// <param name="isHeadOfHousehold"></param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
-        /// <returns></returns>
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal fica_withholding, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal ytd_Fica_Withholding, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
-            if (fica_withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(fica_withholding)} cannot be a negative number");
+            if (ytd_Fica_Withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(ytd_Fica_Withholding)} cannot be a negative number");
             if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
 
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
@@ -58,7 +57,7 @@ namespace CertiPay.Taxes.State.Massachusettes
             //of the $2,000 maximum allowable as a deduction by Massachusetts,
             //discontinue this step.
 
-            taxable_wages -= Math.Min(Max_FICA_Deduction, frequency.CalculateAnnualized(fica_withholding));
+            taxable_wages -= Math.Min(Max_FICA_Deduction, ytd_Fica_Withholding);
 
             // Step (2) Then, we reduce the taxable wages by the exemptions
 
