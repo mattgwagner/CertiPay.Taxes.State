@@ -43,9 +43,7 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
 
-            // We annualize the wages from this period
-
-            var taxable_wages = frequency.CalculateAnnualized(grossWages);
+            Decimal taxable_wages = grossWages;
 
             // Step (1) Then we can deduct the amount paid into FICA and Medicare through this pay period up to the Max_FICA_Deduction amount
 
@@ -61,32 +59,40 @@ namespace CertiPay.Taxes.State.Massachusettes
 
             // Step (2) Then, we reduce the taxable wages by the exemptions
 
-            taxable_wages -= Get_Exemption_Value(exemptions);
+            taxable_wages -= Get_Exemption_Value(frequency, exemptions);
 
             // Step (3) Next, we multiply the annualized taxable wages minus allowances times the tax rate
 
-            var annualized_withholding = taxable_wages * TaxRate;
+            var withholding = taxable_wages * TaxRate;
 
             // Step (4) If filing as Head of Household, reduce the withholding by the given amount
 
             if (isHeadOfHousehold)
             {
-                annualized_withholding -= Is_HoH_Allowance;
+                withholding -= Get_HoH_Allowance(frequency);
             }
 
             // Step (5) Blind/With Blind Spouse, reduce the withholding by the given amount
 
             if (isBlind)
             {
-                annualized_withholding -= Is_Blind_Allowance;
+                withholding -= Get_Blind_Allowance(frequency);
             }
 
-            // Then, we deannualize the amount back to the period
-
-            return Math.Max(0, frequency.CalculateDeannualized(annualized_withholding));
+            return Math.Max(0, withholding).Round();
         }
 
-        internal virtual Decimal Get_Exemption_Value(int number_of_exemptions)
+        internal virtual Decimal Get_HoH_Allowance(PayrollFrequency frequency)
+        {
+            return frequency.CalculateDeannualized(Is_HoH_Allowance);
+        }
+
+        internal virtual Decimal Get_Blind_Allowance(PayrollFrequency frequency)
+        {
+            return frequency.CalculateDeannualized(Is_Blind_Allowance);
+        }
+
+        internal virtual Decimal Get_Exemption_Value(PayrollFrequency frequency, int number_of_exemptions)
         {
             switch (number_of_exemptions)
             {
@@ -96,7 +102,7 @@ namespace CertiPay.Taxes.State.Massachusettes
                     return Decimal.Zero;
 
                 default:
-                    return (number_of_exemptions * Exemption_Value) + Exemption_Bonus;
+                    return frequency.CalculateDeannualized((number_of_exemptions * Exemption_Value) + Exemption_Bonus);
             }
         }
     }
