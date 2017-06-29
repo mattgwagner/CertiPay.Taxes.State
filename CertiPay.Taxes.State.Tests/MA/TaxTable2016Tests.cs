@@ -17,11 +17,11 @@ namespace CertiPay.Taxes.State.Tests.MA
 
         [Test]
         //[TestCase(350, PayrollFrequency.Weekly, 4, 26.78, false, false, 9.51)] This was based on 2012 amounts
-        [TestCase(1733.40, PayrollFrequency.BiWeekly, 0, 132.60, false, false, 81.64)] // First check of the year
-        [TestCase(0, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
-        [TestCase(1, PayrollFrequency.Monthly, 1, 2000, true, true, 0)]
-        [TestCase(1500, PayrollFrequency.Monthly, 1, 2000, false, false, 57.80)] // FICA cap met
-        [TestCase(4000, PayrollFrequency.BiWeekly, 2, 2000, false, false, 193.41)] // FICA cap met
+        [TestCase(1733.40, PayrollFrequency.BiWeekly, 0, 132.60, 0, false, false, 81.64)] // First check of the year
+        [TestCase(0, PayrollFrequency.Monthly, 1, 0, 2000, true, true, 0)]
+        [TestCase(1, PayrollFrequency.Monthly, 1, 0, 2000, true, true, 0)]
+        [TestCase(1500, PayrollFrequency.Monthly, 1, 0, 2000, false, false, 57.80)] // FICA cap met
+        [TestCase(4000, PayrollFrequency.BiWeekly, 2, 0, 2000, false, false, 193.41)] // FICA cap met
         public void MA2016_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int numExemptions, decimal fica_withholding, decimal fica_ytd, bool IsBlind, bool IsHoH, decimal expected)
         {
             var table = TaxTables.GetForState(StateOrProvince.MA, year: 2016) as Massachusettes.TaxTable;
