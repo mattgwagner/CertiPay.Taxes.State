@@ -26,18 +26,29 @@ namespace CertiPay.Taxes.State.Tests.MA
         {
             var table = TaxTables.GetForState(StateOrProvince.MA, year: 2016) as Massachusettes.TaxTable;
 
-            var result = table.Calculate(grossWages, freq, fica_withholding, fica_ytd, numExemptions, IsBlind, IsHoH);
+            var result = table.Calculate(new Massachusettes.TaxTable.Inputs
+            {
+                GrossWages = grossWages,
+                Frequency = freq,
+                Exemptions = numExemptions,
+                FICA_This_Period = fica_withholding,
+                FICA_Year_to_Date = fica_ytd,
+                IsBlind = IsBlind,
+                IsHeadOfHousehold = IsHoH
+            });
 
             Assert.AreEqual(expected, result);
         }
 
         [Test]
-        [TestCase(-1, PayrollFrequency.Monthly, 1, 2000, true, true)]
-        public void NegativeValues_MA2016_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int numExemptions, decimal fica_ytd, bool IsBlind, bool IsHoH)
+        public void NegativeValues_MA2016_Checks_And_Balances()
         {
             var table = TaxTables.GetForState(StateOrProvince.MA, year: 2016) as Massachusettes.TaxTable;
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(grossWages, freq, 0, fica_ytd, numExemptions, IsBlind, IsHoH));
+            Assert.Throws<ArgumentOutOfRangeException>(() => table.Calculate(new Massachusettes.TaxTable.Inputs
+            {
+                GrossWages = -1
+            }));
         }
     }
 }
