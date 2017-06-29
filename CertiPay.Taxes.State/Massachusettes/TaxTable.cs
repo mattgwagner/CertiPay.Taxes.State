@@ -28,17 +28,11 @@ namespace CertiPay.Taxes.State.Massachusettes
         /// <summary>
         /// Returns Massachusettes State Withholding when provided with a non-negative value for Fica Withholding, Gross Wages and Exemptions.
         /// </summary>
-        /// <param name="grossWages"></param>
-        /// <param name="frequency"></param>
-        /// <param name="ytd_Fica_Withholding"></param>
-        /// <param name="exemptions"></param>
-        /// <param name="isBlind"></param>
-        /// <param name="isHeadOfHousehold"></param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when Negative Values entered.</exception>
-        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal ytd_Fica_Withholding, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
+        public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Decimal fica_Withholding, Decimal fica_Ytd, int exemptions = 1, bool isBlind = false, bool isHeadOfHousehold = false)
         {
             if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
-            if (ytd_Fica_Withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(ytd_Fica_Withholding)} cannot be a negative number");
+            if (fica_Withholding < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(fica_Withholding)} cannot be a negative number");
             if (exemptions < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(exemptions)} cannot be a negative number");
 
             // Note: This does not take into account other retirement systems i.e. US and Railroad Retirement Systems
@@ -55,7 +49,7 @@ namespace CertiPay.Taxes.State.Massachusettes
             //of the $2,000 maximum allowable as a deduction by Massachusetts,
             //discontinue this step.
 
-            taxable_wages -= Math.Min(Max_FICA_Deduction, ytd_Fica_Withholding);
+            taxable_wages -= Get_Fica_Deduction(fica_Withholding, fica_Ytd);
 
             // Step (2) Then, we reduce the taxable wages by the exemptions
 
@@ -80,6 +74,19 @@ namespace CertiPay.Taxes.State.Massachusettes
             }
 
             return Math.Max(0, withholding).Round();
+        }
+
+        internal virtual Decimal Get_Fica_Deduction(Decimal fica_Withholding, Decimal ytd_fica)
+        {
+            // Is there any deduction amount remaining? If not, return 0
+
+            Decimal deduction_remaining = Math.Max(Decimal.Zero, Max_FICA_Deduction - ytd_fica);
+
+            // Take the lesser amount of the remaining deduction and the amount we could deduct from this period
+
+            Decimal deduction_this_period = Math.Min(fica_Withholding, deduction_remaining);
+
+            return deduction_this_period;
         }
 
         internal virtual Decimal Get_HoH_Allowance(PayrollFrequency frequency)
