@@ -21,6 +21,7 @@ namespace CertiPay.Taxes.State
                 yield return new TaxTable2015();
                 yield return new TaxTable2016();
                 yield return new TaxTable2017();
+                yield return new TaxTable2018();
             }
         }
 
