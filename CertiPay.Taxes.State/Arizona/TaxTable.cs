@@ -16,6 +16,7 @@ namespace CertiPay.Taxes.State.Arizona
                 {
                     case 2016:
                     case 2017:
+                    case 2018:
                         return 7000;
                 }
 

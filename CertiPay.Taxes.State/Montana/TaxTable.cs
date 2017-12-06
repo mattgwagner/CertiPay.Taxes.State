@@ -17,6 +17,7 @@ namespace CertiPay.Taxes.State.Montana
                         return 30500;
 
                     case 2017:
+                    case 2018:
                         return 31400;
                 }
 

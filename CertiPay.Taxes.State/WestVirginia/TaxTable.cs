@@ -20,6 +20,7 @@ namespace CertiPay.Taxes.State.WestVirginia
                 {
                     case 2016:
                     case 2017:
+                    case 2018:
                         return 12000;
                 }
 

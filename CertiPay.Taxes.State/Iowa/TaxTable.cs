@@ -18,6 +18,7 @@ namespace CertiPay.Taxes.State.Iowa
                         return 28300;
 
                     case 2017:
+                    case 2018:
                         return 29300;
                 }
 

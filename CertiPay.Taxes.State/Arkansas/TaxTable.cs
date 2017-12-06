@@ -21,6 +21,7 @@ namespace CertiPay.Taxes.State.Arkansas
                 {
                     case 2016:
                     case 2017:
+                    case 2018:
                         return 12000;
                 }
 
