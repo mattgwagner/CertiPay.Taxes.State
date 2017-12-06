@@ -5,7 +5,7 @@ namespace CertiPay.Taxes.State
 {
     public class TaxTable2018 : TaxTable
     {
-        public int Year { get { return 2017; } }
+        public int Year { get { return 2018; } }
 
         public IEnumerable<TaxTableHeader> Entries
         {

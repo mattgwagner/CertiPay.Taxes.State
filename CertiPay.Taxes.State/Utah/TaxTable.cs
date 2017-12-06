@@ -19,6 +19,7 @@ namespace CertiPay.Taxes.State.Utah
                         return 32200;
 
                     case 2017:
+                    case 2018:
                         return 33100;
                 }
 
