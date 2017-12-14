@@ -53,13 +53,12 @@ namespace CertiPay.Taxes.State.NewYork
                 yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkState, FilingStatus = FilingStatus.Single, TaxBase = 104812.00m, StartingAmount = 1127550.00m, MaximumWage = decimal.MaxValue, TaxRate = .0962m };
 
                 //NYC
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8000.00m, TaxRate = .0190m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 152.00m, StartingAmount = 8000.00m, MaximumWage = 8700.00m, TaxRate = .0265m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 171.00m, StartingAmount = 8700.00m, MaximumWage = 15000.00m, TaxRate = .0310m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 366.00m, StartingAmount = 15000.00m, MaximumWage = 25000.00m, TaxRate = .0370m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 736.00m, StartingAmount = 25000.00m, MaximumWage = 60000.00m, TaxRate = .0390m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 2101.00m, StartingAmount = 60000.00m, MaximumWage = 500000.00m, TaxRate = .0400m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 20834.16m, StartingAmount = 500000.00m, MaximumWage = decimal.MaxValue, TaxRate = .0425m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8000.00m, TaxRate = .0205m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 164.00m, StartingAmount = 8000.00m, MaximumWage = 8700.00m, TaxRate = .0280m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 184.00m, StartingAmount = 8700.00m, MaximumWage = 15000.00m, TaxRate = .0325m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 388.00m, StartingAmount = 15000.00m, MaximumWage = 25000.00m, TaxRate = .0395m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 783.00m, StartingAmount = 25000.00m, MaximumWage = 60000.00m, TaxRate = .0415m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Single, TaxBase = 2236.00m, StartingAmount = 60000.00m, MaximumWage = decimal.MaxValue, TaxRate = .0425m };                
 
                 //Yonkers
                 yield return new TaxTable.TaxableWithholding { Region = Region.Yonkers, FilingStatus = FilingStatus.Single, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8500.00m, TaxRate = .0400m };
@@ -97,13 +96,12 @@ namespace CertiPay.Taxes.State.NewYork
                 yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkState, FilingStatus = FilingStatus.Married, TaxBase = 209064.00m, StartingAmount = 2205350.00m, MaximumWage = decimal.MaxValue, TaxRate = .0962m };
 
                 //NYC
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8000.00m, TaxRate = .0190m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 152.00m, StartingAmount = 8000.00m, MaximumWage = 8700.00m, TaxRate = .0265m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 171.00m, StartingAmount = 8700.00m, MaximumWage = 15000.00m, TaxRate = .0310m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 366.00m, StartingAmount = 15000.00m, MaximumWage = 25000.00m, TaxRate = .0370m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 736.00m, StartingAmount = 25000.00m, MaximumWage = 60000.00m, TaxRate = .0390m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 2101.00m, StartingAmount = 60000.00m, MaximumWage = 500000.00m, TaxRate = .0400m };
-                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 20828.46m, StartingAmount = 500000.00m, MaximumWage = decimal.MaxValue, TaxRate = .0425m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8000.00m, TaxRate = .0205m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 164.00m, StartingAmount = 8000.00m, MaximumWage = 8700.00m, TaxRate = .0280m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 184.00m, StartingAmount = 8700.00m, MaximumWage = 15000.00m, TaxRate = .0325m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 388.00m, StartingAmount = 15000.00m, MaximumWage = 25000.00m, TaxRate = .0395m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 783.00m, StartingAmount = 25000.00m, MaximumWage = 60000.00m, TaxRate = .0415m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkCity, FilingStatus = FilingStatus.Married, TaxBase = 2236.00m, StartingAmount = 60000.00m, MaximumWage = decimal.MaxValue, TaxRate = .0425m };                
 
                 //Yonkers
                 yield return new TaxTable.TaxableWithholding { Region = Region.Yonkers, FilingStatus = FilingStatus.Married, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8500.00m, TaxRate = .0400m };
