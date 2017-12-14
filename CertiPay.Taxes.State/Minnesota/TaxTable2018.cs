@@ -24,8 +24,8 @@ namespace CertiPay.Taxes.State.Minnesota
                 yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 0.00m, MaximumWage = 8850.00m, TaxRate = 0.00m, TaxBase = 0.00m };
                 yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 8850.00m, MaximumWage = 46700.00m, TaxRate = 0.0535m, TaxBase = 0.00m };
                 yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 46700.00m, MaximumWage = 159230.00m, TaxRate = 0.0705m, TaxBase = 2024.98m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 159230.00m, MaximumWage = 27550.00m, TaxRate = 0.0785m, TaxBase = 9958.35m };
-                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 27550.00m, MaximumWage = decimal.MaxValue, TaxRate = 0.0985m, TaxBase = 19089.47m };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 159230.00m, MaximumWage = 275550.00m, TaxRate = 0.0785m, TaxBase = 9958.35m };
+                yield return new TaxableWithholding { FilingStatus = FilingStatus.Married, StartingAmount = 275550.00m, MaximumWage = decimal.MaxValue, TaxRate = 0.0985m, TaxBase = 19089.47m };
             }
         }
 
