@@ -9,6 +9,8 @@ namespace CertiPay.Taxes.State.NewYork
 
         public override Decimal SUI_Wage_Base { get { return 10900; } }
 
+        public override Decimal YonkersTax { get { return 0.1675m; } }
+
         public override IEnumerable<TaxTable.DeductionAllowance> DeductionAllowances
         {
             get
