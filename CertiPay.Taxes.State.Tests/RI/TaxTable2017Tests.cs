@@ -11,7 +11,8 @@ namespace CertiPay.Taxes.State.Tests.RI
         [TestCase(0, PayrollFrequency.Monthly, 1, 0)]
         [TestCase(1, PayrollFrequency.Monthly, 1, 0)]
         [TestCase(1500, PayrollFrequency.Monthly, 1, 53.12)]
-        [TestCase(18112.51, PayrollFrequency.Monthly, 1, 889.81)]
+        [TestCase(2195, PayrollFrequency.Weekly, 1, 91.56)]
+        [TestCase(18112.51, PayrollFrequency.Monthly, 1, 826.47)]
         public void RI2017Checks_And_Balances(decimal grossWages, PayrollFrequency freq, int personalAllowances, decimal expected)
         {
             var table = TaxTables.GetForState(StateOrProvince.RI, year: 2017) as RhodeIsland.TaxTable;
