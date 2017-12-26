@@ -12,10 +12,10 @@ namespace CertiPay.Taxes.State.Tests.ME
         
         [TestCase(0, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
         [TestCase(1, PayrollFrequency.Monthly, FilingStatus.Single, 1, 0)]
-        [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Single, 1, 25.13)]
+        [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Single, 1, 25)]
         [TestCase(1500, PayrollFrequency.Monthly, FilingStatus.Married, 1, 0)]
-        [TestCase(5000, PayrollFrequency.Monthly, FilingStatus.Single, 1, 248.81)]
-        [TestCase(5000, PayrollFrequency.Monthly, FilingStatus.Married, 1, 172.07)]
+        [TestCase(5000, PayrollFrequency.Monthly, FilingStatus.Single, 1, 249)]
+        [TestCase(5000, PayrollFrequency.Monthly, FilingStatus.Married, 1, 172)]
         public void Maine_2017_Checks_And_Balances(decimal grossWages, PayrollFrequency freq, FilingStatus status, int withholdingAllowances, decimal expected)
         {
             var table = TaxTables.GetForState(StateOrProvince.ME, year: 2017) as Maine.TaxTable;
