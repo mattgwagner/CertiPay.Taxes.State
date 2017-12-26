@@ -6,7 +6,7 @@ namespace CertiPay.Taxes.State.Tests.CA
 {
     using FilingStatus = California.FilingStatus;
 
-    public class TaxTableTests
+    public class TaxTableTests2017
     {
         [Test]        
         [TestCase(PayrollFrequency.Weekly, 0, FilingStatus.Single, 1, 1, 0)]
