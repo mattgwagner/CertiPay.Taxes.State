@@ -9,6 +9,8 @@ namespace CertiPay.Taxes.State.NewYork
 
         public override Decimal SUI_Wage_Base { get { return 10900; } }
 
+        public override decimal YonkersTax { get { return 1; } }
+
         public override IEnumerable<TaxTable.DeductionAllowance> DeductionAllowances
         {
             get
@@ -38,7 +40,7 @@ namespace CertiPay.Taxes.State.NewYork
 
                 // Single Individual
                 //NYS
-                yield return new TaxTable.TaxableWithholding {Region = Region.NewYorkState, FilingStatus = FilingStatus.Single, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8500.00m, TaxRate = .0400m };
+                yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkState, FilingStatus = FilingStatus.Single, TaxBase = 0.00m, StartingAmount = 0.00m, MaximumWage = 8500.00m, TaxRate = .0400m };
                 yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkState, FilingStatus = FilingStatus.Single, TaxBase = 340.00m, StartingAmount = 8500.00m, MaximumWage = 11700.00m, TaxRate = .0450m };
                 yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkState, FilingStatus = FilingStatus.Single, TaxBase = 484.00m, StartingAmount = 11700.00m, MaximumWage = 13900.00m, TaxRate = .0525m };
                 yield return new TaxTable.TaxableWithholding { Region = Region.NewYorkState, FilingStatus = FilingStatus.Single, TaxBase = 600.00m, StartingAmount = 13900.00m, MaximumWage = 21400.00m, TaxRate = .0590m };
