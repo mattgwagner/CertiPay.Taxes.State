@@ -36,9 +36,20 @@ namespace CertiPay.Taxes.State.RhodeIsland
             if (taxableWages <= 0)
                 return 0;
 
-            var selected_row = GetTaxWithholding(taxableWages);
+            var selected_rows = GetTaxWithholding(taxableWages);
 
-            var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);            
+            var taxWithheld = 0.00m;
+
+            foreach (var row in selected_rows)
+            {
+                if (row.MaximumWage < taxableWages)
+                    taxWithheld += row.MaximumWage * row.TaxRate;
+                else
+                    taxWithheld += taxableWages * row.TaxRate;
+
+                taxableWages -= row.MaximumWage;
+            }                        
+
 
             return frequency.CalculateDeannualized(taxWithheld);
         }
@@ -54,16 +65,16 @@ namespace CertiPay.Taxes.State.RhodeIsland
         }
         
 
-        internal virtual TaxableWithholding GetTaxWithholding(Decimal taxableWages)
+        internal virtual ICollection<TaxableWithholding> GetTaxWithholding(Decimal taxableWages)
         {
-            if (taxableWages < Decimal.Zero) return new TaxableWithholding { };
+            if (taxableWages < Decimal.Zero) return new List<TaxableWithholding>() { };
 
             return
                 TaxableWithholdings                
-                .Where(d => d.StartingAmount <= taxableWages)
-                .Where(d => taxableWages < d.MaximumWage)
-                .Select(d => d)
-                .Single();
+                .Where(d => taxableWages >= d.StartingAmount)
+                .OrderBy(x => x.TaxRate)
+                .ToList();
+                
         }
   
 
