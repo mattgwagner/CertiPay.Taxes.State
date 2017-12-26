@@ -41,7 +41,7 @@ namespace CertiPay.Taxes.State.Maine
             {
                 var selected_row = GetTaxWithholding(filingStatus, taxableWages);
                 var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
-                return frequency.CalculateDeannualized(taxWithheld);
+                return frequency.CalculateDeannualized(taxWithheld).Round(decimals:0);
             }
             else return 0;
         }
@@ -57,8 +57,8 @@ namespace CertiPay.Taxes.State.Maine
                 .Where(x => x.FilingStatus == filingStatus)
                 .First(x => x.FloorAmount <= annualWages && x.CeilingAmount > annualWages);
 
-            if (standardDeduction.CalcValue > 0.00m)
-                return (1 - (Math.Round(((annualWages - standardDeduction.FloorAmount) / standardDeduction.CalcValue), 4)) * standardDeduction.Amount);
+            if (standardDeduction.CalcValue > 0.00m)                
+                return (standardDeduction.Amount * (standardDeduction.CeilingAmount - annualWages) / standardDeduction.CalcValue);
             else
                 return standardDeduction.Amount;
         }
