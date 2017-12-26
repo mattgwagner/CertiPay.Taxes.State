@@ -16,6 +16,8 @@ namespace CertiPay.Taxes.State.NewYork
 
         public abstract IEnumerable<TaxableWithholding> TaxableWithholdings { get; }
 
+        public abstract Decimal YonkersTax { get; }
+
         /// <summary>
         /// Returns New York State Withholding when given a non-negative value for Gross Wages and Dependent Allowances.
         /// </summary>
@@ -30,7 +32,7 @@ namespace CertiPay.Taxes.State.NewYork
         public virtual Decimal Calculate(Decimal grossWages, PayrollFrequency frequency, Region region, FilingStatus filingStatus = FilingStatus.Single, int exemptionAllowances = 1, int dependentAllowances = 0)
         {
 
-            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");        
+            if (grossWages < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(grossWages)} cannot be a negative number");
             if (dependentAllowances < Decimal.Zero) throw new ArgumentOutOfRangeException($"{nameof(dependentAllowances)} cannot be a negative number");
 
             var taxableWages = frequency.CalculateAnnualized(grossWages);
@@ -61,9 +63,14 @@ namespace CertiPay.Taxes.State.NewYork
 
             var taxWithheld = selected_row.TaxBase + ((taxableWages - selected_row.StartingAmount) * selected_row.TaxRate);
 
+
+
             //(5) If zero exemption is claimed, subtract the standard deduction only.
 
-            return frequency.CalculateDeannualized(taxWithheld);
+            if (region == Region.Yonkers)
+                return frequency.CalculateDeannualized(taxWithheld * YonkersTax);
+            else
+                return frequency.CalculateDeannualized(taxWithheld);
         }
 
         internal virtual Decimal GetDeductionAllowance(FilingStatus filingStatus, Region region)
